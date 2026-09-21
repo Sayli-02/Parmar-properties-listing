@@ -188,7 +188,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange 
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="group relative w-full h-[100svh] min-h-[550px] overflow-hidden bg-[#1C1C1C] select-none"
+      className="group relative w-full h-[calc(100svh-80px)] min-h-[520px] overflow-hidden bg-[#1C1C1C] select-none"
     >
       {/* Side Swipe / Navigation Controls */}
       <button

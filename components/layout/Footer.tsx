@@ -60,7 +60,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 pb-14 border-b border-[#23272A]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-14 border-b border-[#23272A]">
           {/* Col 1: Corporate Profile */}
           <div className="space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
@@ -87,46 +87,7 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Col 2: Prime Locations */}
-          <div className="space-y-4">
-            <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
-              Mumbai Locations
-            </h4>
-            <ul className="space-y-2 text-xs text-[#9AA0A6]">
-              <li>
-                <a href="#properties" className="hover:text-[#A2432B] transition-colors">
-                  Worli & Sea Face
-                </a>
-              </li>
-              <li>
-                <a href="#properties" className="hover:text-[#A2432B] transition-colors">
-                  Bandra West & Pali Hill
-                </a>
-              </li>
-              <li>
-                <a href="#properties" className="hover:text-[#A2432B] transition-colors">
-                  Juhu Coastal Belt
-                </a>
-              </li>
-              <li>
-                <a href="#properties" className="hover:text-[#A2432B] transition-colors">
-                  Lower Parel High-Rises
-                </a>
-              </li>
-              <li>
-                <a href="#properties" className="hover:text-[#A2432B] transition-colors">
-                  Malabar Hill & Walkeshwar
-                </a>
-              </li>
-              <li>
-                <a href="#properties" className="hover:text-[#A2432B] transition-colors">
-                  Cuffe Parade & Colaba
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Navigation */}
+          {/* Col 2: Navigation */}
           <div className="space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
               Navigation
@@ -148,11 +109,6 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-[#A2432B] transition-colors">
-                  About Parmar Properties
-                </a>
-              </li>
-              <li>
                 <a href="#contact" className="hover:text-[#A2432B] transition-colors">
                   Office & Contact
                 </a>
@@ -171,7 +127,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Col 4: Corporate Communications */}
+          {/* Col 3: Corporate Communications */}
           <div className="space-y-4">
             <h4 className="text-xs uppercase tracking-[0.2em] font-semibold text-white">
               Communications
@@ -206,13 +162,13 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-[#23272A] text-[11px] text-[#5B605F]">
             <p>&copy; {new Date().getFullYear()} Parmar Properties. All rights reserved.</p>
             <div className="flex items-center gap-6">
-              <a href="#about" className="hover:text-white transition-colors">
+              <a href="#contact" className="hover:text-white transition-colors">
                 Privacy Policy
               </a>
-              <a href="#about" className="hover:text-white transition-colors">
+              <a href="#contact" className="hover:text-white transition-colors">
                 Terms of Engagement
               </a>
-              <a href="#about" className="hover:text-white transition-colors">
+              <a href="#contact" className="hover:text-white transition-colors">
                 MahaRERA Disclosures
               </a>
             </div>

@@ -19,8 +19,9 @@ const config: Config = {
         brickHover: "#8C3822", // Accent hover
       },
       fontFamily: {
-        serif: ["var(--font-cormorant)", "Georgia", "serif"],
-        sans: ["var(--font-dm-sans)", "system-ui", "-apple-system", "sans-serif"],
+        serif: ["var(--font-heading)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
+        heading: ["var(--font-heading)", "Georgia", "serif"],
       },
     },
   },

@@ -7,7 +7,6 @@ import { useCompareStore } from '@/store/compare';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -16,21 +15,7 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const isTransparent = pathname === '/' && !isScrolled;
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (pathname === '/') {
@@ -54,11 +39,7 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isTransparent
-            ? 'bg-gradient-to-b from-black/75 via-black/30 to-transparent text-white border-transparent'
-            : 'bg-[#EDEEE9]/95 backdrop-blur-md text-[#15181A] border-b border-[#CFD1CA] shadow-xs'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-[#EDEEE9]/95 backdrop-blur-md text-[#15181A] border-b border-[#CFD1CA] shadow-xs transition-colors duration-200"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Brand Logo */}
@@ -67,24 +48,14 @@ export const Navbar: React.FC = () => {
             onClick={(e) => scrollToSection(e, 'hero')}
             className="flex items-center gap-3 group cursor-pointer"
           >
-            <div
-              className={`w-8 h-8 flex items-center justify-center font-serif text-sm font-semibold border transition-colors ${
-                isTransparent
-                  ? 'border-white/50 text-white group-hover:border-white'
-                  : 'border-[#15181A] text-[#15181A] bg-[#F7F7F4]'
-              }`}
-            >
+            <div className="w-8 h-8 flex items-center justify-center font-serif text-sm font-semibold border border-[#15181A] text-[#15181A] bg-[#F7F7F4]">
               P
             </div>
             <div className="flex flex-col">
-              <span className="font-serif tracking-[0.2em] text-base sm:text-lg font-normal uppercase leading-tight">
+              <span className="font-serif tracking-[0.2em] text-base sm:text-lg font-normal uppercase leading-tight text-[#15181A]">
                 Parmar Properties
               </span>
-              <span
-                className={`text-[9px] tracking-[0.3em] uppercase font-sans ${
-                  isTransparent ? 'text-white/75' : 'text-[#5B605F]'
-                }`}
-              >
+              <span className="text-[9px] tracking-[0.3em] uppercase font-sans text-[#5B605F]">
                 Mumbai
               </span>
             </div>
@@ -97,11 +68,7 @@ export const Navbar: React.FC = () => {
                 key={link.id}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.id)}
-                className={`text-xs font-sans tracking-[0.15em] uppercase transition-colors flex items-center gap-1.5 py-1 ${
-                  isTransparent
-                    ? 'text-white/85 hover:text-white'
-                    : 'text-[#5B605F] hover:text-[#A2432B]'
-                }`}
+                className="text-xs font-sans tracking-[0.15em] uppercase transition-colors flex items-center gap-1.5 py-1 text-[#5B605F] hover:text-[#A2432B]"
               >
                 <span>{link.label}</span>
                 {link.badge !== undefined && link.badge > 0 && (
@@ -117,9 +84,7 @@ export const Navbar: React.FC = () => {
           <div className="flex md:hidden items-center gap-3">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 focus:outline-none ${
-                isTransparent ? 'text-white' : 'text-[#15181A]'
-              }`}
+              className="p-2 focus:outline-none text-[#15181A]"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >

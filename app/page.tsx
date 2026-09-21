@@ -1,30 +1,15 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React, { useState, useEffect } from 'react';
 import {
-  ArrowRight,
-  Clock,
-  Compass,
-  Star,
-  History,
   Scale,
-  Bookmark,
   ShieldCheck,
   MapPin,
   Phone,
   Mail,
   Send,
   CheckCircle2,
-  Lock,
-  LogIn,
   Trash2,
-  ChevronLeft,
-  ChevronRight,
-  Landmark,
-  Users,
-  ExternalLink,
 } from 'lucide-react';
 import { HeroCarousel } from '@/components/hero/HeroCarousel';
 import { PropertyCard } from '@/components/property/PropertyCard';
@@ -32,10 +17,8 @@ import { CompareBar } from '@/components/property/CompareBar';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PROPERTIES } from '@/data/properties';
-import { useSavedStore } from '@/store/saved';
 import { useCompareStore } from '@/store/compare';
 import { useRecentStore } from '@/store/recent';
-import { useAuthStore } from '@/store/auth';
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -44,15 +27,11 @@ export default function HomePage() {
   const [selectedType, setSelectedType] = useState<string>('All');
 
   // Stores
-  const savedIds = useSavedStore((s) => s.savedIds);
-  const clearSaved = useSavedStore((s) => s.clearSaved);
-
   const compareIds = useCompareStore((s) => s.compareIds);
   const removeFromCompare = useCompareStore((s) => s.removeFromCompare);
   const clearCompare = useCompareStore((s) => s.clearCompare);
 
   const recentSlugs = useRecentStore((s) => s.recentSlugs);
-  const { isLoggedIn, user, login } = useAuthStore();
 
   // Contact form state
   const [contactSubmitted, setContactSubmitted] = useState(false);
@@ -89,35 +68,13 @@ export default function HomePage() {
     ? PROPERTIES.filter((p) => compareIds.includes(p.id))
     : [];
 
-  const savedProperties = mounted
-    ? PROPERTIES.filter((p) => savedIds.includes(p.id))
-    : [];
-
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setContactSubmitted(true);
   };
 
-  const enclaveScrollRef = useRef<HTMLDivElement>(null);
-
-  const scrollEnclaves = (direction: 'left' | 'right') => {
-    if (enclaveScrollRef.current) {
-      const scrollAmount = direction === 'left' ? -380 : 380;
-      enclaveScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-  };
-
-  const mumbaiNeighbourhoods = [
-    { name: 'Worli & Sea Face', count: 3, image: '/hero/hero-1-crisp.jpg', desc: 'Coastal promontories, high-rises & Sea Link vistas' },
-    { name: 'Bandra West & Pali Hill', count: 2, image: '/hero/hero-2-crisp.jpg', desc: 'Serene leafy hillscapes & cultural epicenter' },
-    { name: 'Juhu Beachfront', count: 2, image: '/hero/hero-3-crisp.jpg', desc: 'Unbroken sunset horizons & independent villas' },
-    { name: 'Lower Parel Skyline', count: 2, image: '/properties/lower-parel-pavilion/cover.jpg', desc: 'Metropolitan sky suites & lifestyle towers' },
-    { name: 'Prabhadevi Coastal', count: 1, image: '/properties/prabhadevi-verve/cover.jpg', desc: 'Prestige residences with panoramic sea views' },
-    { name: 'Powai Waterfront', count: 1, image: '/properties/powai-lake/cover.jpg', desc: 'Serene lakefront duplexes and European aesthetics' },
-  ];
-
   return (
-    <div className="w-full relative bg-[#EDEEE9] text-[#15181A]">
+    <div className="w-full relative bg-[#EDEEE9] text-[#15181A] pt-20">
       {/* Scroll Progress Indicator & Back-to-Top */}
       <ScrollProgressBar />
 
@@ -275,83 +232,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* 4. EXPLORE BY LOCATION (Swipeable & Draggable Enclaves Gallery) */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
-        <ScrollReveal animation="fade-up">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-[#5B605F] mb-2 block">
-                Mumbai Enclaves
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#15181A]">
-                Prime Residential Enclaves
-              </h2>
-            </div>
-            {/* Swipe / Carousel Controls */}
-            <div className="flex items-center gap-3">
-              <span className="text-[10px] uppercase tracking-widest text-[#5B605F] font-mono hidden sm:inline">
-                Swipe or Drag &rarr;
-              </span>
-              <button
-                onClick={() => scrollEnclaves('left')}
-                aria-label="Previous enclave"
-                className="w-10 h-10 flex items-center justify-center bg-[#F7F7F4] border border-[#CFD1CA] text-[#15181A] hover:bg-[#A2432B] hover:text-white transition-colors cursor-pointer"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => scrollEnclaves('right')}
-                aria-label="Next enclave"
-                className="w-10 h-10 flex items-center justify-center bg-[#F7F7F4] border border-[#CFD1CA] text-[#15181A] hover:bg-[#A2432B] hover:text-white transition-colors cursor-pointer"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Swipeable Horizontal Scroll Container */}
-        <div
-          ref={enclaveScrollRef}
-          className="swipe-scroll-x flex gap-6 overflow-x-auto pb-6 scroll-smooth snap-x snap-mandatory"
-        >
-          {mumbaiNeighbourhoods.map((item, idx) => (
-            <div
-              key={idx}
-              onClick={() => {
-                const locKey = item.name.split('&')[0].trim();
-                setSelectedLocality(locKey);
-                document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="swipe-item snap-start w-[290px] sm:w-[350px] md:w-[380px] group relative h-72 overflow-hidden border border-[#CFD1CA] cursor-pointer will-change-transform transition-all duration-400 hover:-translate-y-2 hover:shadow-2xl shrink-0"
-            >
-              {/* Top Accent Line */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#A2432B] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
-
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent transition-opacity group-hover:opacity-90" />
-              <div className="absolute inset-x-0 bottom-0 p-6 text-white transform group-hover:-translate-y-1 transition-transform duration-300">
-                <span className="text-[10px] uppercase tracking-widest text-[#EDEEE9] font-mono block mb-1">
-                  {item.count} Residences Listed
-                </span>
-                <h3 className="font-serif text-xl font-medium mb-1 group-hover:text-white transition-colors">
-                  {item.name}
-                </h3>
-                <p className="text-xs text-white/80 line-clamp-1 font-sans font-light">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 5. COMPARE SECTION (Side-by-Side Table) */}
+      {/* COMPARE SECTION (Side-by-Side Table) */}
       <section id="compare" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
         <ScrollReveal animation="fade-up">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#CFD1CA]">
@@ -472,225 +353,7 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* 6. SAVED PORTFOLIO SECTION (Auth Gated) */}
-      <section id="saved" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
-        <ScrollReveal animation="fade-up">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#CFD1CA]">
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-[#5B605F] mb-2 block">
-                Private Collection
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-light text-[#15181A]">
-                Saved Residences
-              </h2>
-            </div>
-            {mounted && isLoggedIn && savedProperties.length > 0 && (
-              <button
-                onClick={clearSaved}
-                className="mt-4 md:mt-0 flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#A2432B] hover:text-[#8C3822] transition-colors"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-                <span>Clear Portfolio</span>
-              </button>
-            )}
-          </div>
-        </ScrollReveal>
-
-        {mounted && !isLoggedIn ? (
-          <ScrollReveal animation="fade-up" delay={100}>
-            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 sm:p-12 text-center max-w-xl mx-auto">
-              <Lock className="w-8 h-8 text-[#15181A] mx-auto mb-4 opacity-75" />
-              <h3 className="font-serif text-xl sm:text-2xl font-light text-[#15181A] mb-2">
-                Client Authentication
-              </h3>
-              <p className="text-xs text-[#5B605F] max-w-md mx-auto mb-6 leading-relaxed font-sans">
-                Sign in with your client profile to access and manage your bookmarked residences.
-              </p>
-              <button
-                onClick={() => login('client@parmargroup.com', 'Aditya Parmar')}
-                className="px-8 py-3 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold transition-colors inline-flex items-center gap-2"
-              >
-                <LogIn className="w-3.5 h-3.5" />
-                <span>Sign In as Client</span>
-              </button>
-            </div>
-          </ScrollReveal>
-        ) : (
-          <div>
-            <div className="flex items-center justify-between bg-[#F7F7F4] border border-[#CFD1CA] p-4 mb-8">
-              <div className="flex items-center gap-2 text-xs text-[#15181A]">
-                <span className="font-semibold">Active Session:</span>
-                <span className="text-[#5B605F]">{user?.name} ({user?.email})</span>
-              </div>
-              <span className="text-xs text-[#5B605F]">
-                {savedProperties.length} saved
-              </span>
-            </div>
-
-            {savedProperties.length === 0 ? (
-              <ScrollReveal animation="fade-up">
-                <div className="text-center py-16 bg-[#F7F7F4] border border-[#CFD1CA] p-8">
-                  <Bookmark className="w-8 h-8 text-[#5B605F] mx-auto mb-3 opacity-40" />
-                  <h3 className="font-serif text-xl text-[#15181A] mb-1 font-light">
-                    Your Saved Portfolio is Empty
-                  </h3>
-                  <p className="text-xs text-[#5B605F] max-w-md mx-auto mb-4">
-                    Bookmark residences on the portfolio page to track properties.
-                  </p>
-                  <a
-                    href="#properties"
-                    className="inline-block px-6 py-2.5 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold"
-                  >
-                    View Residences
-                  </a>
-                </div>
-              </ScrollReveal>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {savedProperties.map((property, idx) => (
-                  <ScrollReveal key={property.id} animation="fade-up" delay={idx * 100}>
-                    <PropertyCard property={property} />
-                  </ScrollReveal>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-
-      {/* 7. ABOUT PARMAR PROPERTIES */}
-      <section id="about" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
-        <ScrollReveal animation="fade-up">
-          <div className="mb-14">
-            <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-[#5B605F] mb-2 block">
-              About Parmar Properties &bull; Established 2008
-            </span>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A] max-w-2xl">
-                A Legacy of Discretion & Architectural Integrity
-              </h2>
-              <a
-                href="https://www.parmarproperties.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-[0.15em] font-semibold transition-all shrink-0 hover:scale-105 active:scale-95"
-              >
-                <span>Visit Official Website</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Narrative & Visual */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
-          <div className="lg:col-span-7 space-y-6">
-            <ScrollReveal animation="fade-up" delay={50}>
-              <p className="text-base sm:text-lg text-[#15181A] leading-relaxed font-serif font-light">
-                Parmar Properties is Mumbai’s premier residential real estate advisory, representing generational family offices, business leaders, and discerning tastemakers in prime acquisitions.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal animation="fade-up" delay={100}>
-              <p className="text-xs sm:text-sm text-[#5B605F] leading-relaxed">
-                Founded in Mumbai in 2008, we operate with surgical precision, absolute confidentiality, and deep legal mastery under MahaRERA statutory standards. From iconic coastal towers along Worli Sea Face to secluded private villas in Bandra’s Pali Hill and Juhu, our advisory bridges ultra-prime properties with exceptional buyers.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal animation="fade-up" delay={150}>
-              <div className="p-6 bg-[#F7F7F4] border border-[#CFD1CA] flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#EDEEE9] border border-[#15181A] flex items-center justify-center font-serif text-base font-bold text-[#15181A]">
-                    VP
-                  </div>
-                  <div>
-                    <p className="font-serif text-sm font-medium text-[#15181A]">Vikram Parmar</p>
-                    <p className="text-xs text-[#5B605F]">Founder & Principal Managing Director</p>
-                  </div>
-                </div>
-                <span className="text-[11px] text-[#5B605F] tracking-wider uppercase hidden sm:block">
-                  MahaRERA: A51900018442
-                </span>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          <div className="lg:col-span-5">
-            <ScrollReveal animation="fade-up" delay={150}>
-              <div className="relative h-[340px] sm:h-[400px] bg-[#CFD1CA] border border-[#CFD1CA] overflow-hidden shadow-xs">
-                <Image
-                  src="/hero/hero-1-crisp.jpg"
-                  alt="Parmar Properties Headquarters & Architectural Heritage"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-                  <span className="text-xs text-white uppercase tracking-[0.2em] font-sans">
-                    Curating Mumbai’s Skyline &bull; Established 2008
-                  </span>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-
-        {/* Key Metrics */}
-        <ScrollReveal animation="fade-up" delay={150}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center p-8 bg-[#F7F7F4] border border-[#CFD1CA] mb-12 shadow-xs">
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-light text-[#15181A]">₹1,800+ Cr</span>
-              <p className="text-[11px] uppercase tracking-wider text-[#5B605F]">Transacted Portfolio</p>
-            </div>
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-light text-[#15181A]">18+ Years</span>
-              <p className="text-[11px] uppercase tracking-wider text-[#5B605F]">Mumbai Pedigree</p>
-            </div>
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-light text-[#15181A]">100%</span>
-              <p className="text-[11px] uppercase tracking-wider text-[#5B605F]">MahaRERA Vetted</p>
-            </div>
-            <div className="space-y-1">
-              <span className="font-serif text-3xl sm:text-4xl font-light text-[#15181A]">A51900018442</span>
-              <p className="text-[11px] uppercase tracking-wider text-[#5B605F]">MahaRERA Registration</p>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* Advisory Core Pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <ScrollReveal animation="fade-up" delay={50}>
-            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-3 h-full">
-              <ShieldCheck className="w-7 h-7 text-[#A2432B]" />
-              <h3 className="font-serif text-lg font-medium text-[#15181A]">Fiduciary Rigor</h3>
-              <p className="text-xs text-[#5B605F] leading-relaxed">
-                Every residential listing undergoes comprehensive legal verification and title vetting by senior Maharashtra conveyancing counsels.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal animation="fade-up" delay={100}>
-            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-3 h-full">
-              <Landmark className="w-7 h-7 text-[#A2432B]" />
-              <h3 className="font-serif text-lg font-medium text-[#15181A]">Coastal Exclusivity</h3>
-              <p className="text-xs text-[#5B605F] leading-relaxed">
-                Direct relationships with legacy families and landmark Mumbai developers, unlocking access to off-market sea-facing penthouses.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal animation="fade-up" delay={150}>
-            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-3 h-full">
-              <Users className="w-7 h-7 text-[#A2432B]" />
-              <h3 className="font-serif text-lg font-medium text-[#15181A]">Confidential Advisory</h3>
-              <p className="text-xs text-[#5B605F] leading-relaxed">
-                Strict institutional non-disclosure standards safeguard client identities, family investments, and financial agreements.
-              </p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* 8. OFFICE & CONTACT INQUIRIES */}
+      {/* OFFICE & CONTACT INQUIRIES */}
       <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
         <ScrollReveal animation="fade-up">
           <div className="mb-12">
