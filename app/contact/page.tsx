@@ -56,10 +56,10 @@ export default function ContactPage() {
           <Link href="/" className="hover:underline">Home</Link> &bull; Communications
         </div>
         <h1 className="font-serif text-4xl sm:text-5xl font-light text-[#15181A]">
-          Inquiries & Advisory Office
+          CONTACT US
         </h1>
         <p className="text-sm text-[#5B605F] mt-2 max-w-2xl font-sans">
-          Submit an inquiry or contact our corporate headquarters at Peninsula Center, Lower Parel regarding Mumbai prime residential acquisitions.
+          Get in touch with us or visit our office at Peninsula Center, Lower Parel regarding Mumbai prime residential properties.
         </p>
       </div>
 
@@ -68,7 +68,7 @@ export default function ContactPage() {
         <div className="lg:col-span-7 bg-[#F7F7F4] border border-[#CFD1CA] p-8 sm:p-10 shadow-xs">
           {submitted ? (
             <div className="text-center py-12 space-y-4">
-              <CheckCircle2 className="w-14 h-14 text-[#A2432B] mx-auto" />
+              <CheckCircle2 className="w-14 h-14 text-[#C5282F] mx-auto" />
               <h2 className="font-serif text-2xl sm:text-3xl text-[#15181A]">
                 Inquiry Received
               </h2>
@@ -94,7 +94,7 @@ export default function ContactPage() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#A2432B] focus:outline-none text-xs"
+                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
                     placeholder="Aditya Birla"
                   />
                 </div>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#A2432B] focus:outline-none text-xs"
+                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
                     placeholder="+91 98200 00000"
                   />
                 </div>
@@ -123,7 +123,7 @@ export default function ContactPage() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#A2432B] focus:outline-none text-xs"
+                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
                     placeholder="aditya@example.com"
                   />
                 </div>
@@ -134,7 +134,7 @@ export default function ContactPage() {
                   <select
                     value={formData.locality}
                     onChange={(e) => setFormData({ ...formData, locality: e.target.value })}
-                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#A2432B] focus:outline-none text-xs cursor-pointer"
+                    className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs cursor-pointer"
                   >
                     <option value="Worli">Worli & Sea Face</option>
                     <option value="Bandra West">Bandra West & Pali Hill</option>
@@ -154,7 +154,7 @@ export default function ContactPage() {
                 <select
                   value={formData.budget}
                   onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#A2432B] focus:outline-none text-xs cursor-pointer"
+                  className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs cursor-pointer"
                 >
                   <option value="₹15 Cr - ₹25 Cr">₹15 Cr &ndash; ₹25 Cr</option>
                   <option value="₹25 Cr - ₹40 Cr">₹25 Cr &ndash; ₹40 Cr</option>
@@ -164,13 +164,13 @@ export default function ContactPage() {
 
               <div>
                 <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-2">
-                  Inquiry Note
+                  Message
                 </label>
                 <textarea
                   rows={4}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#A2432B] focus:outline-none text-xs"
+                  className="w-full px-4 py-3 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
                   placeholder="Provide specifications regarding preferred square footage, views, or move-in timeline..."
                 />
               </div>
@@ -178,10 +178,10 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2"
+                className="w-full py-4 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
-                <span>{loading ? 'Submitting...' : 'Submit Inquiry'}</span>
+                <span>{loading ? 'Submitting...' : 'CONTACT US'}</span>
               </button>
             </form>
           )}
@@ -191,26 +191,26 @@ export default function ContactPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-6 shadow-xs">
             <h2 className="font-serif text-xl font-medium text-[#15181A]">
-              Corporate Headquarters
+              Office
             </h2>
             <div className="space-y-4 text-xs text-[#5B605F]">
               <div className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#A2432B] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#C5282F] shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-semibold text-[#15181A]">Parmar Properties Advisory</p>
+                  <p className="font-semibold text-[#15181A]">Parmar Properties Office</p>
                   <p>Peninsula Center, Lower Parel</p>
                   <p>Mumbai, Maharashtra 400013</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-[#A2432B] shrink-0" />
-                <a href="tel:+912249887700" className="hover:text-[#A2432B] transition-colors">
+                <Phone className="w-4 h-4 text-[#C5282F] shrink-0" />
+                <a href="tel:+912249887700" className="hover:text-[#C5282F] transition-colors">
                   +91 (022) 4988 7700
                 </a>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-[#A2432B] shrink-0" />
-                <a href="mailto:contact@parmarproperties.com" className="hover:text-[#A2432B] transition-colors">
+                <Mail className="w-4 h-4 text-[#C5282F] shrink-0" />
+                <a href="mailto:contact@parmarproperties.com" className="hover:text-[#C5282F] transition-colors">
                   contact@parmarproperties.com
                 </a>
               </div>
@@ -237,7 +237,7 @@ export default function ContactPage() {
 
           <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 text-xs text-[#5B605F] space-y-2">
             <div className="font-semibold text-[#15181A] flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#A2432B]" />
+              <ShieldCheck className="w-4 h-4 text-[#C5282F]" />
               <span>MahaRERA Advisory Compliance</span>
             </div>
             <p>Registration No. A51900018442. Certified under Government of Maharashtra Real Estate Regulatory Authority.</p>

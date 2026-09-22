@@ -49,7 +49,7 @@ export default function SavedPage() {
           <div className="flex items-center gap-3 mt-4 md:mt-0">
             <button
               onClick={clearSaved}
-              className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#A2432B] hover:text-[#8C3822] transition-colors"
+              className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#C5282F] hover:text-[#A31D23] transition-colors"
             >
               <Trash2 className="w-4 h-4" />
               <span>Clear Portfolio</span>
@@ -72,7 +72,7 @@ export default function SavedPage() {
           </p>
           <button
             onClick={() => login('client@parmargroup.com', 'Aditya Parmar')}
-            className="px-8 py-3 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold transition-colors inline-flex items-center gap-2"
+            className="px-8 py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors inline-flex items-center gap-2"
           >
             <LogIn className="w-4 h-4" />
             <span>Sign In as Client</span>
@@ -90,7 +90,7 @@ export default function SavedPage() {
               <span className="text-[#5B605F]">{savedProperties.length} residences saved</span>
               <button
                 onClick={() => logout()}
-                className="text-[#A2432B] hover:text-[#8C3822] font-medium"
+                className="text-[#C5282F] hover:text-[#A31D23] font-medium"
               >
                 Sign Out
               </button>
@@ -108,7 +108,7 @@ export default function SavedPage() {
               </p>
               <Link
                 href="/properties"
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold"
               >
                 <span>Browse Mumbai Portfolio</span>
                 <ArrowRight className="w-4 h-4" />

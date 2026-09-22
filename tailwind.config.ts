@@ -9,14 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Exact palette from user's specification:
+        // Palette aligned with official Parmar Properties logo:
         mineral: "#EDEEE9",    // Page background
         surface: "#F7F7F4",    // Cards & panels
         line: "#CFD1CA",       // Borders & dividers
         slateText: "#5B605F",  // Body text
         ink: "#15181A",        // Headings, primary text, dark bands
-        brick: "#A2432B",      // The only accent
-        brickHover: "#8C3822", // Accent hover
+        brick: "#C5282F",      // Logo crimson red accent
+        brickHover: "#A31D23", // Accent hover
+        brandNavy: "#393187",  // Logo royal navy/indigo accent
       },
       fontFamily: {
         serif: ["var(--font-heading)", "Georgia", "serif"],

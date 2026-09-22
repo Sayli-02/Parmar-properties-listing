@@ -75,7 +75,7 @@ export const CompareBar: React.FC = () => {
               </div>
               <button
                 onClick={() => removeFromCompare(prop.id)}
-                className="text-[#5B605F] hover:text-[#A2432B] p-0.5 ml-1"
+                className="text-[#5B605F] hover:text-[#C5282F] p-0.5 ml-1"
                 aria-label={`Remove ${prop.title} from compare`}
               >
                 <X className="w-3.5 h-3.5" />
@@ -88,14 +88,14 @@ export const CompareBar: React.FC = () => {
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={clearCompare}
-            className="text-xs uppercase tracking-wider text-[#5B605F] hover:text-[#A2432B] font-medium transition-colors"
+            className="text-xs uppercase tracking-wider text-[#5B605F] hover:text-[#C5282F] font-medium transition-colors"
           >
             Clear
           </button>
           <a
             href="#compare"
             onClick={handleScrollToCompare}
-            className="px-5 py-2.5 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold flex items-center gap-2 transition-colors cursor-pointer"
+            className="px-5 py-2.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold flex items-center gap-2 transition-colors cursor-pointer"
           >
             <span>Compare</span>
             <ArrowRight className="w-3.5 h-3.5" />

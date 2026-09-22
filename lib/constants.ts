@@ -22,14 +22,14 @@ export const HERO_SLIDES: HeroSlideData[] = [
   {
     id: 2,
     image: "/hero/hero-2-crisp.jpg",
-    tagline: "Discover Different Living",
+    tagline: "Find Your Home",
     subtext: "Masterfully designed estates that redefine luxury and tranquility",
     alt: "Contemporary penthouse architecture in Mumbai",
   },
   {
     id: 3,
     image: "/hero/hero-3-crisp.jpg",
-    tagline: "Invest With Confidence",
+    tagline: "Find Your Home",
     subtext: "Curated real estate investments with unmatched long-term pedigree",
     alt: "Prime skyline property in Mumbai commercial and luxury hub",
   },

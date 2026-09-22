@@ -35,7 +35,7 @@ export const ScrollProgressBar: React.FC = () => {
         aria-hidden="true"
       >
         <div
-          className="h-full bg-[#A2432B] transition-all duration-150 ease-out"
+          className="h-full bg-[#C5282F] transition-all duration-150 ease-out"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -44,7 +44,7 @@ export const ScrollProgressBar: React.FC = () => {
       <button
         onClick={scrollToTop}
         aria-label="Back to top"
-        className={`fixed bottom-6 right-6 z-40 p-3 bg-[#F7F7F4] border border-[#CFD1CA] text-[#15181A] hover:text-[#A2432B] hover:border-[#A2432B] shadow-lg transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-40 p-3 bg-[#F7F7F4] border border-[#CFD1CA] text-[#15181A] hover:text-[#C5282F] hover:border-[#C5282F] shadow-lg transition-all duration-300 ${
           showBackToTop ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
       >

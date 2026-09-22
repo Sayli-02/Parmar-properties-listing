@@ -1,21 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { useCompareStore } from '@/store/compare';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  // Zustand stores
-  const compareIds = useCompareStore((state) => state.compareIds);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     if (pathname === '/') {
@@ -32,7 +24,6 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { href: pathname === '/' ? '#hero' : '/#hero', id: 'hero', label: 'Home' },
     { href: pathname === '/' ? '#properties' : '/#properties', id: 'properties', label: 'Properties' },
-    { href: pathname === '/' ? '#compare' : '/#compare', id: 'compare', label: 'Compare', badge: mounted ? compareIds.length : 0 },
     { href: pathname === '/' ? '#contact' : '/#contact', id: 'contact', label: 'Contact' },
   ];
 
@@ -46,19 +37,16 @@ export const Navbar: React.FC = () => {
           <a
             href="#hero"
             onClick={(e) => scrollToSection(e, 'hero')}
-            className="flex items-center gap-3 group cursor-pointer"
+            className="flex items-center group cursor-pointer py-1"
           >
-            <div className="w-8 h-8 flex items-center justify-center font-serif text-sm font-semibold border border-[#15181A] text-[#15181A] bg-[#F7F7F4]">
-              P
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif tracking-[0.2em] text-base sm:text-lg font-normal uppercase leading-tight text-[#15181A]">
-                Parmar Properties
-              </span>
-              <span className="text-[9px] tracking-[0.3em] uppercase font-sans text-[#5B605F]">
-                Mumbai
-              </span>
-            </div>
+            <Image
+              src="/logo.jpeg"
+              alt="Parmar Properties - Building Relationships"
+              width={180}
+              height={70}
+              className="h-10 sm:h-12 w-auto object-contain mix-blend-multiply"
+              priority
+            />
           </a>
 
           {/* Desktop Navigation Links */}
@@ -68,14 +56,9 @@ export const Navbar: React.FC = () => {
                 key={link.id}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.id)}
-                className="text-xs font-sans tracking-[0.15em] uppercase transition-colors flex items-center gap-1.5 py-1 text-[#5B605F] hover:text-[#A2432B]"
+                className="text-xs font-sans tracking-[0.15em] uppercase transition-colors flex items-center gap-1.5 py-1 text-[#5B605F] hover:text-[#C5282F]"
               >
                 <span>{link.label}</span>
-                {link.badge !== undefined && link.badge > 0 && (
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full font-medium transition-all bg-[#A2432B] text-white">
-                    {link.badge}
-                  </span>
-                )}
               </a>
             ))}
           </nav>
@@ -115,11 +98,6 @@ export const Navbar: React.FC = () => {
                     className="text-sm tracking-wide flex items-center justify-between py-2 px-3 transition-colors text-[#15181A] hover:bg-[#CFD1CA]/40"
                   >
                     <span>{link.label}</span>
-                    {link.badge !== undefined && link.badge > 0 && (
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-[#A2432B] text-white font-medium">
-                        {link.badge}
-                      </span>
-                    )}
                   </a>
                 ))}
               </nav>

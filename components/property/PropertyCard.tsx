@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Bookmark, Scale, MapPin, Maximize2, BedDouble, ArrowRight } from 'lucide-react';
+import { Bookmark, MapPin, Maximize2, BedDouble, ArrowRight } from 'lucide-react';
 import { Property } from '@/types/property';
 import { useSavedStore } from '@/store/saved';
-import { useCompareStore } from '@/store/compare';
 
 interface PropertyCardProps {
   property: Property;
@@ -19,20 +18,16 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const toggleSaved = useSavedStore((s) => s.toggleSaved);
   const isSaved = useSavedStore((s) => s.isSaved);
 
-  const toggleCompare = useCompareStore((s) => s.toggleCompare);
-  const isInCompare = useCompareStore((s) => s.isInCompare);
-
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const saved = mounted ? isSaved(property.id) : false;
-  const compared = mounted ? isInCompare(property.id) : false;
 
   return (
     <div className="group bg-[#F7F7F4] rounded-none border border-[#CFD1CA] hover:border-[#15181A] hover:-translate-y-2 hover:shadow-2xl transition-all duration-400 ease-out flex flex-col overflow-hidden will-change-transform relative">
       {/* Top interactive accent line */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#A2432B] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#C5282F] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left z-20" />
 
       {/* Property Image Container */}
       <div className="relative aspect-[16/10] w-full bg-[#EDEEE9] overflow-hidden">
@@ -62,7 +57,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             {property.propertyType}
           </span>
           {property.featured && (
-            <span className="px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] font-medium bg-[#A2432B] text-white">
+            <span className="px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] font-medium bg-[#C5282F] text-white">
               Prime
             </span>
           )}
@@ -75,23 +70,8 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           </span>
         </div>
 
-        {/* Action Buttons: Save & Compare */}
+        {/* Action Button: Save */}
         <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleCompare(property.id);
-            }}
-            aria-label={compared ? 'Remove from compare' : 'Add to compare'}
-            className={`p-2 backdrop-blur-md transition-all hover:scale-110 active:scale-90 ${
-              compared
-                ? 'bg-[#A2432B] text-white'
-                : 'bg-white/90 hover:bg-white text-[#15181A]'
-            }`}
-          >
-            <Scale className="w-3.5 h-3.5" />
-          </button>
 
           <button
             onClick={(e) => {
@@ -102,7 +82,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             aria-label={saved ? 'Remove from saved' : 'Save property'}
             className={`p-2 backdrop-blur-md transition-all hover:scale-110 active:scale-90 ${
               saved
-                ? 'bg-[#A2432B] text-white'
+                ? 'bg-[#C5282F] text-white'
                 : 'bg-white/90 hover:bg-white text-[#15181A]'
             }`}
           >
@@ -115,11 +95,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
       <div className="p-6 flex-1 flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-1.5 text-xs text-[#5B605F] mb-2 font-sans">
-            <MapPin className="w-3.5 h-3.5 text-[#A2432B]" />
+            <MapPin className="w-3.5 h-3.5 text-[#C5282F]" />
             <span>{property.subLocation}</span>
           </div>
 
-          <h3 className="font-serif text-xl font-normal text-[#15181A] group-hover:text-[#A2432B] transition-colors line-clamp-1 mb-2">
+          <h3 className="font-serif text-xl font-normal text-[#15181A] group-hover:text-[#C5282F] transition-colors line-clamp-1 mb-2">
             {property.title}
           </h3>
 
@@ -147,7 +127,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         <div className="pt-5 flex items-center justify-between gap-4">
           <Link
             href={`/properties/${property.slug}`}
-            className="flex-1 py-2.5 px-4 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs font-sans uppercase tracking-[0.12em] font-semibold text-center transition-all flex items-center justify-center gap-2 hover:shadow-md active:scale-98"
+            className="flex-1 py-2.5 px-4 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs font-sans uppercase tracking-[0.12em] font-semibold text-center transition-all flex items-center justify-center gap-2 hover:shadow-md active:scale-98"
           >
             <span>View Residence</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />

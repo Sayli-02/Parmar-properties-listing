@@ -40,13 +40,13 @@ export default function ComparePage() {
           <div className="flex items-center gap-4 mt-4 md:mt-0">
             <Link
               href="/properties"
-              className="text-xs uppercase tracking-wider text-[#A2432B] hover:text-[#8C3822] font-semibold"
+              className="text-xs uppercase tracking-wider text-[#C5282F] hover:text-[#A31D23] font-semibold"
             >
               + Add More
             </Link>
             <button
               onClick={clearCompare}
-              className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#A2432B] hover:text-[#8C3822] transition-colors font-semibold"
+              className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#C5282F] hover:text-[#A31D23] transition-colors font-semibold"
             >
               <Trash2 className="w-4 h-4" />
               <span>Clear Comparison</span>
@@ -66,7 +66,7 @@ export default function ComparePage() {
           </p>
           <Link
             href="/properties"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
           >
             <span>Explore Mumbai Portfolio</span>
             <ArrowRight className="w-4 h-4" />
@@ -85,7 +85,7 @@ export default function ComparePage() {
                         <span className="line-clamp-1">{p.title}</span>
                         <button
                           onClick={() => removeFromCompare(p.id)}
-                          className="text-[#5B605F] hover:text-[#A2432B] p-1"
+                          className="text-[#5B605F] hover:text-[#C5282F] p-1"
                           title="Remove from comparison"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -159,7 +159,7 @@ export default function ComparePage() {
                       <ul className="space-y-1">
                         {p.amenities.slice(0, 4).map((a, i) => (
                           <li key={i} className="flex items-center gap-1.5 text-xs">
-                            <Check className="w-3 h-3 text-[#A2432B]" />
+                            <Check className="w-3 h-3 text-[#C5282F]" />
                             <span>{a}</span>
                           </li>
                         ))}
@@ -181,7 +181,7 @@ export default function ComparePage() {
                     <td key={p.id} className="p-4">
                       <Link
                         href={`/properties/${p.slug}`}
-                        className="inline-block px-4 py-2 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-wider font-semibold transition-colors"
+                        className="inline-block px-4 py-2 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-wider font-semibold transition-colors"
                       >
                         View Residence &rarr;
                       </Link>

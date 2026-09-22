@@ -118,12 +118,12 @@ function PropertiesContent() {
               onClick={() => setMobileFilterOpen(true)}
               className="lg:hidden flex items-center gap-2 px-4 py-2 bg-[#F7F7F4] border border-[#CFD1CA] text-xs uppercase tracking-wider font-semibold text-[#15181A]"
             >
-              <Filter className="w-3.5 h-3.5 text-[#A2432B]" />
+              <Filter className="w-3.5 h-3.5 text-[#C5282F]" />
               <span>Filters</span>
             </button>
 
             <div className="flex items-center gap-2 text-xs bg-[#F7F7F4] border border-[#CFD1CA] px-3 py-2">
-              <ArrowUpDown className="w-3.5 h-3.5 text-[#A2432B]" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#C5282F]" />
               <span className="text-[#5B605F] hidden sm:inline">Sort:</span>
               <select
                 value={sortBy}
@@ -147,12 +147,12 @@ function PropertiesContent() {
           <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 space-y-6 shadow-xs">
             <div className="flex items-center justify-between pb-4 border-b border-[#CFD1CA]">
               <span className="text-xs uppercase tracking-widest font-semibold text-[#15181A] flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-[#A2432B]" />
+                <SlidersHorizontal className="w-4 h-4 text-[#C5282F]" />
                 Filter Portfolio
               </span>
               <button
                 onClick={resetFilters}
-                className="text-xs text-[#A2432B] hover:text-[#8C3822] flex items-center gap-1 font-medium"
+                className="text-xs text-[#C5282F] hover:text-[#A31D23] flex items-center gap-1 font-medium"
               >
                 <RotateCcw className="w-3 h-3" />
                 Reset
@@ -167,7 +167,7 @@ function PropertiesContent() {
               <select
                 value={selectedLocality}
                 onChange={(e) => setSelectedLocality(e.target.value)}
-                className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#A2432B]"
+                className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
               >
                 <option value="All">All Localities ({PROPERTIES.length})</option>
                 <option value="Worli">Worli & Sea Face</option>
@@ -195,7 +195,7 @@ function PropertiesContent() {
                     onClick={() => setSelectedBhk(bhk)}
                     className={`py-1.5 text-xs font-semibold border transition-colors ${
                       selectedBhk === bhk
-                        ? 'bg-[#A2432B] text-white border-[#A2432B]'
+                        ? 'bg-[#C5282F] text-white border-[#C5282F]'
                         : 'bg-[#EDEEE9] text-[#5B605F] border-[#CFD1CA] hover:bg-[#CFD1CA]'
                     }`}
                   >
@@ -213,7 +213,7 @@ function PropertiesContent() {
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#A2432B]"
+                className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
               >
                 <option value="All">All Types</option>
                 <option value="Sea-Facing Apartment">Sea-Facing Apartment</option>
@@ -230,7 +230,7 @@ function PropertiesContent() {
                 <label className="text-xs uppercase tracking-wider font-semibold text-[#15181A]">
                   Max Budget
                 </label>
-                <span className="text-xs font-serif font-bold text-[#A2432B]">
+                <span className="text-xs font-serif font-bold text-[#C5282F]">
                   ₹{maxPrice} Cr
                 </span>
               </div>
@@ -241,7 +241,7 @@ function PropertiesContent() {
                 step="2"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="w-full accent-[#A2432B] cursor-pointer"
+                className="w-full accent-[#C5282F] cursor-pointer"
               />
               <div className="flex justify-between text-[10px] text-[#5B605F] mt-1">
                 <span>₹14 Cr</span>
@@ -262,7 +262,7 @@ function PropertiesContent() {
                       name="possession"
                       checked={selectedPossession === pos}
                       onChange={() => setSelectedPossession(pos)}
-                      className="accent-[#A2432B]"
+                      className="accent-[#C5282F]"
                     />
                     <span>{pos === 'All' ? 'Any Possession' : pos}</span>
                   </label>
@@ -278,7 +278,7 @@ function PropertiesContent() {
               <select
                 value={selectedAmenity}
                 onChange={(e) => setSelectedAmenity(e.target.value)}
-                className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#A2432B]"
+                className="w-full p-2.5 bg-[#EDEEE9] border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
               >
                 {allAmenities.map((a) => (
                   <option key={a} value={a}>{a}</option>
@@ -324,7 +324,7 @@ function PropertiesContent() {
                       key={bhk}
                       onClick={() => setSelectedBhk(bhk)}
                       className={`py-2 text-xs font-semibold border ${
-                        selectedBhk === bhk ? 'bg-[#A2432B] text-white border-[#A2432B]' : 'bg-[#F7F7F4] border-[#CFD1CA]'
+                        selectedBhk === bhk ? 'bg-[#C5282F] text-white border-[#C5282F]' : 'bg-[#F7F7F4] border-[#CFD1CA]'
                       }`}
                     >
                       {bhk === 'All' ? 'All' : `${bhk} BHK`}
@@ -336,7 +336,7 @@ function PropertiesContent() {
               <div>
                 <div className="flex justify-between text-xs mb-1">
                   <span className="font-semibold">Max Price</span>
-                  <span className="text-[#A2432B] font-bold font-serif">₹{maxPrice} Cr</span>
+                  <span className="text-[#C5282F] font-bold font-serif">₹{maxPrice} Cr</span>
                 </div>
                 <input
                   type="range"
@@ -345,7 +345,7 @@ function PropertiesContent() {
                   step="2"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
-                  className="w-full accent-[#A2432B]"
+                  className="w-full accent-[#C5282F]"
                 />
               </div>
 
@@ -358,7 +358,7 @@ function PropertiesContent() {
                 </button>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
-                  className="w-1/2 py-3 bg-[#A2432B] text-white text-xs uppercase tracking-wider font-semibold"
+                  className="w-1/2 py-3 bg-[#C5282F] text-white text-xs uppercase tracking-wider font-semibold"
                 >
                   Apply
                 </button>
@@ -380,7 +380,7 @@ function PropertiesContent() {
               </p>
               <button
                 onClick={resetFilters}
-                className="px-6 py-3 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
+                className="px-6 py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
               >
                 Reset All Filters
               </button>

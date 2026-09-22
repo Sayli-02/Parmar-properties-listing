@@ -76,21 +76,21 @@ export default function AboutPage() {
       {/* Core Values */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-4">
-          <ShieldCheck className="w-8 h-8 text-[#A2432B]" />
+          <ShieldCheck className="w-8 h-8 text-[#C5282F]" />
           <h3 className="font-serif text-xl font-medium text-[#15181A]">Fiduciary Rigor</h3>
           <p className="text-xs text-[#5B605F] leading-relaxed">
             Every listing undergoes legal due diligence by senior conveyancing counsels specializing in Maharashtra land and development statutes.
           </p>
         </div>
         <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-4">
-          <Landmark className="w-8 h-8 text-[#A2432B]" />
+          <Landmark className="w-8 h-8 text-[#C5282F]" />
           <h3 className="font-serif text-xl font-medium text-[#15181A]">Coastal Exclusivity</h3>
           <p className="text-xs text-[#5B605F] leading-relaxed">
             Deep relationships with Mumbai’s premier legacy families and landmark developers, providing direct access to off-market penthouses.
           </p>
         </div>
         <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-4">
-          <Users className="w-8 h-8 text-[#A2432B]" />
+          <Users className="w-8 h-8 text-[#C5282F]" />
           <h3 className="font-serif text-xl font-medium text-[#15181A]">Confidential Advisory</h3>
           <p className="text-xs text-[#5B605F] leading-relaxed">
             Strict non-disclosure standards safeguard buyer identities and financial negotiations from public exposure.
@@ -109,7 +109,7 @@ export default function AboutPage() {
         <div className="pt-2">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#A2432B] hover:bg-[#8C3822] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
           >
             <span>Consult With Principal</span>
             <ArrowRight className="w-4 h-4" />
