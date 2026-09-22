@@ -305,7 +305,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
                   placeholder="Worli, Malabar Hill..."
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white placeholder-[#8A9090] text-xs sm:text-sm focus:outline-none focus:border-[#C5282F] transition-colors"
+                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white placeholder-[#8A9090] text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors"
                 />
               </div>
             </div>
@@ -319,7 +319,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                 <select
                   value={searchBhk}
                   onChange={(e) => setSearchBhk(e.target.value)}
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-xs sm:text-sm focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
+                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
                 >
                   <option value="Any" className="bg-[#15181A] text-white">Any</option>
                   <option value="3 BHK" className="bg-[#15181A] text-white">3 BHK</option>
@@ -339,7 +339,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                 <select
                   value={searchBudget}
                   onChange={(e) => setSearchBudget(e.target.value)}
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-xs sm:text-sm focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
+                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
                 >
                   <option value="Any" className="bg-[#15181A] text-white">Any</option>
                   <option value="Under 20" className="bg-[#15181A] text-white">Under ₹20 Cr</option>
@@ -360,7 +360,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                 <select
                   value={searchType}
                   onChange={(e) => setSearchType(e.target.value)}
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-xs sm:text-sm focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
+                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
                 >
                   <option value="Any" className="bg-[#15181A] text-white">Any</option>
                   <option value="Sea-Facing Apartment" className="bg-[#15181A] text-white">Sea-Facing Apartment</option>

@@ -330,7 +330,7 @@ export default function HomePage() {
                           required
                           value={contactForm.name}
                           onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
-                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
+                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-base sm:text-xs"
                           placeholder="Aditya Birla"
                         />
                       </div>
@@ -343,7 +343,7 @@ export default function HomePage() {
                           required
                           value={contactForm.phone}
                           onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
+                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-base sm:text-xs"
                           placeholder="+91 98200 00000"
                         />
                       </div>
@@ -359,7 +359,7 @@ export default function HomePage() {
                           required
                           value={contactForm.email}
                           onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
-                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
+                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-base sm:text-xs"
                           placeholder="aditya@example.com"
                         />
                       </div>
@@ -370,7 +370,7 @@ export default function HomePage() {
                         <select
                           value={contactForm.locality}
                           onChange={(e) => setContactForm({ ...contactForm, locality: e.target.value })}
-                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
+                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-base sm:text-xs"
                         >
                           <option value="Worli">Worli & South Mumbai</option>
                           <option value="Bandra West">Bandra West & Pali Hill</option>
@@ -390,7 +390,7 @@ export default function HomePage() {
                         rows={4}
                         value={contactForm.message}
                         onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
-                        className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-xs"
+                        className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] focus:border-[#C5282F] focus:outline-none text-base sm:text-xs"
                         placeholder="Provide details regarding target BHK, carpet area preferences, or locations..."
                       />
                     </div>
