@@ -12,7 +12,6 @@ import {
   Building,
 } from 'lucide-react';
 import { PropertyCard } from '@/components/property/PropertyCard';
-import { CompareBar } from '@/components/property/CompareBar';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PROPERTIES } from '@/data/properties';
@@ -396,8 +395,6 @@ function PropertiesContent() {
           )}
         </main>
       </div>
-
-      <CompareBar />
     </div>
   );
 }

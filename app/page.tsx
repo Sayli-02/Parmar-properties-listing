@@ -14,10 +14,8 @@ import { PropertyCard } from '@/components/property/PropertyCard';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PROPERTIES } from '@/data/properties';
-import { useRecentStore } from '@/store/recent';
 
 export default function HomePage() {
-  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'featured' | 'recent' | 'recommended'>('all');
   const [selectedLocality, setSelectedLocality] = useState<string>('All');
   const [selectedType, setSelectedType] = useState<string>('All');
@@ -32,12 +30,6 @@ export default function HomePage() {
     locality: 'Worli',
     message: '',
   });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const recentSlugs = useRecentStore((s) => s.recentSlugs);
 
   const handleHeroSearch = (params: HeroSearchParams) => {
     setHeroSearch(params);
@@ -85,9 +77,6 @@ export default function HomePage() {
   const featuredProperties = PROPERTIES.filter((p) => p.featured);
   const recentlyAddedProperties = PROPERTIES.filter((p) => p.recentlyAdded);
   const recommendedProperties = PROPERTIES.filter((p) => p.recommended);
-  const recentlyViewedProperties = mounted
-    ? PROPERTIES.filter((p) => recentSlugs.includes(p.slug))
-    : [];
 
 
   const handleContactSubmit = (e: React.FormEvent) => {
@@ -265,29 +254,6 @@ export default function HomePage() {
           </div>
         )}
       </section>
-
-      {/* 3. RECENTLY VIEWED (Hidden if empty) */}
-      {recentlyViewedProperties.length > 0 && (
-        <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA] bg-[#F7F7F4]">
-          <ScrollReveal animation="fade-up">
-            <div className="mb-8">
-              <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-[#5B605F] mb-1 block">
-                History
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-light text-[#15181A]">
-                Recently Viewed Residences
-              </h2>
-            </div>
-          </ScrollReveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {recentlyViewedProperties.slice(0, 3).map((property, idx) => (
-              <ScrollReveal key={property.id} animation="fade-up" delay={idx * 100}>
-                <PropertyCard property={property} />
-              </ScrollReveal>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* OFFICE & CONTACT */}
       <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">

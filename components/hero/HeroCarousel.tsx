@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search, MapPin, BedDouble, Building2, Sparkles } from 'lucide-react';
 import { HERO_SLIDES, SLIDE_DURATION_MS, TOTAL_SLIDES, PERSIST_HERO_COMPLETED } from '@/lib/constants';
 
 export interface HeroSearchParams {
@@ -274,117 +274,154 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
           {HERO_SLIDES[currentSlide]?.subtext || 'Exclusive waterfront residences and architectural marvels in South Mumbai'}
         </p>
 
-        {/* Floating Search Bar (Lowered position with website architectural theme) */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (onSearch) {
-              onSearch({
-                location: searchLocation,
-                bhk: searchBhk,
-                budget: searchBudget,
-                type: searchType,
-              });
-            }
-            const el = document.getElementById('properties');
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          className="w-full mt-8 sm:mt-12 md:mt-14 bg-[#15181A]/90 backdrop-blur-md border border-[#CFD1CA]/30 p-5 sm:p-6 shadow-2xl text-left"
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3.5 items-end">
-            {/* Location */}
-            <div className="lg:col-span-3">
-              <label className="block text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-semibold text-[#CFD1CA] mb-2 font-sans">
-                Location
-              </label>
-              <div className="relative">
+        {/* Seamless Blended Smoked Glass Search Console */}
+        <div className="w-full mt-7 sm:mt-9 max-w-4xl mx-auto text-left">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (onSearch) {
+                onSearch({
+                  location: searchLocation,
+                  bhk: searchBhk,
+                  budget: searchBudget,
+                  type: searchType,
+                });
+              }
+              const el = document.getElementById('properties');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="bg-black/30 hover:bg-black/40 backdrop-blur-xl border border-white/20 hover:border-white/35 p-2 sm:p-2.5 rounded-2xl lg:rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300"
+          >
+            <div className="flex flex-col lg:flex-row lg:items-center">
+              {/* 1. Location */}
+              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
+                  <MapPin className="w-3 h-3 text-[#C5282F]" />
+                  <span>Location</span>
+                </label>
                 <input
                   type="text"
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
-                  placeholder="Worli, Malabar Hill..."
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white placeholder-[#8A9090] text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors"
+                  placeholder="Worli, Bandra, Juhu..."
+                  className="w-full bg-transparent text-sm font-medium text-white placeholder:text-white/40 outline-none font-sans"
                 />
               </div>
-            </div>
 
-            {/* BHK */}
-            <div className="lg:col-span-2">
-              <label className="block text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-semibold text-[#CFD1CA] mb-2 font-sans">
-                BHK
-              </label>
-              <div className="relative">
-                <select
-                  value={searchBhk}
-                  onChange={(e) => setSearchBhk(e.target.value)}
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
+              <div className="hidden lg:block w-[1px] h-7 bg-white/20 mx-1" />
+
+              {/* 2. BHK */}
+              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors relative group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
+                  <BedDouble className="w-3 h-3 text-[#C5282F]" />
+                  <span>Bedrooms</span>
+                </label>
+                <div className="relative">
+                  <select
+                    value={searchBhk}
+                    onChange={(e) => setSearchBhk(e.target.value)}
+                    className="w-full bg-transparent text-sm font-medium text-white outline-none cursor-pointer appearance-none font-sans pr-6"
+                  >
+                    <option value="Any" className="bg-[#15181A] text-white">Any BHK</option>
+                    <option value="3 BHK" className="bg-[#15181A] text-white">3 BHK</option>
+                    <option value="4 BHK" className="bg-[#15181A] text-white">4 BHK</option>
+                    <option value="5 BHK" className="bg-[#15181A] text-white">5 BHK</option>
+                  </select>
+                  <ChevronDown className="w-3.5 h-3.5 text-white/60 absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              </div>
+
+              <div className="hidden lg:block w-[1px] h-7 bg-white/20 mx-1" />
+
+              {/* 3. Budget */}
+              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors relative group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
+                  <span className="text-[#C5282F] font-bold text-xs">₹</span>
+                  <span>Budget</span>
+                </label>
+                <div className="relative">
+                  <select
+                    value={searchBudget}
+                    onChange={(e) => setSearchBudget(e.target.value)}
+                    className="w-full bg-transparent text-sm font-medium text-white outline-none cursor-pointer appearance-none font-sans pr-6"
+                  >
+                    <option value="Any" className="bg-[#15181A] text-white">Any Budget</option>
+                    <option value="Under 20" className="bg-[#15181A] text-white">Under ₹20 Cr</option>
+                    <option value="20-35" className="bg-[#15181A] text-white">₹20 - ₹35 Cr</option>
+                    <option value="35-50" className="bg-[#15181A] text-white">₹35 - ₹50 Cr</option>
+                    <option value="50+" className="bg-[#15181A] text-white">₹50 Cr+</option>
+                  </select>
+                  <ChevronDown className="w-3.5 h-3.5 text-white/60 absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              </div>
+
+              <div className="hidden lg:block w-[1px] h-7 bg-white/20 mx-1" />
+
+              {/* 4. Type */}
+              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors relative group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
+                  <Building2 className="w-3 h-3 text-[#C5282F]" />
+                  <span>Category</span>
+                </label>
+                <div className="relative">
+                  <select
+                    value={searchType}
+                    onChange={(e) => setSearchType(e.target.value)}
+                    className="w-full bg-transparent text-sm font-semibold text-white outline-none cursor-pointer appearance-none font-sans pr-6"
+                  >
+                    <option value="Any" className="bg-[#15181A] text-white">All Categories</option>
+                    <option value="Sea-Facing Apartment" className="bg-[#15181A] text-white">Sea-Facing</option>
+                    <option value="Penthouse" className="bg-[#15181A] text-white">Penthouse</option>
+                    <option value="Sky Villa" className="bg-[#15181A] text-white">Sky Villa</option>
+                    <option value="Duplex" className="bg-[#15181A] text-white">Duplex</option>
+                    <option value="Luxury Estate" className="bg-[#15181A] text-white">Luxury Estate</option>
+                  </select>
+                  <ChevronDown className="w-3.5 h-3.5 text-white/60 absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
+                </div>
+              </div>
+
+              {/* 5. Search Button */}
+              <div className="p-1 sm:p-0">
+                <button
+                  type="submit"
+                  className="w-full lg:w-auto h-11 lg:h-11 px-7 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.2em] font-bold rounded-xl lg:rounded-full transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#C5282F]/40 hover:scale-[1.03] active:scale-95 shrink-0"
                 >
-                  <option value="Any" className="bg-[#15181A] text-white">Any</option>
-                  <option value="3 BHK" className="bg-[#15181A] text-white">3 BHK</option>
-                  <option value="4 BHK" className="bg-[#15181A] text-white">4 BHK</option>
-                  <option value="5 BHK" className="bg-[#15181A] text-white">5 BHK</option>
-                </select>
-                <ChevronDown className="w-4 h-4 text-[#CFD1CA]/70 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Search className="w-4 h-4 text-white stroke-[2.5]" />
+                  <span>Search</span>
+                </button>
               </div>
             </div>
+          </form>
 
-            {/* Budget */}
-            <div className="lg:col-span-2">
-              <label className="block text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-semibold text-[#CFD1CA] mb-2 font-sans">
-                Budget
-              </label>
-              <div className="relative">
-                <select
-                  value={searchBudget}
-                  onChange={(e) => setSearchBudget(e.target.value)}
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
-                >
-                  <option value="Any" className="bg-[#15181A] text-white">Any</option>
-                  <option value="Under 20" className="bg-[#15181A] text-white">Under ₹20 Cr</option>
-                  <option value="20-35" className="bg-[#15181A] text-white">₹20 - ₹35 Cr</option>
-                  <option value="35-50" className="bg-[#15181A] text-white">₹35 - ₹50 Cr</option>
-                  <option value="50+" className="bg-[#15181A] text-white">₹50 Cr+</option>
-                </select>
-                <ChevronDown className="w-4 h-4 text-[#CFD1CA]/70 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Type */}
-            <div className="lg:col-span-3">
-              <label className="block text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-semibold text-[#CFD1CA] mb-2 font-sans">
-                Type
-              </label>
-              <div className="relative">
-                <select
-                  value={searchType}
-                  onChange={(e) => setSearchType(e.target.value)}
-                  className="w-full h-11 px-3.5 bg-[#101214]/70 border border-[#CFD1CA]/30 text-white text-base sm:text-xs focus:outline-none focus:border-[#C5282F] transition-colors appearance-none cursor-pointer pr-8"
-                >
-                  <option value="Any" className="bg-[#15181A] text-white">Any</option>
-                  <option value="Sea-Facing Apartment" className="bg-[#15181A] text-white">Sea-Facing Apartment</option>
-                  <option value="Penthouse" className="bg-[#15181A] text-white">Penthouse</option>
-                  <option value="Sky Villa" className="bg-[#15181A] text-white">Sky Villa</option>
-                  <option value="Duplex" className="bg-[#15181A] text-white">Duplex</option>
-                  <option value="Luxury Estate" className="bg-[#15181A] text-white">Luxury Estate</option>
-                </select>
-                <ChevronDown className="w-4 h-4 text-[#CFD1CA]/70 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Search Button */}
-            <div className="lg:col-span-2">
+          {/* Quick Trending Filter Tags */}
+          <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 text-xs">
+            <span className="text-white/60 text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-[#C5282F]" /> Popular:
+            </span>
+            {[
+              { label: 'Worli Sea Face', loc: 'Worli' },
+              { label: 'Bandra West', loc: 'Bandra West' },
+              { label: 'Penthouses', type: 'Penthouse' },
+              { label: 'Sky Villas', type: 'Sky Villa' },
+              { label: 'Under ₹35 Cr', budget: '20-35' },
+            ].map((item, idx) => (
               <button
-                type="submit"
-                className="w-full h-11 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-[#C5282F]/30 active:scale-95"
+                key={idx}
+                type="button"
+                onClick={() => {
+                  if (item.loc) setSearchLocation(item.loc);
+                  if (item.type) setSearchType(item.type);
+                  if (item.budget) setSearchBudget(item.budget);
+                }}
+                className="px-3 py-1 rounded-full bg-white/[0.08] hover:bg-white/20 text-white/80 hover:text-white text-[11px] font-medium border border-white/15 backdrop-blur-sm transition-all duration-200 cursor-pointer"
               >
-                <Search className="w-4 h-4 text-white" />
-                <span>Search</span>
+                {item.label}
               </button>
-            </div>
+            ))}
           </div>
-        </form>
+        </div>
       </div>
 
       {/* Bottom Bar: Indicators & Subtle Scroll Cue */}

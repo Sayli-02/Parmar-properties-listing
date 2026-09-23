@@ -41,21 +41,21 @@ export const Navbar: React.FC = () => {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-50 bg-[#EDEEE9]/95 backdrop-blur-md text-[#15181A] border-b border-[#CFD1CA] shadow-xs transition-colors duration-200"
+        className="fixed top-0 left-0 right-0 z-50 bg-[#EDEEE9]/95 backdrop-blur-md text-[#15181A] border-b border-[#CFD1CA] shadow-xs transition-colors duration-200 py-[5px]"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Brand Logo */}
           <a
             href="#hero"
             onClick={(e) => scrollToSection(e, 'hero')}
-            className="flex items-center group cursor-pointer py-1"
+            className="flex items-center group cursor-pointer py-0.5"
           >
             <Image
-              src="/logo.jpeg"
+              src="/logo_without_bg.png"
               alt="Parmar Properties - Building Relationships"
-              width={180}
-              height={70}
-              className="h-10 sm:h-12 w-auto object-contain mix-blend-multiply"
+              width={260}
+              height={95}
+              className="h-14 sm:h-16 md:h-18 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
               priority
             />
           </a>
@@ -95,7 +95,7 @@ export const Navbar: React.FC = () => {
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="fixed top-20 right-0 bottom-0 w-4/5 max-w-sm bg-[#EDEEE9] border-l border-[#CFD1CA] p-6 flex flex-col justify-between shadow-2xl overflow-y-auto"
+            className="fixed top-[66px] sm:top-[74px] right-0 bottom-0 w-4/5 max-w-sm bg-[#EDEEE9] border-l border-[#CFD1CA] p-6 flex flex-col justify-between shadow-2xl overflow-y-auto"
             role="dialog"
             aria-modal="true"
             onClick={(e) => e.stopPropagation()}

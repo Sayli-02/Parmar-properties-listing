@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Bookmark, MapPin, Maximize2, BedDouble, ArrowRight } from 'lucide-react';
+import { MapPin, Maximize2, BedDouble, ArrowRight } from 'lucide-react';
 import { Property } from '@/types/property';
-import { useSavedStore } from '@/store/saved';
 
 interface PropertyCardProps {
   property: Property;
@@ -13,16 +12,6 @@ interface PropertyCardProps {
 
 export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
   const [imgError, setImgError] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  const toggleSaved = useSavedStore((s) => s.toggleSaved);
-  const isSaved = useSavedStore((s) => s.isSaved);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const saved = mounted ? isSaved(property.id) : false;
 
   return (
     <div className="group bg-[#F7F7F4] rounded-none border border-[#CFD1CA] hover:border-[#15181A] hover:-translate-y-2 hover:shadow-2xl transition-all duration-400 ease-out flex flex-col overflow-hidden will-change-transform relative">
@@ -68,26 +57,6 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
           <span className="font-serif text-xs sm:text-sm font-medium tracking-wide">
             {property.priceFormatted}
           </span>
-        </div>
-
-        {/* Action Button: Save */}
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
-
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleSaved(property.id);
-            }}
-            aria-label={saved ? 'Remove from saved' : 'Save property'}
-            className={`p-2 backdrop-blur-md transition-all hover:scale-110 active:scale-90 ${
-              saved
-                ? 'bg-[#C5282F] text-white'
-                : 'bg-white/90 hover:bg-white text-[#15181A]'
-            }`}
-          >
-            <Bookmark className={`w-3.5 h-3.5 ${saved ? 'fill-current' : ''}`} />
-          </button>
         </div>
       </div>
 
