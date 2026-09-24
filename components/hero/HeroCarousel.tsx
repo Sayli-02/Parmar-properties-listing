@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search, MapPin, BedDouble, Building2, Sparkles } from 'lucide-react';
+import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search, MapPin, BedDouble, Building2, Sparkles, IndianRupee, Check } from 'lucide-react';
 import { HERO_SLIDES, SLIDE_DURATION_MS, TOTAL_SLIDES, PERSIST_HERO_COMPLETED } from '@/lib/constants';
 
 export interface HeroSearchParams {
@@ -25,6 +25,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
   const [searchBhk, setSearchBhk] = useState('Any');
   const [searchBudget, setSearchBudget] = useState('Any');
   const [searchType, setSearchType] = useState('Any');
+  const [openDropdown, setOpenDropdown] = useState<'location' | 'bhk' | 'budget' | 'type' | null>(null);
   // Default to unlocked initially until client checks sessionStorage to avoid flashes on return visits
   const [isLocked, setIsLocked] = useState(false);
   const [hasUnlocked, setHasUnlocked] = useState(false);
@@ -186,6 +187,18 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
     }
   };
 
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('.hero-dropdown-container')) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => document.removeEventListener('click', handleOutsideClick);
+  }, []);
+
   // Slide rotation timer
   useEffect(() => {
     const timer = setInterval(() => {
@@ -252,33 +265,24 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
       })}
 
       {/* Persistent Content Overlay: Tagline, Subtext & Floating Search Bar */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-6 pb-20 sm:pb-24">
-        {/* Highlighted Parmar Properties Branding */}
-        <div className="inline-flex items-center gap-3 px-5 py-2 border border-white/30 bg-black/40 backdrop-blur-md mb-3 sm:mb-4 shadow-sm">
-          <span className="w-1.5 h-1.5 bg-[#C5282F] rounded-full animate-pulse" />
-          <span className="font-serif tracking-[0.35em] uppercase text-xs sm:text-sm text-white font-medium">
-            PARMAR PROPERTIES
-          </span>
-          <span className="text-[10px] tracking-[0.25em] uppercase text-white/75 border-l border-white/30 pl-3 hidden sm:inline">
-            MUMBAI
-          </span>
-        </div>
+      <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto pt-6 pb-20 sm:pb-24">
 
         {/* Unified Tagline */}
         <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white font-light tracking-wide leading-tight drop-shadow-md mb-3">
-          Find Your Home
+          MUMBAI&apos;S FINEST ADDRESSES
         </h1>
 
-        {/* Dynamic Subtext */}
+        {/* Subtext */}
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#CFD1CA] max-w-2xl font-light tracking-wide mb-2 leading-relaxed drop-shadow">
-          {HERO_SLIDES[currentSlide]?.subtext || 'Exclusive waterfront residences and architectural marvels in South Mumbai'}
+          Curated residences, private oppurtunities and investment properties across Mumbai&apos;s most sought after neighbourhoods
         </p>
 
-        {/* Seamless Blended Smoked Glass Search Console */}
-        <div className="w-full mt-7 sm:mt-9 max-w-4xl mx-auto text-left">
+        {/* Seamless Blended Luxury Architectural Search Console */}
+        <div className="w-full mt-8 sm:mt-10 max-w-5xl mx-auto text-left px-2 sm:px-0 relative z-40">
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              setOpenDropdown(null);
               if (onSearch) {
                 onSearch({
                   location: searchLocation,
@@ -292,113 +296,256 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                 el.scrollIntoView({ behavior: 'smooth' });
               }
             }}
-            className="bg-black/30 hover:bg-black/40 backdrop-blur-xl border border-white/20 hover:border-white/35 p-2 sm:p-2.5 rounded-2xl lg:rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-300"
+            className="bg-black/35 hover:bg-black/45 backdrop-blur-xl border border-white/20 hover:border-white/35 shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.12)] p-2 sm:p-2.5 transition-all duration-300"
           >
-            <div className="flex flex-col lg:flex-row lg:items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-0 items-center divide-y sm:divide-y-0 lg:divide-x divide-white/10">
               {/* 1. Location */}
-              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors group">
-                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
-                  <MapPin className="w-3 h-3 text-[#C5282F]" />
+              <div className="hero-dropdown-container lg:col-span-3 px-3.5 py-2.5 hover:bg-white/[0.06] transition-colors group relative">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 mb-1 font-sans">
+                  <MapPin className="w-3.5 h-3.5 text-[#C5282F]" />
                   <span>Location</span>
                 </label>
-                <input
-                  type="text"
-                  value={searchLocation}
-                  onChange={(e) => setSearchLocation(e.target.value)}
-                  placeholder="Worli, Bandra, Juhu..."
-                  className="w-full bg-transparent text-sm font-medium text-white placeholder:text-white/40 outline-none font-sans"
-                />
+                <div className="flex items-center justify-between">
+                  <input
+                    type="text"
+                    value={searchLocation}
+                    onChange={(e) => setSearchLocation(e.target.value)}
+                    onFocus={() => setOpenDropdown('location')}
+                    placeholder="Worli, Bandra, Juhu..."
+                    className="w-full bg-transparent text-sm font-medium text-white placeholder:text-white/40 outline-none font-sans"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setOpenDropdown(openDropdown === 'location' ? null : 'location')}
+                    aria-label="Toggle location options"
+                    className="text-white/60 hover:text-white ml-1.5 cursor-pointer"
+                  >
+                    <ChevronDown className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${openDropdown === 'location' ? 'rotate-180 text-[#C5282F]' : ''}`} />
+                  </button>
+                </div>
+
+                {openDropdown === 'location' && (
+                  <div
+                    style={{ backgroundColor: '#16181C' }}
+                    className="absolute top-[calc(100%+8px)] left-0 min-w-[280px] sm:min-w-[310px] bg-[#16181C] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.8)] p-3 z-50 rounded-sm"
+                  >
+                    <div className="px-3.5 pt-1 pb-2.5 text-[10px] uppercase tracking-[0.25em] text-white/50 font-bold border-b border-white/10 mb-2 flex items-center justify-between">
+                      <span>Prime Enclaves</span>
+                      <span className="text-[9px] text-[#C5282F] font-semibold">Mumbai</span>
+                    </div>
+                    {[
+                      { label: 'All Prime Locations', val: '' },
+                      { label: 'Worli Sea Face', val: 'Worli' },
+                      { label: 'Bandra West (Pali Hill)', val: 'Bandra West' },
+                      { label: 'Juhu Beachfront', val: 'Juhu' },
+                      { label: 'Lower Parel Towers', val: 'Lower Parel' },
+                      { label: 'Malabar Hill & Walkeshwar', val: 'Malabar Hill' },
+                      { label: 'Cuffe Parade & Colaba', val: 'Cuffe Parade' },
+                    ].map((loc) => (
+                      <button
+                        key={loc.val}
+                        type="button"
+                        onClick={() => {
+                          setSearchLocation(loc.val);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-4 py-3 sm:py-3.5 text-xs sm:text-[13px] tracking-wide transition-all duration-200 flex items-center justify-between cursor-pointer rounded-xs ${
+                          searchLocation === loc.val
+                            ? 'bg-[#C5282F] text-white font-semibold shadow-md'
+                            : 'text-white/90 hover:bg-white/10 hover:text-white hover:pl-5'
+                        }`}
+                      >
+                        <span>{loc.label}</span>
+                        {searchLocation === loc.val && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div className="hidden lg:block w-[1px] h-7 bg-white/20 mx-1" />
-
-              {/* 2. BHK */}
-              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors relative group">
-                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
-                  <BedDouble className="w-3 h-3 text-[#C5282F]" />
+              {/* 2. BHK (Custom Padded Dropdown) */}
+              <div className="hero-dropdown-container lg:col-span-2 px-3.5 py-2.5 hover:bg-white/[0.06] transition-colors relative group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 mb-1 font-sans">
+                  <BedDouble className="w-3.5 h-3.5 text-[#C5282F]" />
                   <span>Bedrooms</span>
                 </label>
-                <div className="relative">
-                  <select
-                    value={searchBhk}
-                    onChange={(e) => setSearchBhk(e.target.value)}
-                    className="w-full bg-transparent text-sm font-medium text-white outline-none cursor-pointer appearance-none font-sans pr-6"
+                <button
+                  type="button"
+                  onClick={() => setOpenDropdown(openDropdown === 'bhk' ? null : 'bhk')}
+                  className="w-full bg-transparent text-sm font-medium text-white outline-none flex items-center justify-between cursor-pointer font-sans text-left"
+                >
+                  <span className="truncate">{searchBhk === 'Any' ? 'Any BHK' : searchBhk}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${openDropdown === 'bhk' ? 'rotate-180 text-[#C5282F]' : ''}`} />
+                </button>
+
+                {openDropdown === 'bhk' && (
+                  <div
+                    style={{ backgroundColor: '#16181C' }}
+                    className="absolute top-[calc(100%+8px)] left-0 min-w-[280px] sm:min-w-[300px] bg-[#16181C] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.8)] p-3 z-50 rounded-sm"
                   >
-                    <option value="Any" className="bg-[#15181A] text-white">Any BHK</option>
-                    <option value="3 BHK" className="bg-[#15181A] text-white">3 BHK</option>
-                    <option value="4 BHK" className="bg-[#15181A] text-white">4 BHK</option>
-                    <option value="5 BHK" className="bg-[#15181A] text-white">5 BHK</option>
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-white/60 absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
+                    <div className="px-3.5 pt-1 pb-2.5 text-[10px] uppercase tracking-[0.25em] text-white/50 font-bold border-b border-white/10 mb-2 flex items-center justify-between">
+                      <span>Configuration</span>
+                      <span className="text-[9px] text-[#C5282F] font-semibold">BHK</span>
+                    </div>
+                    {[
+                      { label: 'Any Configuration', val: 'Any' },
+                      { label: '3 BHK Residence', val: '3 BHK' },
+                      { label: '4 BHK Sky Suite', val: '4 BHK' },
+                      { label: '5 BHK Sky Mansion', val: '5 BHK' },
+                    ].map((opt) => (
+                      <button
+                        key={opt.val}
+                        type="button"
+                        onClick={() => {
+                          setSearchBhk(opt.val);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-4 py-3 sm:py-3.5 text-xs sm:text-[13px] tracking-wide transition-all duration-200 flex items-center justify-between cursor-pointer rounded-xs ${
+                          searchBhk === opt.val
+                            ? 'bg-[#C5282F] text-white font-semibold shadow-md'
+                            : 'text-white/90 hover:bg-white/10 hover:text-white hover:pl-5'
+                        }`}
+                      >
+                        <span>{opt.label}</span>
+                        {searchBhk === opt.val && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div className="hidden lg:block w-[1px] h-7 bg-white/20 mx-1" />
-
-              {/* 3. Budget */}
-              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors relative group">
-                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
-                  <span className="text-[#C5282F] font-bold text-xs">₹</span>
+              {/* 3. Budget (Custom Padded Dropdown) */}
+              <div className="hero-dropdown-container lg:col-span-3 px-3.5 py-2.5 hover:bg-white/[0.06] transition-colors relative group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 mb-1 font-sans">
+                  <IndianRupee className="w-3.5 h-3.5 text-[#C5282F]" />
                   <span>Budget</span>
                 </label>
-                <div className="relative">
-                  <select
-                    value={searchBudget}
-                    onChange={(e) => setSearchBudget(e.target.value)}
-                    className="w-full bg-transparent text-sm font-medium text-white outline-none cursor-pointer appearance-none font-sans pr-6"
+                <button
+                  type="button"
+                  onClick={() => setOpenDropdown(openDropdown === 'budget' ? null : 'budget')}
+                  className="w-full bg-transparent text-sm font-medium text-white outline-none flex items-center justify-between cursor-pointer font-sans text-left"
+                >
+                  <span className="truncate">
+                    {searchBudget === 'Any'
+                      ? 'Any Budget'
+                      : searchBudget === 'Under 20'
+                      ? 'Under ₹20 Cr'
+                      : searchBudget === '20-35'
+                      ? '₹20 - ₹35 Cr'
+                      : searchBudget === '35-50'
+                      ? '₹35 - ₹50 Cr'
+                      : '₹50 Cr+ (Ultra)'}
+                  </span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${openDropdown === 'budget' ? 'rotate-180 text-[#C5282F]' : ''}`} />
+                </button>
+
+                {openDropdown === 'budget' && (
+                  <div
+                    style={{ backgroundColor: '#16181C' }}
+                    className="absolute top-[calc(100%+8px)] left-0 min-w-[280px] sm:min-w-[300px] bg-[#16181C] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.8)] p-3 z-50 rounded-sm"
                   >
-                    <option value="Any" className="bg-[#15181A] text-white">Any Budget</option>
-                    <option value="Under 20" className="bg-[#15181A] text-white">Under ₹20 Cr</option>
-                    <option value="20-35" className="bg-[#15181A] text-white">₹20 - ₹35 Cr</option>
-                    <option value="35-50" className="bg-[#15181A] text-white">₹35 - ₹50 Cr</option>
-                    <option value="50+" className="bg-[#15181A] text-white">₹50 Cr+</option>
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-white/60 absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
+                    <div className="px-3.5 pt-1 pb-2.5 text-[10px] uppercase tracking-[0.25em] text-white/50 font-bold border-b border-white/10 mb-2 flex items-center justify-between">
+                      <span>Capital Allocation</span>
+                      <span className="text-[9px] text-[#C5282F] font-semibold">INR (Cr)</span>
+                    </div>
+                    {[
+                      { label: 'Any Budget', val: 'Any' },
+                      { label: 'Under ₹20 Cr', val: 'Under 20' },
+                      { label: '₹20 Cr – ₹35 Cr', val: '20-35' },
+                      { label: '₹35 Cr – ₹50 Cr', val: '35-50' },
+                      { label: '₹50 Cr+ (Ultra Trophy)', val: '50+' },
+                    ].map((opt) => (
+                      <button
+                        key={opt.val}
+                        type="button"
+                        onClick={() => {
+                          setSearchBudget(opt.val);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-4 py-3 sm:py-3.5 text-xs sm:text-[13px] tracking-wide transition-all duration-200 flex items-center justify-between cursor-pointer rounded-xs ${
+                          searchBudget === opt.val
+                            ? 'bg-[#C5282F] text-white font-semibold shadow-md'
+                            : 'text-white/90 hover:bg-white/10 hover:text-white hover:pl-5'
+                        }`}
+                      >
+                        <span>{opt.label}</span>
+                        {searchBudget === opt.val && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div className="hidden lg:block w-[1px] h-7 bg-white/20 mx-1" />
-
-              {/* 4. Type */}
-              <div className="flex-1 px-4 py-2 hover:bg-white/[0.08] rounded-xl lg:rounded-full transition-colors relative group">
-                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-white/70 mb-0.5 font-sans">
-                  <Building2 className="w-3 h-3 text-[#C5282F]" />
+              {/* 4. Type (Custom Padded Dropdown) */}
+              <div className="hero-dropdown-container lg:col-span-2 px-3.5 py-2.5 hover:bg-white/[0.06] transition-colors relative group">
+                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 mb-1 font-sans">
+                  <Building2 className="w-3.5 h-3.5 text-[#C5282F]" />
                   <span>Category</span>
                 </label>
-                <div className="relative">
-                  <select
-                    value={searchType}
-                    onChange={(e) => setSearchType(e.target.value)}
-                    className="w-full bg-transparent text-sm font-semibold text-white outline-none cursor-pointer appearance-none font-sans pr-6"
+                <button
+                  type="button"
+                  onClick={() => setOpenDropdown(openDropdown === 'type' ? null : 'type')}
+                  className="w-full bg-transparent text-sm font-medium text-white outline-none flex items-center justify-between cursor-pointer font-sans text-left"
+                >
+                  <span className="truncate">{searchType === 'Any' ? 'All Types' : searchType}</span>
+                  <ChevronDown className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${openDropdown === 'type' ? 'rotate-180 text-[#C5282F]' : ''}`} />
+                </button>
+
+                {openDropdown === 'type' && (
+                  <div
+                    style={{ backgroundColor: '#16181C' }}
+                    className="absolute top-[calc(100%+8px)] left-0 min-w-[280px] sm:min-w-[300px] bg-[#16181C] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.8)] p-3 z-50 rounded-sm"
                   >
-                    <option value="Any" className="bg-[#15181A] text-white">All Categories</option>
-                    <option value="Sea-Facing Apartment" className="bg-[#15181A] text-white">Sea-Facing</option>
-                    <option value="Penthouse" className="bg-[#15181A] text-white">Penthouse</option>
-                    <option value="Sky Villa" className="bg-[#15181A] text-white">Sky Villa</option>
-                    <option value="Duplex" className="bg-[#15181A] text-white">Duplex</option>
-                    <option value="Luxury Estate" className="bg-[#15181A] text-white">Luxury Estate</option>
-                  </select>
-                  <ChevronDown className="w-3.5 h-3.5 text-white/60 absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
+                    <div className="px-3.5 pt-1 pb-2.5 text-[10px] uppercase tracking-[0.25em] text-white/50 font-bold border-b border-white/10 mb-2 flex items-center justify-between">
+                      <span>Property Category</span>
+                      <span className="text-[9px] text-[#C5282F] font-semibold">Class</span>
+                    </div>
+                    {[
+                      { label: 'All Categories', val: 'Any' },
+                      { label: 'Sea-Facing Apartment', val: 'Sea-Facing Apartment' },
+                      { label: 'Penthouse', val: 'Penthouse' },
+                      { label: 'Sky Villa', val: 'Sky Villa' },
+                      { label: 'Duplex', val: 'Duplex' },
+                      { label: 'Luxury Estate', val: 'Luxury Estate' },
+                    ].map((opt) => (
+                      <button
+                        key={opt.val}
+                        type="button"
+                        onClick={() => {
+                          setSearchType(opt.val);
+                          setOpenDropdown(null);
+                        }}
+                        className={`w-full text-left px-4 py-3 sm:py-3.5 text-xs sm:text-[13px] tracking-wide transition-all duration-200 flex items-center justify-between cursor-pointer rounded-xs ${
+                          searchType === opt.val
+                            ? 'bg-[#C5282F] text-white font-semibold shadow-md'
+                            : 'text-white/90 hover:bg-white/10 hover:text-white hover:pl-5'
+                        }`}
+                      >
+                        <span>{opt.label}</span>
+                        {searchType === opt.val && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* 5. Search Button */}
-              <div className="p-1 sm:p-0">
+              <div className="lg:col-span-2 p-1">
                 <button
                   type="submit"
-                  className="w-full lg:w-auto h-11 lg:h-11 px-7 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.2em] font-bold rounded-xl lg:rounded-full transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#C5282F]/40 hover:scale-[1.03] active:scale-95 shrink-0"
+                  className="w-full h-11 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer shadow-md hover:shadow-lg active:scale-98"
                 >
                   <Search className="w-4 h-4 text-white stroke-[2.5]" />
-                  <span>Search</span>
+                  <span>SEARCH</span>
                 </button>
               </div>
             </div>
           </form>
 
           {/* Quick Trending Filter Tags */}
-          <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 text-xs">
-            <span className="text-white/60 text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-[#C5282F]" /> Popular:
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs">
+            <span className="text-white/80 text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1 drop-shadow">
+              <Sparkles className="w-3 h-3 text-[#C5282F]" /> Popular Enclaves:
             </span>
             {[
               { label: 'Worli Sea Face', loc: 'Worli' },
@@ -415,7 +562,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                   if (item.type) setSearchType(item.type);
                   if (item.budget) setSearchBudget(item.budget);
                 }}
-                className="px-3 py-1 rounded-full bg-white/[0.08] hover:bg-white/20 text-white/80 hover:text-white text-[11px] font-medium border border-white/15 backdrop-blur-sm transition-all duration-200 cursor-pointer"
+                className="px-3.5 py-1 bg-black/45 hover:bg-[#C5282F] text-white/90 hover:text-white text-[11px] font-medium border border-white/20 backdrop-blur-md transition-all duration-200 cursor-pointer shadow-xs"
               >
                 {item.label}
               </button>
@@ -425,7 +572,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
       </div>
 
       {/* Bottom Bar: Indicators & Subtle Scroll Cue */}
-      <div className="absolute bottom-8 left-0 right-0 z-30 flex flex-col items-center justify-center pointer-events-none">
+      <div className="absolute bottom-8 left-0 right-0 z-10 flex flex-col items-center justify-center pointer-events-none">
         {/* Slide Indicator Dots (Visual Only) */}
         <div className="flex items-center gap-3 mb-4 pointer-events-auto" aria-label="Hero Slide Progress">
           {HERO_SLIDES.map((slide, idx) => (

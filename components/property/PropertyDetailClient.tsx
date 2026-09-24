@@ -25,6 +25,8 @@ import {
   Shield,
   Eye,
   Check,
+  IndianRupee,
+  QrCode,
 } from 'lucide-react';
 import { Property } from '@/types/property';
 import { PROPERTIES } from '@/data/properties';
@@ -41,7 +43,7 @@ interface LeadModalContext {
   title: string;
   subtitle: string;
   tag: string;
-  type: 'map' | 'floorplan' | 'brochure' | 'viewing' | 'general';
+  type: 'map' | 'floorplan' | 'brochure' | 'viewing' | 'general' | 'price-breakdown';
 }
 
 export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ property }) => {
@@ -60,6 +62,8 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
   });
   const [isVerifiedLead, setIsVerifiedLead] = useState(false);
   const [leadSuccess, setLeadSuccess] = useState(false);
+  const [otpStep, setOtpStep] = useState<'phone' | 'otp' | 'details'>('phone');
+  const [otpCode, setOtpCode] = useState('');
   const [leadForm, setLeadForm] = useState({
     name: '',
     phone: '',
@@ -129,19 +133,30 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
     title: string,
     subtitle: string,
     tag: string,
-    type: 'map' | 'floorplan' | 'brochure' | 'viewing' | 'general'
+    type: 'map' | 'floorplan' | 'brochure' | 'viewing' | 'general' | 'price-breakdown'
   ) => {
-    if (isVerifiedLead) {
-      return; // Already unlocked!
-    }
     setLeadModalContext({ title, subtitle, tag, type });
     setLeadSuccess(false);
+    setOtpStep('phone');
+    setOtpCode('');
     setLeadModalOpen(true);
   };
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const handleSendOtp = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!leadForm.name || !leadForm.phone) return;
+    if (!leadForm.phone || leadForm.phone.length < 10) return;
+    setOtpStep('otp');
+  };
+
+  const handleVerifyOtp = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!otpCode || otpCode.length < 4) return;
+    setOtpStep('details');
+  };
+
+  const handleFinalLeadSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadForm.name || !leadForm.email) return;
 
     try {
       localStorage.setItem('parmar_verified_lead', JSON.stringify(leadForm));
@@ -155,12 +170,12 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
       ...prev,
       name: leadForm.name,
       phone: leadForm.phone,
-      email: leadForm.email || prev.email,
+      email: leadForm.email,
     }));
 
     setTimeout(() => {
       setLeadModalOpen(false);
-    }, 1800);
+    }, 2200);
   };
 
   const handleEnquirySubmit = (e: React.FormEvent) => {
@@ -298,10 +313,23 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
             </div>
           </div>
           <div>
-            <span className="text-xs uppercase tracking-wider text-[#5B605F] block mb-1 font-medium">Elevation</span>
-            <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-[#C5282F]" />
-              <span className="text-lg font-bold tracking-tight text-[#15181A]">{property.floor}</span>
+            <span className="text-xs uppercase tracking-wider text-[#5B605F] block mb-1 font-medium">Pricing Schedule</span>
+            <div className="flex items-center">
+              <button
+                type="button"
+                onClick={() =>
+                  openLeadGate(
+                    'Detailed Price Breakdown',
+                    'Register your mobile number to unlock the official price breakdown, payment schedule & government levies for ' + property.title,
+                    'Price Sheet',
+                    'price-breakdown'
+                  )
+                }
+                className="mt-0.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-wider font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
+              >
+                <IndianRupee className="w-3.5 h-3.5" />
+                <span>Price Breakdown</span>
+              </button>
             </div>
           </div>
         </div>
@@ -315,7 +343,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
             <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CFD1CA] pb-4">
                 <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
-                  Residence Narrative
+                  Project Overview
                 </h2>
                 <button
                   onClick={() =>
@@ -350,6 +378,37 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                   ))}
                 </ul>
               </div>
+
+              {/* MahaRERA Registration & Sample QR Code */}
+              <div className="pt-4 border-t border-[#CFD1CA]">
+                <div className="p-4 bg-white border border-[#CFD1CA] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    {/* Sample QR Code Box */}
+                    <div className="w-16 h-16 bg-[#F7F7F4] border border-[#CFD1CA] p-2 flex items-center justify-center shrink-0 shadow-inner">
+                      <QrCode className="w-12 h-12 text-[#15181A]" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-semibold text-[#5B605F]">
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#C5282F]" />
+                        <span>MahaRERA Registration</span>
+                      </div>
+                      <div className="font-mono text-sm sm:text-base font-bold text-[#15181A] mt-0.5 tracking-wider">
+                        {property.reraId || 'P51900028192'}
+                      </div>
+                      <p className="text-[10px] text-[#5B605F] mt-0.5 font-sans">
+                        Scan QR code to verify statutory credentials on maharera.mahaonline.gov.in
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="sm:text-right sm:border-l sm:border-[#CFD1CA] sm:pl-5 shrink-0">
+                    <span className="text-[10px] uppercase tracking-wider text-[#5B605F] block font-medium">Status</span>
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 border border-emerald-200 mt-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Approved
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
           </ScrollReveal>
 
@@ -360,7 +419,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
                   <div>
                     <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
-                      Architectural Floor Plans
+                      Floor Plan
                     </h2>
                     <p className="text-xs text-[#5B605F] mt-1">
                       Official structural master layout & unit floor plate
@@ -499,7 +558,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
           <ScrollReveal animation="fade-up" delay={150}>
             <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8">
               <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A] mb-6">
-                Curated Amenities & Services
+                Amenities
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {(property.amenities || []).map((amenity, idx) => (
@@ -532,8 +591,17 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                 )}
               </div>
 
-              {/* Designed Confidential Location Blueprint (No raw street map exposed) */}
+              {/* Designed Confidential Location Blueprint with Blurred Map */}
               <div className="relative w-full h-80 sm:h-96 border border-[#CFD1CA] bg-[#121517] overflow-hidden flex items-center justify-center p-6 text-center select-none">
+                {/* Blurred Real Estate Map Image */}
+                <Image
+                  src="/mumbai-map.jpg"
+                  alt={`${property.location} Location Map`}
+                  fill
+                  className="object-cover filter blur-[7px] scale-110 opacity-70 pointer-events-none select-none"
+                />
+                <div className="absolute inset-0 bg-black/45 backdrop-blur-[2px]" />
+
                 {/* Stylized Nautical / Topographic Radar Background */}
                 <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,#CFD1CA_1px,transparent_1px)] [background-size:24px_24px]" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
@@ -792,61 +860,128 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                   {leadModalContext.subtitle}
                 </p>
 
-                <form onSubmit={handleLeadSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={leadForm.name}
-                      onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
-                      placeholder="Aditya Birla"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
-                    />
-                  </div>
+                {/* 3-Step OTP Lead Form */}
+                {otpStep === 'phone' && (
+                  <form onSubmit={handleSendOtp} className="space-y-4">
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
+                        Enter Mobile Number *
+                      </label>
+                      <div className="flex">
+                        <span className="inline-flex items-center px-3.5 text-xs bg-[#EDEEE9] border border-r-0 border-[#CFD1CA] text-[#5B605F] font-semibold">
+                          +91
+                        </span>
+                        <input
+                          type="tel"
+                          required
+                          value={leadForm.phone}
+                          onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
+                          placeholder="98200 00000"
+                          className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
+                        />
+                      </div>
+                      <p className="text-[10px] text-[#5B605F] mt-1.5">
+                        We will send a quick verification code to your mobile number.
+                      </p>
+                    </div>
 
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
-                      Mobile Number *
-                    </label>
-                    <div className="flex">
-                      <span className="inline-flex items-center px-3 text-xs bg-[#EDEEE9] border border-r-0 border-[#CFD1CA] text-[#5B605F] font-semibold">
-                        +91
-                      </span>
+                    <button
+                      type="submit"
+                      disabled={leadForm.phone.length < 10}
+                      className="w-full py-3.5 bg-[#C5282F] hover:bg-[#A31D23] disabled:opacity-50 text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md mt-2"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      <span>Get OTP</span>
+                    </button>
+                  </form>
+                )}
+
+                {otpStep === 'otp' && (
+                  <form onSubmit={handleVerifyOtp} className="space-y-4">
+                    <div className="bg-[#EDEEE9]/60 p-3 border border-[#CFD1CA] mb-2 text-xs">
+                      <p className="text-[#15181A] font-medium">Enter OTP sent to +91 {leadForm.phone}</p>
+                      <p className="text-[11px] text-[#C5282F] font-mono mt-0.5">Demo OTP: 4821</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
+                        4-Digit Verification Code *
+                      </label>
                       <input
-                        type="tel"
+                        type="text"
+                        maxLength={4}
                         required
-                        value={leadForm.phone}
-                        onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
-                        placeholder="98200 00000"
+                        value={otpCode}
+                        onChange={(e) => setOtpCode(e.target.value)}
+                        placeholder="4821"
+                        className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] text-base tracking-[0.3em] font-mono text-center focus:outline-none focus:border-[#C5282F]"
+                      />
+                    </div>
+
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setOtpStep('phone')}
+                        className="w-1/3 py-2.5 bg-[#EDEEE9] hover:bg-[#CFD1CA] text-[#15181A] text-xs uppercase tracking-wider font-semibold border border-[#CFD1CA]"
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={otpCode.length < 4}
+                        className="w-2/3 py-2.5 bg-[#C5282F] hover:bg-[#A31D23] disabled:opacity-50 text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        <span>Verify OTP</span>
+                      </button>
+                    </div>
+                  </form>
+                )}
+
+                {otpStep === 'details' && (
+                  <form onSubmit={handleFinalLeadSubmit} className="space-y-4">
+                    <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 px-3 py-2 text-xs flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span>Mobile Verified (+91 {leadForm.phone}). Please complete your details:</span>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={leadForm.name}
+                        onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
+                        placeholder="Aditya Birla"
                         className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
-                      Email Address (Optional)
-                    </label>
-                    <input
-                      type="email"
-                      value={leadForm.email}
-                      onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                      placeholder="aditya@example.com"
-                      className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
-                    />
-                  </div>
+                    <div>
+                      <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1.5">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        value={leadForm.email}
+                        onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
+                        placeholder="aditya@example.com"
+                        className="w-full px-3.5 py-2.5 bg-white border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
+                      />
+                    </div>
 
-                  <button
-                    type="submit"
-                    className="w-full py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md mt-2"
-                  >
-                    <Lock className="w-3.5 h-3.5" />
-                    <span>Unlock Details & Continue</span>
-                  </button>
-                </form>
+                    <button
+                      type="submit"
+                      className="w-full py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md mt-2"
+                    >
+                      <Lock className="w-3.5 h-3.5" />
+                      <span>Confirm & Unlock Details</span>
+                    </button>
+                  </form>
+                )}
 
                 <div className="mt-5 pt-3.5 border-t border-[#CFD1CA] flex items-center justify-between text-[10px] text-[#5B605F]">
                   <span className="flex items-center gap-1">

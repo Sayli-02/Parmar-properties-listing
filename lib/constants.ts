@@ -15,22 +15,22 @@ export const HERO_SLIDES: HeroSlideData[] = [
   {
     id: 1,
     image: "/hero/hero-1-crisp.jpg",
-    tagline: "Find Your Home",
-    subtext: "Exclusive waterfront residences and architectural marvels in South Mumbai",
+    tagline: "MUMBAI'S FINEST ADDRESSES",
+    subtext: "Curated residences, private oppurtunities and investment properties across Mumbai's most sought after neighbourhoods",
     alt: "Luxury residence overlooking Mumbai coastal skyline",
   },
   {
     id: 2,
     image: "/hero/hero-2-crisp.jpg",
-    tagline: "Find Your Home",
-    subtext: "Masterfully designed estates that redefine luxury and tranquility",
+    tagline: "MUMBAI'S FINEST ADDRESSES",
+    subtext: "Curated residences, private oppurtunities and investment properties across Mumbai's most sought after neighbourhoods",
     alt: "Contemporary penthouse architecture in Mumbai",
   },
   {
     id: 3,
     image: "/hero/hero-3-crisp.jpg",
-    tagline: "Find Your Home",
-    subtext: "Curated real estate investments with unmatched long-term pedigree",
+    tagline: "MUMBAI'S FINEST ADDRESSES",
+    subtext: "Curated residences, private oppurtunities and investment properties across Mumbai's most sought after neighbourhoods",
     alt: "Prime skyline property in Mumbai commercial and luxury hub",
   },
 ];

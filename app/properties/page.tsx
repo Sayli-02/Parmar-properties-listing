@@ -12,6 +12,7 @@ import {
   Building,
 } from 'lucide-react';
 import { PropertyCard } from '@/components/property/PropertyCard';
+import { PrivateOpportunities } from '@/components/property/PrivateOpportunities';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PROPERTIES } from '@/data/properties';
@@ -79,6 +80,10 @@ function PropertiesContent() {
 
     return list;
   }, [selectedLocality, selectedBhk, selectedType, selectedPossession, maxPrice, selectedAmenity, sortBy]);
+
+  const curatedProperties = useMemo(() => {
+    return PROPERTIES.filter((p) => p.recommended || p.featured).slice(0, 3);
+  }, []);
 
   const allAmenities = [
     'All',
@@ -394,6 +399,41 @@ function PropertiesContent() {
             </div>
           )}
         </main>
+      </div>
+
+      {/* CURATED PROPERTIES / COLLECTION SECTION */}
+      <section id="curated-collection" className="mt-20 pt-16 border-t border-[#CFD1CA] scroll-mt-24">
+        <ScrollReveal animation="fade-up">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-[#CFD1CA] gap-4">
+            <div>
+              <span className="text-[11px] uppercase tracking-[0.25em] font-medium text-[#5B605F] mb-2 block">
+                Signature Collection
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A]">
+                CURATED COLLECTION
+              </h2>
+              <p className="text-xs sm:text-sm text-[#5B605F] mt-1 font-sans">
+                Signature architectural landmarks and premier residences selected for elite design and investment pedigree.
+              </p>
+            </div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-[#C5282F]">
+              Hand-Selected Portfolio
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {curatedProperties.map((property, idx) => (
+            <ScrollReveal key={property.id} animation="fade-up" delay={idx * 100}>
+              <PropertyCard property={property} />
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* PRIVATE OPPORTUNITIES SECTION */}
+      <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+        <PrivateOpportunities />
       </div>
     </div>
   );

@@ -11,6 +11,9 @@ import {
 } from 'lucide-react';
 import { HeroCarousel, HeroSearchParams } from '@/components/hero/HeroCarousel';
 import { PropertyCard } from '@/components/property/PropertyCard';
+import { PrivateOpportunities } from '@/components/property/PrivateOpportunities';
+import { PropertyConcierge } from '@/components/home/PropertyConcierge';
+import { WhyParmar } from '@/components/home/WhyParmar';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PROPERTIES } from '@/data/properties';
@@ -101,7 +104,7 @@ export default function HomePage() {
                 Residential Portfolio
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A]">
-                Selected Mumbai Residences
+                FEATURED PROPERTIES
               </h2>
             </div>
 
@@ -186,57 +189,54 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Filter Controls */}
-        <ScrollReveal animation="fade-up" delay={100}>
-          <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-4 sm:p-5 mb-10 space-y-3">
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-              <span className="text-[11px] uppercase tracking-wider font-semibold text-[#15181A] mr-2 shrink-0">
-                Location:
-              </span>
-              {['All', 'Worli', 'Bandra West', 'Juhu', 'Lower Parel', 'Prabhadevi', 'Powai', 'Malabar Hill', 'Cuffe Parade'].map((loc) => (
-                <button
-                  key={loc}
-                  onClick={() => setSelectedLocality(loc)}
-                  className={`px-3 py-1 text-xs font-sans tracking-wide rounded-none transition-all shrink-0 ${
-                    selectedLocality === loc
-                      ? 'bg-[#15181A] text-white font-medium'
-                      : 'bg-[#EDEEE9] text-[#5B605F] border border-[#CFD1CA] hover:text-[#15181A]'
-                  }`}
-                >
-                  {loc}
-                </button>
-              ))}
-            </div>
+        {/* 1. FEATURED PROPERTIES (First 6 properties) */}
+        <div>
+          <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#CFD1CA]">
+            <h3 className="font-serif text-xl sm:text-2xl font-light text-[#15181A]">
+              FEATURED PROPERTIES
+            </h3>
+            <span className="text-xs font-semibold text-[#5B605F] uppercase tracking-wider">
+              {Math.min(6, displayedProperties.length)} Premier Listings
+            </span>
+          </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto pt-2 border-t border-[#CFD1CA] scrollbar-none">
-              <span className="text-[11px] uppercase tracking-wider font-semibold text-[#15181A] mr-2 shrink-0">
-                Category:
-              </span>
-              {['All', 'Sea-Facing Apartment', 'Penthouse', 'Sky Villa', 'Duplex', 'Luxury Estate'].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedType(cat)}
-                  className={`px-3 py-1 text-xs font-sans tracking-wide rounded-none transition-all shrink-0 ${
-                    selectedType === cat
-                      ? 'bg-[#C5282F] text-white font-medium'
-                      : 'bg-[#EDEEE9] text-[#5B605F] border border-[#CFD1CA] hover:text-[#15181A]'
-                  }`}
-                >
-                  {cat}
-                </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {displayedProperties.slice(0, 6).map((property, idx) => (
+              <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 120}>
+                <PropertyCard property={property} />
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+
+        {/* 2. EXPLORE PROPERTIES (Remaining properties) */}
+        {displayedProperties.length > 6 && (
+          <div className="mt-20 pt-16 border-t border-[#CFD1CA]">
+            <ScrollReveal animation="fade-up">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#CFD1CA] gap-4">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#5B605F] mb-1 block">
+                    Broader Collection
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-light text-[#15181A]">
+                    EXPLORE PROPERTIES
+                  </h3>
+                </div>
+                <div className="text-xs uppercase tracking-wider text-[#5B605F] font-semibold">
+                  Showing {displayedProperties.length - 6} Additional Residences
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {displayedProperties.slice(6).map((property, idx) => (
+                <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 120}>
+                  <PropertyCard property={property} />
+                </ScrollReveal>
               ))}
             </div>
           </div>
-        </ScrollReveal>
-
-        {/* Property Grid with Staggered Scroll Reveal */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayedProperties.map((property, idx) => (
-            <ScrollReveal key={property.id} animation="fade-up" delay={(idx % 3) * 120}>
-              <PropertyCard property={property} />
-            </ScrollReveal>
-          ))}
-        </div>
+        )}
 
         {displayedProperties.length === 0 && (
           <div className="text-center py-16 bg-[#F7F7F4] border border-[#CFD1CA] p-8">
@@ -254,6 +254,15 @@ export default function HomePage() {
           </div>
         )}
       </section>
+
+      {/* PRIVATE OPPORTUNITIES */}
+      <PrivateOpportunities />
+
+      {/* PROPERTY CONCIERGE & SHORTLISTING */}
+      <PropertyConcierge />
+
+      {/* WHY PARMAR */}
+      <WhyParmar />
 
       {/* OFFICE & CONTACT */}
       <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">

@@ -67,9 +67,10 @@ export const Navbar: React.FC = () => {
                 key={link.id}
                 href={link.href}
                 onClick={(e) => scrollToSection(e, link.id)}
-                className="text-xs font-sans tracking-[0.15em] uppercase transition-colors flex items-center gap-1.5 py-1 text-[#5B605F] hover:text-[#C5282F]"
+                className="relative text-xs font-sans tracking-[0.15em] uppercase py-1 text-[#5B605F] hover:text-[#C5282F] transition-colors duration-300 group"
               >
                 <span>{link.label}</span>
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#C5282F] transition-all duration-300 ease-out group-hover:w-full" />
               </a>
             ))}
           </nav>
@@ -110,7 +111,7 @@ export const Navbar: React.FC = () => {
                     key={link.id}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.id)}
-                    className="text-sm tracking-wide flex items-center justify-between py-2 px-3 transition-colors text-[#15181A] hover:bg-[#CFD1CA]/40"
+                    className="text-sm tracking-wide flex items-center justify-between py-2 px-3 transition-all duration-200 text-[#15181A] hover:bg-[#C5282F]/10 hover:text-[#C5282F] hover:pl-4 rounded-xs"
                   >
                     <span>{link.label}</span>
                   </a>
