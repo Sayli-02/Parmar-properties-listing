@@ -41,9 +41,10 @@ export const Footer: React.FC = () => {
               Navigation
             </h4>
             <div className="flex flex-col space-y-2 text-[#CFD1CA]">
-              <a href="#hero" className="hover:text-white transition-colors">Home</a>
-              <a href="#properties" className="hover:text-white transition-colors">Properties</a>
-              <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+              <a href="/#hero" className="hover:text-white transition-colors">Home</a>
+              <a href="/#properties" className="hover:text-white transition-colors">Properties</a>
+              <a href="/market-intelligence" className="hover:text-white transition-colors">Insights</a>
+              <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
             </div>
           </div>
 

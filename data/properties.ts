@@ -65,8 +65,8 @@ export const PROPERTIES: Property[] = [
     reraId: 'P51800034871',
     coordinates: { lat: 19.0607, lng: 72.8258 },
     floorPlans: [
-      { title: 'Sky Villa Level 1', area: '1,500 sq.ft', description: 'Living salon, private pool sundeck, and gourmet show kitchen.' },
-      { title: 'Sky Villa Level 2', area: '950 sq.ft', description: 'Master sanctum with private leafy balcony.' },
+      { title: 'Major Plan', area: '1,500 sq.ft', description: 'Master architectural layout, private pool sundeck, and gourmet show kitchen.' },
+      { title: 'Floor Plan', area: '950 sq.ft', description: 'Master sanctum with private leafy balcony.' },
     ],
   },
   {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search, MapPin, BedDouble, Building2, Sparkles, IndianRupee, Check } from 'lucide-react';
+import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search, MapPin, BedDouble, Building2, IndianRupee, Check } from 'lucide-react';
 import { HERO_SLIDES, SLIDE_DURATION_MS, TOTAL_SLIDES, PERSIST_HERO_COMPLETED } from '@/lib/constants';
 
 export interface HeroSearchParams {
@@ -541,33 +541,6 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
               </div>
             </div>
           </form>
-
-          {/* Quick Trending Filter Tags */}
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs">
-            <span className="text-white/80 text-[10px] uppercase tracking-wider font-semibold flex items-center gap-1 drop-shadow">
-              <Sparkles className="w-3 h-3 text-[#C5282F]" /> Popular Enclaves:
-            </span>
-            {[
-              { label: 'Worli Sea Face', loc: 'Worli' },
-              { label: 'Bandra West', loc: 'Bandra West' },
-              { label: 'Penthouses', type: 'Penthouse' },
-              { label: 'Sky Villas', type: 'Sky Villa' },
-              { label: 'Under ₹35 Cr', budget: '20-35' },
-            ].map((item, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => {
-                  if (item.loc) setSearchLocation(item.loc);
-                  if (item.type) setSearchType(item.type);
-                  if (item.budget) setSearchBudget(item.budget);
-                }}
-                className="px-3.5 py-1 bg-black/45 hover:bg-[#C5282F] text-white/90 hover:text-white text-[11px] font-medium border border-white/20 backdrop-blur-md transition-all duration-200 cursor-pointer shadow-xs"
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 

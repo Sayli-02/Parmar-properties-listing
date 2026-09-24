@@ -21,6 +21,10 @@ export const Navbar: React.FC = () => {
   }, [mobileMenuOpen]);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    if (targetId === 'intelligence') {
+      setMobileMenuOpen(false);
+      return;
+    }
     if (pathname === '/') {
       e.preventDefault();
       const el = document.getElementById(targetId);
@@ -35,6 +39,7 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { href: pathname === '/' ? '#hero' : '/#hero', id: 'hero', label: 'Home' },
     { href: pathname === '/' ? '#properties' : '/#properties', id: 'properties', label: 'Properties' },
+    { href: '/market-intelligence', id: 'intelligence', label: 'Insights' },
     { href: pathname === '/' ? '#contact' : '/#contact', id: 'contact', label: 'Contact' },
   ];
 
