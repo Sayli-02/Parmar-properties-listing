@@ -117,13 +117,8 @@ const ALL_INSIGHTS: ArticleInsight[] = [
 ];
 
 export default function MarketIntelligencePage() {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'location' | 'price' | 'buyer' | 'nri'>('all');
   const [activeModalInsight, setActiveModalInsight] = useState<ArticleInsight | null>(null);
-
-  const filteredInsights = ALL_INSIGHTS.filter((insight) => {
-    if (selectedCategory === 'all') return true;
-    return insight.categorySlug === selectedCategory;
-  });
+  const filteredInsights = ALL_INSIGHTS;
 
   return (
     <div className="w-full min-h-screen bg-[#EDEEE9] text-[#15181A] pt-24 font-sans">
@@ -154,37 +149,6 @@ export default function MarketIntelligencePage() {
             <p className="text-sm sm:text-base text-white/80 font-sans leading-relaxed">
               Use content and verified micro-market data to make informed property decisions across South and West Mumbai before transacting.
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Filter Tabs Bar */}
-      <section className="border-b border-[#CFD1CA] bg-[#F7F7F4] sticky top-20 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 overflow-x-auto">
-          <div className="flex items-center gap-2">
-            {[
-              { id: 'all', label: 'All Insights' },
-              { id: 'location', label: 'Location Guides' },
-              { id: 'price', label: 'Pricing & Valuation' },
-              { id: 'buyer', label: 'Buyer Guides' },
-              { id: 'nri', label: 'NRI Advisory' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedCategory(tab.id as any)}
-                className={`px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer ${
-                  selectedCategory === tab.id
-                    ? 'bg-[#C5282F] text-white shadow-xs'
-                    : 'bg-white border border-[#CFD1CA] text-[#5B605F] hover:text-[#15181A]'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="text-[11px] uppercase tracking-wider text-[#5B605F] font-semibold hidden md:block">
-            Showing {filteredInsights.length} Advisory Reports
           </div>
         </div>
       </section>

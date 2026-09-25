@@ -37,59 +37,46 @@ interface UpcomingLocationProperty {
 
 const UPCOMING_PROPERTIES: UpcomingLocationProperty[] = [
   {
-    id: 'up-1',
+    id: 'up-sewri',
     title: 'The Baypoint Promenade',
-    tagline: 'Upcoming Eastern Seafront Corridor Facing Atal Setu',
+    tagline: 'Upcoming Eastern Seafront Corridor Facing Atal Setu (MTHL)',
     location: 'Sewri',
-    subLocation: 'Sewri Seafront Promenade',
+    subLocation: 'Sewri Seafront Promenade, Eastern Waterfront',
     priceFormatted: 'From ₹12.80 Cr',
     bhk: '3 & 4 BHK',
     carpetArea: 2100,
     propertyType: 'Sea-Facing Apartment',
     coverImage: '/properties/lower-parel-pavilion/cover.jpg',
-    status: 'Upcoming Q2 2028',
+    status: 'Upcoming / Future Pipeline',
   },
   {
-    id: 'up-2',
-    title: 'Grand Imperial Tower',
-    tagline: 'Upcoming High-Rise Sky Suites in Central Mumbai',
-    location: 'Lower Parel',
-    subLocation: 'Senapati Bapat Marg, Lower Parel',
-    priceFormatted: 'From ₹21.00 Cr',
-    bhk: '3 & 4 BHK',
-    carpetArea: 2600,
-    propertyType: 'Sky Villa',
-    coverImage: '/properties/worli-aurum/cover.jpg',
-    status: 'Upcoming 2027',
-  },
-  {
-    id: 'up-3',
-    title: 'Siddhivinayak Horizon',
-    tagline: 'Pre-Notification Coastal Tower Near Sea Link',
-    location: 'Prabhadevi',
-    subLocation: 'Prabhadevi Coastal Mile',
-    priceFormatted: 'From ₹24.50 Cr',
-    bhk: '4 BHK',
-    carpetArea: 2950,
-    propertyType: 'Sea-Facing Apartment',
-    coverImage: '/properties/prabhadevi-verve/cover.jpg',
-    status: 'Upcoming Q4 2027',
-  },
-  {
-    id: 'up-4',
+    id: 'up-powai',
     title: 'Powai Vista Ridge',
     tagline: 'Upcoming Hillside Sanctuary Overlooking Powai Lake',
     location: 'Powai',
-    subLocation: 'Hiranandani Gardens, Powai',
+    subLocation: 'Hiranandani Gardens & Lakefront, Powai',
     priceFormatted: 'From ₹15.50 Cr',
     bhk: '3 & 4 BHK',
     carpetArea: 2300,
     propertyType: 'Duplex Villa',
     coverImage: '/properties/powai-lake/cover.jpg',
-    status: 'Upcoming 2028',
+    status: 'Upcoming / Future Pipeline',
   },
   {
-    id: 'up-5',
+    id: 'up-prabhadevi',
+    title: 'Siddhivinayak Horizon',
+    tagline: 'Upcoming High-Rise Coastal Tower Near Sea Link',
+    location: 'Prabhadevi',
+    subLocation: 'Prabhadevi Coastal Mile, South Mumbai',
+    priceFormatted: 'From ₹24.50 Cr',
+    bhk: '4 BHK',
+    carpetArea: 2950,
+    propertyType: 'Sea-Facing Apartment',
+    coverImage: '/properties/prabhadevi-verve/cover.jpg',
+    status: 'Upcoming / Future Pipeline',
+  },
+  {
+    id: 'up-cuffe',
     title: 'Cuffe Bay Reserve',
     tagline: 'Rare Upcoming Trophy Development in South Mumbai',
     location: 'Cuffe Parade',
@@ -99,7 +86,7 @@ const UPCOMING_PROPERTIES: UpcomingLocationProperty[] = [
     carpetArea: 3800,
     propertyType: 'Penthouse',
     coverImage: '/properties/bandra-palisades/cover.jpg',
-    status: 'Upcoming 2028',
+    status: 'Upcoming / Future Pipeline',
   },
 ];
 
@@ -110,9 +97,8 @@ const LOCATIONS_LIST = [
   'Juhu',
   'Malabar Hill',
   'Lower Parel',
-  'Prabhadevi',
-  'Powai',
-  'Sewri',
+  'Cuffe Parade',
+  'BKC',
   'Upcoming',
 ];
 
@@ -237,7 +223,7 @@ function LocationsContent() {
                 </h2>
               </div>
               <p className="text-xs uppercase tracking-wider text-[#5B605F] font-semibold">
-                Sewri &bull; Lower Parel &bull; Prabhadevi &bull; Powai &bull; Cuffe Parade
+                Sewri &bull; Powai &bull; Prabhadevi &bull; Pre-Launch Pipeline
               </p>
             </div>
           </ScrollReveal>

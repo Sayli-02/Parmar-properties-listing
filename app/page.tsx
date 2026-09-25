@@ -174,7 +174,7 @@ export default function HomePage() {
                 FUTURE LOCATIONS :
               </span>
               <span className="text-[#5B605F] font-medium group-hover:text-[#15181A] transition-colors">
-                Sewri, Lower Parel, Prabhadevi, Powai, Cuffe Parade and upcoming enclaves
+                Sewri, Powai, Prabhadevi and upcoming enclaves
               </span>
             </div>
             <div className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#C5282F] shrink-0">
