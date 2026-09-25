@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { ExternalLink, ShieldCheck } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -41,10 +42,10 @@ export const Footer: React.FC = () => {
               Navigation
             </h4>
             <div className="flex flex-col space-y-2 text-[#CFD1CA]">
-              <a href="/#hero" className="hover:text-white transition-colors">Home</a>
-              <a href="/#properties" className="hover:text-white transition-colors">Properties</a>
-              <a href="/market-intelligence" className="hover:text-white transition-colors">Insights</a>
-              <a href="/#contact" className="hover:text-white transition-colors">Contact</a>
+              <Link href="/" className="hover:text-white transition-colors">Home</Link>
+              <Link href="/properties" className="hover:text-white transition-colors">Properties</Link>
+              <Link href="/market-intelligence" className="hover:text-white transition-colors">Insights</Link>
+              <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
             </div>
           </div>
 
