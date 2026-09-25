@@ -86,7 +86,7 @@ export function MarketIntelligenceSection() {
           return (
             <ScrollReveal key={insight.id} animation="fade-up" delay={idx * 100}>
               <Link
-                href={`/market-intelligence#${insight.id}`}
+                href={`/market-intelligence/${insight.id}`}
                 className="group block bg-[#F7F7F4] border border-[#CFD1CA] p-8 sm:p-10 hover:border-[#15181A] hover:bg-white transition-all duration-300 shadow-xs hover:shadow-md relative flex flex-col justify-between min-h-[220px]"
               >
                 <div>
@@ -112,7 +112,7 @@ export function MarketIntelligenceSection() {
                     {insight.tag}
                   </span>
                   <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#15181A] group-hover:text-[#C5282F] transition-colors">
-                    <span>Read Advisory</span>
+                    <span>Read Detailed Article</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </div>

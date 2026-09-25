@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ChevronDown, ArrowRight, ChevronLeft, ChevronRight, Search, MapPin, BedDouble, Building2, IndianRupee, Check } from 'lucide-react';
 import { HERO_SLIDES, SLIDE_DURATION_MS, TOTAL_SLIDES, PERSIST_HERO_COMPLETED } from '@/lib/constants';
 
@@ -19,11 +20,12 @@ interface HeroCarouselProps {
 }
 
 export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange, onSearch }) => {
+  const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
   // Search bar form state
   const [searchLocation, setSearchLocation] = useState('');
   const [searchBhk, setSearchBhk] = useState('Any');
-  const [searchBudget, setSearchBudget] = useState('Any');
+  const [searchBudgetSlider, setSearchBudgetSlider] = useState<number>(60);
   const [searchType, setSearchType] = useState('Any');
   const [openDropdown, setOpenDropdown] = useState<'location' | 'bhk' | 'budget' | 'type' | null>(null);
   // Default to unlocked initially until client checks sessionStorage to avoid flashes on return visits
@@ -283,18 +285,25 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
             onSubmit={(e) => {
               e.preventDefault();
               setOpenDropdown(null);
-              if (onSearch) {
-                onSearch({
-                  location: searchLocation,
-                  bhk: searchBhk,
-                  budget: searchBudget,
-                  type: searchType,
-                });
+
+              const hasLocation = Boolean(searchLocation && searchLocation.trim() && searchLocation !== 'All');
+              const hasBhk = Boolean(searchBhk && searchBhk !== 'Any');
+              const hasBudget = searchBudgetSlider < 60;
+              const hasType = Boolean(searchType && searchType !== 'Any');
+
+              // If a user does not put any filter and simply just clicks, redirect to the BUY page
+              if (!hasLocation && !hasBhk && !hasBudget && !hasType) {
+                router.push('/properties?tab=buy');
+                return;
               }
-              const el = document.getElementById('properties');
-              if (el) {
-                el.scrollIntoView({ behavior: 'smooth' });
-              }
+
+              const params = new URLSearchParams();
+              params.set('tab', 'buy');
+              if (hasLocation) params.set('location', searchLocation.trim());
+              if (hasBhk) params.set('bhk', searchBhk);
+              if (hasBudget) params.set('maxPrice', searchBudgetSlider.toString());
+              if (hasType) params.set('type', searchType);
+              router.push(`/properties?${params.toString()}`);
             }}
             className="bg-black/35 hover:bg-black/45 backdrop-blur-xl border border-white/20 hover:border-white/35 shadow-[0_20px_50px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.12)] p-2 sm:p-2.5 transition-all duration-300"
           >
@@ -414,66 +423,32 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({ onUnlockStateChange,
                 )}
               </div>
 
-              {/* 3. Budget (Custom Padded Dropdown) */}
-              <div className="hero-dropdown-container lg:col-span-3 px-3.5 py-2.5 hover:bg-white/[0.06] transition-colors relative group">
-                <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 mb-1 font-sans">
-                  <IndianRupee className="w-3.5 h-3.5 text-[#C5282F]" />
-                  <span>Budget</span>
-                </label>
-                <button
-                  type="button"
-                  onClick={() => setOpenDropdown(openDropdown === 'budget' ? null : 'budget')}
-                  className="w-full bg-transparent text-sm font-medium text-white outline-none flex items-center justify-between cursor-pointer font-sans text-left"
-                >
-                  <span className="truncate">
-                    {searchBudget === 'Any'
-                      ? 'Any Budget'
-                      : searchBudget === 'Under 20'
-                      ? 'Under ₹20 Cr'
-                      : searchBudget === '20-35'
-                      ? '₹20 - ₹35 Cr'
-                      : searchBudget === '35-50'
-                      ? '₹35 - ₹50 Cr'
-                      : '₹50 Cr+ (Ultra)'}
+              {/* 3. Budget (Range Slider 3 Cr to 60 Cr) */}
+              <div className="hero-dropdown-container lg:col-span-3 px-3.5 py-2 hover:bg-white/[0.06] transition-colors relative group">
+                <div className="flex items-center justify-between mb-1">
+                  <label className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] font-bold text-white/70 font-sans">
+                    <IndianRupee className="w-3.5 h-3.5 text-[#C5282F]" />
+                    <span>Max Budget</span>
+                  </label>
+                  <span className="text-xs font-serif font-bold text-[#C5282F]">
+                    {searchBudgetSlider >= 60 ? '₹60 Cr+' : `Up to ₹${searchBudgetSlider} Cr`}
                   </span>
-                  <ChevronDown className={`w-3.5 h-3.5 text-white/70 transition-transform duration-200 ${openDropdown === 'budget' ? 'rotate-180 text-[#C5282F]' : ''}`} />
-                </button>
-
-                {openDropdown === 'budget' && (
-                  <div
-                    style={{ backgroundColor: '#16181C' }}
-                    className="absolute top-[calc(100%+8px)] left-0 min-w-[280px] sm:min-w-[300px] bg-[#16181C] border border-white/25 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(0,0,0,0.8)] p-3 z-50 rounded-sm"
-                  >
-                    <div className="px-3.5 pt-1 pb-2.5 text-[10px] uppercase tracking-[0.25em] text-white/50 font-bold border-b border-white/10 mb-2 flex items-center justify-between">
-                      <span>Capital Allocation</span>
-                      <span className="text-[9px] text-[#C5282F] font-semibold">INR (Cr)</span>
-                    </div>
-                    {[
-                      { label: 'Any Budget', val: 'Any' },
-                      { label: 'Under ₹20 Cr', val: 'Under 20' },
-                      { label: '₹20 Cr – ₹35 Cr', val: '20-35' },
-                      { label: '₹35 Cr – ₹50 Cr', val: '35-50' },
-                      { label: '₹50 Cr+ (Ultra Trophy)', val: '50+' },
-                    ].map((opt) => (
-                      <button
-                        key={opt.val}
-                        type="button"
-                        onClick={() => {
-                          setSearchBudget(opt.val);
-                          setOpenDropdown(null);
-                        }}
-                        className={`w-full text-left px-4 py-3 sm:py-3.5 text-xs sm:text-[13px] tracking-wide transition-all duration-200 flex items-center justify-between cursor-pointer rounded-xs ${
-                          searchBudget === opt.val
-                            ? 'bg-[#C5282F] text-white font-semibold shadow-md'
-                            : 'text-white/90 hover:bg-white/10 hover:text-white hover:pl-5'
-                        }`}
-                      >
-                        <span>{opt.label}</span>
-                        {searchBudget === opt.val && <Check className="w-4 h-4 text-white stroke-[2.5]" />}
-                      </button>
-                    ))}
+                </div>
+                <div className="pt-1">
+                  <input
+                    type="range"
+                    min="3"
+                    max="60"
+                    step="1"
+                    value={searchBudgetSlider}
+                    onChange={(e) => setSearchBudgetSlider(Number(e.target.value))}
+                    className="w-full h-1.5 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#C5282F]"
+                  />
+                  <div className="flex justify-between text-[9px] text-white/50 mt-1 font-mono">
+                    <span>₹3 Cr</span>
+                    <span>₹60 Cr</span>
                   </div>
-                )}
+                </div>
               </div>
 
               {/* 4. Type (Custom Padded Dropdown) */}

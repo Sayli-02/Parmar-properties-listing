@@ -210,9 +210,11 @@ export default function MarketIntelligencePage() {
                   </div>
 
                   {/* Title in strong bold styling */}
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#15181A] tracking-tight mb-3 leading-snug group-hover:text-[#C5282F] transition-colors">
-                    {insight.title}
-                  </h2>
+                  <Link href={`/market-intelligence/${insight.id}`}>
+                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#15181A] tracking-tight mb-3 leading-snug hover:text-[#C5282F] transition-colors cursor-pointer">
+                      {insight.title}
+                    </h2>
+                  </Link>
 
                   {/* Contextual Description */}
                   <p className="text-xs sm:text-[13px] text-[#5B605F] leading-relaxed font-sans mb-6">
@@ -235,14 +237,13 @@ export default function MarketIntelligencePage() {
                   <span className="text-[10px] uppercase tracking-wider font-semibold text-[#5B605F]">
                     {insight.readTime}
                   </span>
-                  <button
-                    type="button"
-                    onClick={() => setActiveModalInsight(insight)}
+                  <Link
+                    href={`/market-intelligence/${insight.id}`}
                     className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#15181A] hover:bg-[#C5282F] text-white text-[11px] uppercase tracking-wider font-semibold transition-colors cursor-pointer"
                   >
-                    <span>Read Advisory</span>
+                    <span>Read Detailed Article</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </ScrollReveal>

@@ -8,9 +8,12 @@ export type MumbaiLocality =
   | 'Khar West'
   | 'Malabar Hill'
   | 'Cuffe Parade'
-  | 'BKC';
+  | 'BKC'
+  | 'Sewri';
 
 export type PropertyType = 'Penthouse' | 'Sea-Facing Apartment' | 'Duplex' | 'Sky Villa' | 'Luxury Estate';
+
+export type PropertyCategory = 'buy' | 'new-launches' | 'luxury-collection';
 
 export interface Property {
   id: string;
@@ -25,12 +28,16 @@ export interface Property {
   carpetArea: number; // in sq ft
   superArea: number; // in sq ft
   propertyType: PropertyType;
-  possession: 'Ready to Move' | 'Under Construction' | 'Immediate';
+  possession: 'Ready to Move' | 'Under Construction' | 'Immediate' | 'Pre-Launch';
   possessionDate?: string;
   floor: string;
   featured: boolean;
   recentlyAdded: boolean;
   recommended: boolean;
+  isNewLaunch?: boolean;
+  isLuxuryCollection?: boolean;
+  launchPhase?: 'Pre-Launch EOI' | 'New Launch' | 'Under Construction' | 'Ready Possession';
+  completionYear?: string;
   images: string[];
   coverImage: string;
   amenities: string[];

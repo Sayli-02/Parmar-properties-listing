@@ -41,11 +41,21 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
         )}
 
         {/* Top Badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
           <span className="px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] font-medium bg-[#15181A] text-white">
             {property.propertyType}
           </span>
-          {property.featured && (
+          {property.isNewLaunch && (
+            <span className="px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] font-bold bg-[#393187] text-white">
+              {property.launchPhase || 'New Launch'}
+            </span>
+          )}
+          {property.isLuxuryCollection && (
+            <span className="px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] font-bold bg-[#A37B30] text-white">
+              Luxury Collection
+            </span>
+          )}
+          {property.featured && !property.isLuxuryCollection && !property.isNewLaunch && (
             <span className="px-2.5 py-1 text-[10px] uppercase tracking-[0.15em] font-medium bg-[#C5282F] text-white">
               Prime
             </span>
