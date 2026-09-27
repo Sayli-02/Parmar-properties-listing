@@ -1,6 +1,20 @@
 import { Property } from '@/types/property';
 
 export const PROPERTIES: Property[] = [
+  // ============================================================================
+  // 🌟 [SECTION 1: FEATURED PROPERTIES SHOWCASE]
+  // ----------------------------------------------------------------------------
+  // The first 6 properties below are showcased on the HOME PAGE in the
+  // "FEATURED PROPERTIES" 3-column grid, and also appear on the BUY PAGE (/properties?tab=buy).
+  // ============================================================================
+
+  // ----------------------------------------------------------------------------
+  // [FEATURED PROPERTY 1 of 6]
+  // 📍 LISTED ON:
+  //    • HOME PAGE (Featured Properties Section - Card 1)
+  //    • BUY PAGE (/properties?tab=buy)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-1',
     slug: 'the-aurum-sea-residence-worli',
@@ -36,6 +50,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Guest & Family Quarters', area: '1,650 sq.ft', description: '3 en-suite bedrooms with Italian walk-in wardrobes.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [FEATURED PROPERTY 2 of 6]
+  // 📍 LISTED ON:
+  //    • HOME PAGE (Featured Properties Section - Card 2)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-2',
     slug: 'palisades-crest-bandra-west',
@@ -52,7 +73,7 @@ export const PROPERTIES: Property[] = [
     possession: 'Ready to Move',
     floor: '12th Floor of 18',
     featured: true,
-    recentlyAdded: true,
+    recentlyAdded: false,
     recommended: true,
     coverImage: '/properties/bandra-palisades/cover.jpg',
     images: [
@@ -70,6 +91,14 @@ export const PROPERTIES: Property[] = [
       { title: 'Floor Plan', area: '950 sq.ft', description: 'Master sanctum with private leafy balcony.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [FEATURED PROPERTY 3 of 6]
+  // 📍 LISTED ON:
+  //    • HOME PAGE (Featured Properties Section - Card 3)
+  //    • BUY PAGE (/properties?tab=buy)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-3',
     slug: 'solitaire-manor-juhu',
@@ -95,8 +124,8 @@ export const PROPERTIES: Property[] = [
       '/hero/hero-3-crisp.jpg',
       '/hero/hero-1-crisp.jpg',
     ],
-    amenities: ['Rooftop Deck & Jacuzzi', 'Private Helipad Access', 'Designer Modular Kitchen', 'Butler Quarters', 'Steam & Sauna', 'Acoustic Soundproofing'],
-    description: 'A trophy penthouse resting atop Juhu Tara Road. Featuring wraparound sundecks, sunset vistas over the Arabian coastline, and lavish entertaining spaces.',
+    amenities: ['Private Rooftop Observatory', 'Direct Beach Access Path', 'Heated Jacuzzi Spa', 'Italian Designer Kitchen', 'High-Speed Private Lift', 'Valet Parking for 3 Cars'],
+    description: 'Directly overlooking the sands of Juhu Beach. Solitaire Manor occupies the entire top level, offering an exclusive rooftop terrace with unbroken sea views and a private jacuzzi under the stars.',
     highlights: ['Exclusive single-residence floor', 'Private beach access gate', 'Private rooftop observatory'],
     reraId: 'P51800021940',
     coordinates: { lat: 19.0988, lng: 72.8264 },
@@ -105,6 +134,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Private Sky Observatory', area: '800 sq.ft', description: 'Open-air lounge with jacuzzi and direct beach horizon.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [FEATURED PROPERTY 4 of 6]
+  // 📍 LISTED ON:
+  //    • HOME PAGE (Featured Properties Section - Card 4)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-4',
     slug: 'the-pavilion-sky-villas-lower-parel',
@@ -138,6 +174,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Panoramic Sky Residence', area: '2,900 sq.ft', description: 'Double-height living pavilion with city skyline vistas.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [FEATURED PROPERTY 5 of 6]
+  // 📍 LISTED ON:
+  //    • HOME PAGE (Featured Properties Section - Card 5)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-5',
     slug: 'verve-belvedere-prabhadevi',
@@ -171,6 +214,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Full Floor Suite', area: '2,600 sq.ft', description: 'Vastu-aligned 3 BHK layout with unobstructed coastal horizon.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [FEATURED PROPERTY 6 of 6]
+  // 📍 LISTED ON:
+  //    • HOME PAGE (Featured Properties Section - Card 6)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-6',
     slug: 'lake-panache-estates-powai',
@@ -185,10 +235,10 @@ export const PROPERTIES: Property[] = [
     superArea: 3600,
     propertyType: 'Duplex',
     possession: 'Ready to Move',
-    floor: '22nd & 23rd Floor Duplex',
+    floor: '22nd & 23rd Duplex',
     featured: false,
     recentlyAdded: false,
-    recommended: true,
+    recommended: false,
     coverImage: '/properties/powai-lake/cover.jpg',
     images: [
       '/properties/powai-lake/cover.jpg',
@@ -205,6 +255,21 @@ export const PROPERTIES: Property[] = [
       { title: 'Upper Duplex Level', area: '1,200 sq.ft', description: 'Three private ensuite bedrooms with lakeview balconies.' },
     ],
   },
+
+  // ============================================================================
+  // 🏢 [SECTION 2: BUY RESIDENCES PORTFOLIO]
+  // ----------------------------------------------------------------------------
+  // The properties below appear on the BUY PAGE (/properties?tab=buy)
+  // and in the Locations directory (/locations).
+  // Properties with `isLuxuryCollection: true` also appear on the LUXURY COLLECTION page.
+  // ============================================================================
+
+  // ----------------------------------------------------------------------------
+  // [BUY RESIDENCE 7]
+  // 📍 LISTED ON:
+  //    • BUY PAGE (/properties?tab=buy)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-7',
     slug: 'malabar-crest-governor-hill',
@@ -239,6 +304,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Grand Penthouse Level', area: '4,600 sq.ft', description: 'Five presidential master suites, 360-degree glass gallery, and banquet room.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [BUY RESIDENCE 8]
+  // 📍 LISTED ON:
+  //    • BUY PAGE (/properties?tab=buy)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-8',
     slug: 'cuffe-parade-regalia',
@@ -261,18 +333,24 @@ export const PROPERTIES: Property[] = [
     coverImage: '/properties/bandra-palisades/cover.jpg',
     images: [
       '/properties/bandra-palisades/cover.jpg',
+      '/hero/hero-3-crisp.jpg',
       '/hero/hero-2-crisp.jpg',
-      '/hero/hero-1-crisp.jpg',
     ],
-    amenities: ['Private Yacht Berth Access', 'Sea-Facing Master Bath', 'Infinity Pool', 'Bespoke Wine Cellar', '24/7 Butler Service'],
-    description: 'Commanding southern ocean breezes and quiet leafy promenades, this Cuffe Parade residence combines vintage Bombay grandeur with cutting-edge bespoke amenities.',
-    highlights: ['Direct view of Mumbai harbor & lighthouse', 'Exclusive 2 units per floor', 'Private marina privileges'],
+    amenities: ['Deep Sea Facing Balconies', 'Private Foyer Elevators', 'Indoor Temperature Controlled Pool', '24/7 Diplomatic Security Desk', 'Resident Wine Lounge'],
+    description: 'Commanding front-line sea frontage at the southern tip of Mumbai. Elegant maritime architecture with wraparound glass balustrades framing sweeping vistas of ocean vessels and coastal sunsets.',
+    highlights: ['Front-line Arabian Sea frontage', 'Walkable to Colaba clubs and art district', 'Ultra-low density community'],
     reraId: 'P51900019940',
     coordinates: { lat: 18.9100, lng: 72.8200 },
     floorPlans: [
       { title: 'Waterfront Living Suite', area: '3,500 sq.ft', description: 'Oceanfront master suite with dual dressing rooms and terrace.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [BUY RESIDENCE 9]
+  // 📍 LISTED ON:
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-9',
     slug: 'khar-west-bel-air',
@@ -306,6 +384,12 @@ export const PROPERTIES: Property[] = [
       { title: 'Boutique Residence', area: '2,150 sq.ft', description: 'Clean open-plan entertaining pavilion and three generous bedrooms.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [BUY RESIDENCE 10]
+  // 📍 LISTED ON:
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-10',
     slug: 'bkc-one-signature-suites',
@@ -339,6 +423,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Executive Suite', area: '2,300 sq.ft', description: 'Sprawling master bedroom with office study and private terrace.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [BUY RESIDENCE 11]
+  // 📍 LISTED ON:
+  //    • BUY PAGE (/properties?tab=buy)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-11',
     slug: 'worli-sea-breeze-pavilion',
@@ -373,6 +464,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Dual Aspect Grand Villa', area: '3,100 sq.ft', description: 'Wraparound glass walls with dual views of sea and racecourse.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [BUY RESIDENCE 12]
+  // 📍 LISTED ON:
+  //    • BUY PAGE (/properties?tab=buy)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-12',
     slug: 'juhu-coastal-villa-estates',
@@ -409,7 +507,21 @@ export const PROPERTIES: Property[] = [
       { title: 'Top Floor Master Penthouse', area: '1,300 sq.ft', description: 'Presidential suite with open sky terrace and private gym.' },
     ],
   },
-  // Dedicated NEW LAUNCHES
+
+  // ============================================================================
+  // 🚀 [SECTION 3: NEW LAUNCHES & PRE-LAUNCH OPPORTUNITIES]
+  // ----------------------------------------------------------------------------
+  // The properties below appear on the NEW LAUNCHES page (/properties?tab=new-launches)
+  // and also on the BUY page (/properties?tab=buy).
+  // Properties with `isLuxuryCollection: true` also appear on the LUXURY COLLECTION page.
+  // ============================================================================
+
+  // ----------------------------------------------------------------------------
+  // [NEW LAUNCH PROPERTY 1 of 4]
+  // 📍 LISTED ON:
+  //    • NEW LAUNCHES PAGE (/properties?tab=new-launches)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-13',
     slug: 'lumina-marina-bay-worli',
@@ -447,6 +559,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Pre-Launch 3 BHK Suite', area: '2,250 sq.ft', description: 'Generous oceanfront living pavilion and 3 en-suite bedrooms.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [NEW LAUNCH PROPERTY 2 of 4]
+  // 📍 LISTED ON:
+  //    • NEW LAUNCHES PAGE (/properties?tab=new-launches)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-14',
     slug: 'mirador-sky-mansions-bandra',
@@ -484,6 +603,13 @@ export const PROPERTIES: Property[] = [
       { title: 'Full Floor Mansion', area: '2,750 sq.ft', description: 'Single-residence floorplate with 360-degree canopy cross ventilation.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [NEW LAUNCH PROPERTY 3 of 4]
+  // 📍 LISTED ON:
+  //    • NEW LAUNCHES PAGE (/properties?tab=new-launches)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-15',
     slug: 'one-bayview-towers-sewri',
@@ -521,6 +647,14 @@ export const PROPERTIES: Property[] = [
       { title: 'Bayview 3 BHK', area: '1,950 sq.ft', description: 'Optimized coastal layout with sunrise bay balcony.' },
     ],
   },
+
+  // ----------------------------------------------------------------------------
+  // [NEW LAUNCH PROPERTY 4 of 4]
+  // 📍 LISTED ON:
+  //    • NEW LAUNCHES PAGE (/properties?tab=new-launches)
+  //    • LUXURY COLLECTION PAGE (/properties?tab=luxury-collection)
+  //    • BUY PAGE (/properties?tab=buy)
+  // ----------------------------------------------------------------------------
   {
     id: 'prop-16',
     slug: 'the-reserve-at-malabar',
