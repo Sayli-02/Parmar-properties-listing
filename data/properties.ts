@@ -44,7 +44,7 @@ export const PROPERTIES: Property[] = [
     location: 'Bandra West',
     subLocation: 'Pali Hill, Bandra West',
     price: 24.0,
-    priceFormatted: '₹24.00 Cr',
+    priceFormatted: '₹35.00 Cr',
     bhk: '3 BHK',
     carpetArea: 2450,
     superArea: 3200,

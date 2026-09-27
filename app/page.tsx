@@ -14,7 +14,6 @@ import { MarketIntelligenceSection } from '@/components/home/MarketIntelligenceS
 import { WhyParmar } from '@/components/home/WhyParmar';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
-import { BossContentInspector } from '@/components/ui/BossContentInspector';
 import { PROPERTIES } from '@/data/properties';
 import { HOME_PAGE_CONTENT } from '@/data/content/home.content';
 
@@ -28,9 +27,6 @@ export default function HomePage() {
     <div className="w-full relative bg-[#EDEEE9] text-[#15181A] pt-20">
       {/* Scroll Progress Indicator */}
       <ScrollProgressBar />
-
-      {/* Floating Boss / Content Editor Visual Map Helper */}
-      <BossContentInspector />
 
       {/* 1. HERO SECTION & SEARCH CONSOLE */}
       <div id="hero">
