@@ -122,7 +122,11 @@ export interface HomePageContent {
         unlimitedLabel: string;
         currencySymbol: string;
       };
-      categoryFilter: {
+      categoryFilter?: {
+        label: string;
+        options: Array<{ label: string; value: string }>;
+      };
+      statusFilter?: {
         label: string;
         options: Array<{ label: string; value: string }>;
       };
@@ -322,14 +326,23 @@ export const HOME_PAGE_CONTENT: HomePageContent = {
         currencySymbol: "₹",
       },
       categoryFilter: {
-        label: "Category",
+        label: "Construction Status",
         options: [
-          { label: "All Categories", value: "Any" },
-          { label: "Sea-Facing Apartment", value: "Sea-Facing Apartment" },
-          { label: "Penthouse", value: "Penthouse" },
-          { label: "Sky Villa", value: "Sky Villa" },
-          { label: "Duplex", value: "Duplex" },
-          { label: "Luxury Estate", value: "Luxury Estate" },
+          { label: "All Status", value: "All" },
+          { label: "Resale", value: "Resale" },
+          { label: "Pre Launch", value: "Pre Launch" },
+          { label: "Under Construction", value: "Under Construction" },
+          { label: "Ready to Move In", value: "Ready to Move In" },
+        ],
+      },
+      statusFilter: {
+        label: "Construction Status",
+        options: [
+          { label: "All Status", value: "All" },
+          { label: "Resale", value: "Resale" },
+          { label: "Pre Launch", value: "Pre Launch" },
+          { label: "Under Construction", value: "Under Construction" },
+          { label: "Ready to Move In", value: "Ready to Move In" },
         ],
       },
       submitButton: {

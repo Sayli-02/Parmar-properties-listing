@@ -64,7 +64,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
 
         {/* Bottom Left Price Badge (matching reference mockup: From ₹X Cr on Ink black) */}
         <div className="absolute bottom-0 left-0 bg-[#15181A] text-white px-3.5 py-1.5 z-10">
-          <span className="font-serif text-xs sm:text-sm font-medium tracking-wide">
+          <span className="font-sans text-xs sm:text-sm font-bold tracking-wide">
             {property.priceFormatted}
           </span>
         </div>
@@ -78,7 +78,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ property }) => {
             <span>{property.subLocation}</span>
           </div>
 
-          <h3 className="font-serif text-xl font-normal text-[#15181A] group-hover:text-[#C5282F] transition-colors line-clamp-1 mb-2">
+          <h3 className="font-sans text-lg sm:text-xl font-bold tracking-tight text-[#15181A] group-hover:text-[#C5282F] transition-colors line-clamp-1 mb-2">
             {property.title}
           </h3>
 

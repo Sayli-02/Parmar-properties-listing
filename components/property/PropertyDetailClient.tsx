@@ -50,6 +50,8 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [activeFloorPlan, setActiveFloorPlan] = useState(0);
+  const [floorPlanTab, setFloorPlanTab] = useState<'master' | 'floor' | 'individual'>('floor');
+  const [selectedLayoutVariant, setSelectedLayoutVariant] = useState<'2bhk' | '3bhk' | '4bhk' | '5bhk'>('3bhk');
   const [enquirySubmitted, setEnquirySubmitted] = useState(false);
 
   // Lead Generation Gate Modal State
@@ -75,7 +77,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
     name: '',
     phone: '',
     email: '',
-    message: `I am interested in arranging a private viewing for ${property.title} (${property.bhk} - ${property.priceFormatted}).`,
+    message: `I am interested in arranging a private viewing for ${property.title} (${property.bhk} - ${property.priceFormatted} + charges).`,
   });
 
   // Stores
@@ -104,6 +106,51 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
   ).slice(0, 3);
 
   const images = property.images && property.images.length > 0 ? property.images : [property.coverImage];
+
+  const layoutVariants = [
+    {
+      id: '2bhk',
+      tabLabel: '2 BHK',
+      title: '2 BHK Luxury Residence',
+      area: '850 – 1,020 sq.ft',
+      carpetArea: '1,020 Sq.Ft',
+      price: '₹3.85 Cr – ₹4.50 Cr',
+      tower: 'Mid-Rise Tower (Levels 4–18)',
+      image: '/floorplans/plan-2bhk.jpg',
+    },
+    {
+      id: '3bhk',
+      tabLabel: '3 BHK',
+      title: `3 BHK Grande (${property.bhk})`,
+      area: `${property.carpetArea} sq.ft`,
+      carpetArea: `${property.carpetArea} Sq.Ft`,
+      price: `${property.priceFormatted}`,
+      tower: 'Prime Wing (Levels 15–35)',
+      image: '/floorplans/unit-plan.jpg',
+    },
+    {
+      id: '4bhk',
+      tabLabel: '4 BHK',
+      title: '4 BHK Sky Suite',
+      area: '2,200 – 2,850 sq.ft',
+      carpetArea: '2,450 Sq.Ft',
+      price: '₹9.50 Cr – ₹14.00 Cr',
+      tower: 'Skyline Wing (Levels 30–50)',
+      image: '/floorplans/floor-plate.jpg',
+    },
+    {
+      id: '5bhk',
+      tabLabel: '5 BHK Penthouse',
+      title: '5 BHK Sky Mansion / Duplex',
+      area: '3,800 – 5,200 sq.ft',
+      carpetArea: '4,200 Sq.Ft',
+      price: 'Price on Request',
+      tower: 'Penthouse Crown (Top Floors)',
+      image: '/floorplans/master-plan.jpg',
+    },
+  ];
+
+  const currentVariant = layoutVariants.find((v) => v.id === selectedLayoutVariant) || layoutVariants[1];
 
   // Touch swipe gestures for Lightbox
   const lightboxTouchStartX = useRef<number | null>(null);
@@ -222,10 +269,10 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
         <div className="flex flex-wrap items-center gap-4 lg:text-right">
           <div>
             <span className="text-xs uppercase tracking-wider text-[#5B605F] block font-medium mb-0.5">
-              Investment Offering
+              Price Range
             </span>
-            <span className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-[#15181A]">
-              {property.priceFormatted}
+            <span className="font-sans text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#15181A]">
+              {`₹${property.price.toFixed(2)} Cr – ₹${(property.price * 1.25).toFixed(2)} Cr`}
             </span>
           </div>
 
@@ -288,49 +335,76 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
         </div>
       </div>
 
-      {/* Specifications Bar */}
+      {/* Configuration & Variants Table */}
       <ScrollReveal animation="fade-up">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-[#F7F7F4] border border-[#CFD1CA] mb-12 shadow-xs">
-          <div>
-            <span className="text-xs uppercase tracking-wider text-[#5B605F] block mb-1 font-medium">Configuration</span>
-            <div className="flex items-center gap-2">
-              <BedDouble className="w-4 h-4 text-[#C5282F]" />
-              <span className="text-lg font-bold tracking-tight text-[#15181A]">{property.bhk}</span>
+        <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 sm:p-8 mb-12 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#CFD1CA] pb-4 mb-6">
+            <div>
+              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] block mb-1">
+                Unit Typologies &amp; Floor Elevation Options
+              </span>
+              <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
+                Configuration Matrix &amp; Details
+              </h2>
             </div>
+            <span className="text-xs text-[#5B605F] font-medium">
+              All prices subject to floor rise + charges
+            </span>
           </div>
-          <div>
-            <span className="text-xs uppercase tracking-wider text-[#5B605F] block mb-1 font-medium">Carpet Area</span>
-            <div className="flex items-center gap-2">
-              <Maximize2 className="w-4 h-4 text-[#C5282F]" />
-              <span className="text-lg font-bold tracking-tight text-[#15181A]">{property.carpetArea} sq.ft</span>
-            </div>
-          </div>
-          <div>
-            <span className="text-xs uppercase tracking-wider text-[#5B605F] block mb-1 font-medium">Possession</span>
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#C5282F]" />
-              <span className="text-lg font-bold tracking-tight text-[#15181A]">{property.possession}</span>
-            </div>
-          </div>
-          <div>
-            <span className="text-xs uppercase tracking-wider text-[#5B605F] block mb-1 font-medium">Pricing Schedule</span>
-            <div className="flex items-center">
-              <button
-                type="button"
-                onClick={() =>
-                  openLeadGate(
-                    'Detailed Price Breakdown',
-                    'Register your mobile number to unlock the official price breakdown, payment schedule & government levies for ' + property.title,
-                    'Price Sheet',
-                    'price-breakdown'
-                  )
-                }
-                className="mt-0.5 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-wider font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
-              >
-                <IndianRupee className="w-3.5 h-3.5" />
-                <span>Price Breakdown</span>
-              </button>
-            </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-[#CFD1CA] bg-[#EDEEE9] text-[11px] uppercase tracking-wider text-[#5B605F] font-semibold">
+                  <th className="py-3.5 px-4">Typology / Variant</th>
+                  <th className="py-3.5 px-4">Carpet Area</th>
+                  <th className="py-3.5 px-4">Price Range (+ Charges)</th>
+                  <th className="py-3.5 px-4">Tower / Elevation</th>
+                  <th className="py-3.5 px-4 text-right">Pricing Schedule</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#CFD1CA]">
+                {layoutVariants.map((variant) => (
+                  <tr key={variant.id} className="hover:bg-white/80 transition-colors">
+                    <td className="py-4 px-4 font-bold text-[#15181A]">
+                      <div className="flex items-center gap-2">
+                        <BedDouble className="w-4 h-4 text-[#C5282F] shrink-0" />
+                        <span>{variant.title}</span>
+                      </div>
+                    </td>
+                    <td className="py-4 px-4 text-[#5B605F] font-medium font-mono">
+                      {variant.area}
+                    </td>
+                    <td className="py-4 px-4 font-bold text-[#15181A]">
+                      <span>{variant.price} + charges</span>
+                    </td>
+                    <td className="py-4 px-4 text-[#5B605F]">
+                      <span className="inline-flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        {variant.tower}
+                      </span>
+                    </td>
+                    <td className="py-4 px-4 text-right">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          openLeadGate(
+                            `Detailed Price Breakdown - ${variant.title}`,
+                            `Register your mobile number to unlock the official price breakdown, payment schedule & government levies for ${variant.title} at ${property.title}.`,
+                            `${variant.tabLabel} Price Breakdown`,
+                            'price-breakdown'
+                          )
+                        }
+                        className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:px-4 sm:py-2.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-[11px] uppercase tracking-wider font-extrabold transition-all shadow-sm hover:shadow-md cursor-pointer active:scale-95 border border-[#A31D23]"
+                      >
+                        <IndianRupee className="w-3.5 h-3.5 stroke-[2.5]" />
+                        <span>PRICE BREAKDOWN</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </ScrollReveal>
@@ -345,20 +419,27 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                 <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
                   Project Overview
                 </h2>
-                <button
-                  onClick={() =>
-                    openLeadGate(
-                      'Download Full Brochure & Specifications',
-                      'Please register with your name and mobile number to receive the comprehensive PDF brochure with architectural specifications.',
-                      'Brochure Download',
-                      'brochure'
-                    )
-                  }
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#EDEEE9] hover:bg-[#CFD1CA] text-[#15181A] text-xs uppercase tracking-wider font-semibold border border-[#CFD1CA] transition-colors cursor-pointer"
-                >
-                  <Download className="w-3.5 h-3.5 text-[#C5282F]" />
-                  <span>Download Brochure</span>
-                </button>
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-[#CFD1CA] text-xs font-semibold text-[#15181A]">
+                    <Calendar className="w-3.5 h-3.5 text-[#C5282F]" />
+                    <span>Construction Status:</span>
+                    <span className="text-[#C5282F] font-bold">{property.possession}</span>
+                  </div>
+                  <button
+                    onClick={() =>
+                      openLeadGate(
+                        'Download Full Brochure & Specifications',
+                        'Please register with your name and mobile number to receive the comprehensive PDF brochure with architectural specifications.',
+                        'Brochure Download',
+                        'brochure'
+                      )
+                    }
+                    className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#EDEEE9] hover:bg-[#CFD1CA] text-[#15181A] text-xs uppercase tracking-wider font-semibold border border-[#CFD1CA] transition-colors cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5 text-[#C5282F]" />
+                    <span>Download Brochure</span>
+                  </button>
+                </div>
               </div>
 
               <p className="text-sm sm:text-base text-[#5B605F] leading-relaxed font-sans">
@@ -402,9 +483,9 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                   </div>
 
                   <div className="sm:text-right sm:border-l sm:border-[#CFD1CA] sm:pl-5 shrink-0">
-                    <span className="text-[10px] uppercase tracking-wider text-[#5B605F] block font-medium">Status</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#5B605F] block font-medium">Construction Status</span>
                     <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 border border-emerald-200 mt-1">
-                      <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Approved
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600" /> {property.possession}
                     </span>
                   </div>
                 </div>
@@ -413,194 +494,215 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
           </ScrollReveal>
 
           {/* Gated Floor Plans Section */}
-          {property.floorPlans && property.floorPlans.length > 0 && (
-            <ScrollReveal animation="fade-up" delay={100}>
-              <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 sm:p-8">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-                  <div>
-                    <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
-                      Floor Plan
-                    </h2>
-                    <p className="text-xs text-[#5B605F] mt-1">
-                      Official structural master layout & unit floor plate
-                    </p>
-                  </div>
-
-                  {!isVerifiedLead && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#15181A] text-white text-[11px] uppercase tracking-wider font-medium">
-                      <Lock className="w-3 h-3 text-[#C5282F]" />
-                      <span>Registration Required</span>
-                    </span>
-                  )}
+          <ScrollReveal animation="fade-up" delay={100}>
+            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                <div>
+                  <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
+                    Floor Plan
+                  </h2>
+                  <p className="text-xs text-[#5B605F] mt-1">
+                    Official architectural layouts, structural floor plates &amp; unit blueprints
+                  </p>
                 </div>
 
-                {/* Floor Plan Tabs */}
-                <div className="flex gap-2 mb-6 border-b border-[#CFD1CA] pb-3 overflow-x-auto">
-                  {property.floorPlans.map((plan, idx) => (
+                {!isVerifiedLead && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#15181A] text-white text-[11px] uppercase tracking-wider font-medium">
+                    <Lock className="w-3 h-3 text-[#C5282F]" />
+                    <span>Registration Required</span>
+                  </span>
+                )}
+              </div>
+
+              {/* 3 Floor Plan Tabs: Master Plan, Floor Plan, Individual Layout */}
+              <div className="flex gap-2 mb-4 border-b border-[#CFD1CA] pb-3 overflow-x-auto">
+                {[
+                  { id: 'master', label: 'Master Plan' },
+                  { id: 'floor', label: 'Floor Plan' },
+                  { id: 'individual', label: 'Individual Layout' },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setFloorPlanTab(tab.id as 'master' | 'floor' | 'individual')}
+                    className={`px-5 py-2.5 text-xs uppercase tracking-wider font-bold transition-all shrink-0 cursor-pointer ${
+                      floorPlanTab === tab.id
+                        ? 'bg-[#C5282F] text-white shadow-xs'
+                        : 'bg-[#EDEEE9] text-[#5B605F] hover:text-[#15181A] hover:bg-[#CFD1CA]/60'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Sub-variants for Individual Layout */}
+              {floorPlanTab === 'individual' && (
+                <div className="flex flex-wrap items-center gap-2 mb-5 p-2.5 bg-[#EDEEE9] border border-[#CFD1CA]">
+                  <span className="text-[10px] sm:text-[11px] font-bold text-[#5B605F] uppercase tracking-wider mr-1 sm:mr-2">
+                    Select Typology:
+                  </span>
+                  {layoutVariants.map((variant) => (
                     <button
-                      key={idx}
-                      onClick={() => {
-                        if (!isVerifiedLead) {
-                          openLeadGate(
-                            'Unlock Full Architectural Floor Plans',
-                            'Please register with your name and mobile number to unlock CAD blueprints, room dimensions, and carpet measurements.',
-                            'Floor Plans Gate',
-                            'floorplan'
-                          );
-                        } else {
-                          setActiveFloorPlan(idx);
-                        }
-                      }}
-                      className={`px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-colors shrink-0 cursor-pointer ${
-                        activeFloorPlan === idx
-                          ? 'bg-[#C5282F] text-white'
-                          : 'bg-[#EDEEE9] text-[#5B605F] hover:text-[#15181A]'
+                      key={variant.id}
+                      type="button"
+                      onClick={() => setSelectedLayoutVariant(variant.id as any)}
+                      className={`px-3 sm:px-3.5 py-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                        selectedLayoutVariant === variant.id
+                          ? 'bg-[#15181A] text-white shadow-xs'
+                          : 'bg-white text-[#5B605F] hover:text-[#15181A] border border-[#CFD1CA]'
                       }`}
                     >
-                      {plan.title}
+                      <span>{variant.tabLabel}</span>
+                      <span className="opacity-75 font-normal ml-1">({variant.carpetArea})</span>
                     </button>
                   ))}
                 </div>
+              )}
 
-                {/* Floor Plan Blueprint Preview (Gated for Lead Generation) */}
-                <div className="relative overflow-hidden border border-[#CFD1CA] bg-[#15181A] min-h-[300px] flex items-center justify-center p-6 text-center">
-                  {/* Stylized Architectural Blueprint Background Grid */}
-                  <div
-                    className={`absolute inset-0 opacity-25 bg-[radial-gradient(#CFD1CA_1px,transparent_1px)] [background-size:16px_16px] ${
-                      !isVerifiedLead ? 'blur-xs' : ''
-                    }`}
-                  />
+              {/* Floor Plan Blueprint Preview with Authentic Architectural CAD Layout */}
+              <div className="relative overflow-hidden border border-[#CFD1CA] bg-[#121517] h-[400px] sm:h-[460px] flex items-center justify-center p-6 text-center select-none">
+                {/* Real Architectural CAD Floor Plan Blueprint Image with Blur */}
+                <Image
+                  src={
+                    floorPlanTab === 'master'
+                      ? '/floorplans/master-plan.jpg'
+                      : floorPlanTab === 'floor'
+                      ? '/floorplans/floor-plate.jpg'
+                      : currentVariant.image
+                  }
+                  alt={`${property.title} - ${floorPlanTab === 'individual' ? currentVariant.title : floorPlanTab}`}
+                  fill
+                  className="object-contain filter blur-[5px] scale-105 opacity-85 pointer-events-none select-none"
+                  priority
+                />
 
-                  {/* Blueprint Graphic Lines */}
-                  <div
-                    className={`absolute inset-4 sm:inset-8 border border-white/20 rounded-none pointer-events-none flex flex-col justify-between p-4 ${
-                      !isVerifiedLead ? 'blur-[3px]' : ''
-                    }`}
+                {/* Subtle dark backdrop overlay */}
+                <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px]" />
+
+                {/* Technical blueprint annotations */}
+                <div className="absolute top-4 left-4 z-10 bg-black/75 px-3 py-1 text-[10px] font-mono text-white/90 uppercase tracking-widest border border-white/20">
+                  {floorPlanTab === 'master'
+                    ? 'Master Layout // Sanctioned Site Blueprint'
+                    : floorPlanTab === 'floor'
+                    ? 'Floor Plate // Tower Cluster Schematic'
+                    : `Individual Unit Layout // ${currentVariant.title}`}
+                </div>
+
+                <div className="absolute top-4 right-4 z-10 bg-black/75 px-3 py-1 text-[10px] font-mono text-white/90 uppercase tracking-widest border border-white/20">
+                  {floorPlanTab === 'master'
+                    ? 'Total Master Plot'
+                    : floorPlanTab === 'floor'
+                    ? 'Typical Floor Plate'
+                    : `Carpet: ${currentVariant.carpetArea}`}
+                </div>
+
+                {/* Simple VIEW PLAN Button (Triggers OTP Modal) */}
+                <div className="relative z-10 flex flex-col items-center justify-center">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openLeadGate(
+                        `Unlock ${
+                          floorPlanTab === 'master'
+                            ? 'Master Plan'
+                            : floorPlanTab === 'floor'
+                            ? 'Floor Plan'
+                            : `${currentVariant.title} Floor Plan`
+                        }`,
+                        `Please verify your mobile number to unlock instant architectural blueprints and room-wise dimensional drawings for ${
+                          floorPlanTab === 'individual' ? currentVariant.title : property.title
+                        }.`,
+                        `${
+                          floorPlanTab === 'master'
+                            ? 'Master Plan Gate'
+                            : floorPlanTab === 'floor'
+                            ? 'Floor Plan Gate'
+                            : `${currentVariant.tabLabel} Gate`
+                        }`,
+                        'floorplan'
+                      )
+                    }
+                    className="px-8 py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs sm:text-sm uppercase tracking-widest font-extrabold transition-all duration-300 shadow-2xl hover:scale-105 flex items-center justify-center cursor-pointer active:scale-95 border-2 border-white/30"
                   >
-                    <div className="flex justify-between text-[10px] font-mono text-white/50">
-                      <span>DIM: 48&apos;-6&quot; × 32&apos;-0&quot;</span>
-                      <span>CARPET: {property.floorPlans[activeFloorPlan]?.area}</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 h-36 border border-dashed border-white/20 p-2">
-                      <div className="border border-white/15 flex items-center justify-center text-[10px] text-white/40">
-                        Master Suite
-                      </div>
-                      <div className="border border-white/15 col-span-2 flex items-center justify-center text-[10px] text-white/40">
-                        Grand Living & Sea-Facing Deck
-                      </div>
-                    </div>
-                    <div className="flex justify-between text-[10px] font-mono text-white/50">
-                      <span>ORIENTATION: VASTU COMPLIANT</span>
-                      <span>ELEVATION: {property.floor}</span>
-                    </div>
-                  </div>
-
-                  {/* If NOT verified: Show High-Converting Lock Card */}
-                  {!isVerifiedLead ? (
-                    <div
-                      onClick={() =>
-                        openLeadGate(
-                          'Unlock Full Architectural Floor Plans',
-                          'Please register with your name and mobile number to unlock CAD blueprints, room dimensions, and carpet measurements.',
-                          'Floor Plans Gate',
-                          'floorplan'
-                        )
-                      }
-                      className="relative z-10 max-w-md w-full bg-[#F7F7F4]/95 backdrop-blur-md border border-[#CFD1CA] p-6 sm:p-7 shadow-2xl cursor-pointer group hover:border-[#C5282F] transition-all"
-                    >
-                      <div className="w-12 h-12 bg-[#EDEEE9] border border-[#CFD1CA] rounded-full flex items-center justify-center mx-auto mb-3 text-[#C5282F] group-hover:scale-110 transition-transform">
-                        <Lock className="w-6 h-6" />
-                      </div>
-                      <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5282F] block mb-1">
-                        Developer Confidentiality Protocol
-                      </span>
-                      <h3 className="font-sans text-lg sm:text-xl font-bold text-[#15181A] mb-2 tracking-tight">
-                        Architectural Floor Plans Gated
-                      </h3>
-                      <p className="text-xs text-[#5B605F] mb-5 leading-relaxed">
-                        Detailed room dimensions, structural column grids, and custom CAD blueprints are confidential under developer NDA.
-                      </p>
-                      <button
-                        type="button"
-                        className="w-full py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
-                      >
-                        <Lock className="w-3.5 h-3.5" />
-                        <span>Unlock Floor Plans & Dimensions</span>
-                      </button>
-                    </div>
-                  ) : (
-                    /* If Verified: Reveal Plan Specifications & Direct Download */
-                    <div className="relative z-10 max-w-md w-full bg-[#F7F7F4] border border-[#CFD1CA] p-6 shadow-xl space-y-3">
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#15181A] text-white text-[10px] uppercase tracking-wider font-semibold">
-                        <Check className="w-3 h-3 text-emerald-400" />
-                        <span>Verified Client Access</span>
-                      </div>
-                      <h4 className="font-sans text-lg font-bold text-[#15181A]">
-                        {property.floorPlans[activeFloorPlan]?.title}
-                      </h4>
-                      <p className="text-xs font-mono font-semibold text-[#C5282F]">
-                        Carpet Area: {property.floorPlans[activeFloorPlan]?.area}
-                      </p>
-                      <p className="text-xs text-[#5B605F]">
-                        {property.floorPlans[activeFloorPlan]?.description}
-                      </p>
-                      <p className="text-[11px] text-[#5B605F] pt-2 border-t border-[#CFD1CA]">
-                        High-resolution vector blueprints dispatched to your registered phone number.
-                      </p>
-                    </div>
-                  )}
+                    <span>VIEW PLAN</span>
+                  </button>
+                  <span className="text-[10px] text-white/80 font-medium uppercase tracking-wider mt-2.5 bg-black/70 px-3 py-1 backdrop-blur-sm border border-white/15">
+                    Click to unlock high-resolution CAD drawings
+                  </span>
                 </div>
               </div>
-            </ScrollReveal>
-          )}
+            </div>
+          </ScrollReveal>
 
-          {/* Curated Amenities Grid */}
+          {/* Beautified Amenities Section */}
           <ScrollReveal animation="fade-up" delay={150}>
-            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8">
-              <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A] mb-6">
-                Amenities
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 sm:p-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 border-b border-[#CFD1CA] pb-4">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] block mb-1">
+                    World-Class Lifestyle
+                  </span>
+                  <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
+                    Signature Amenities
+                  </h2>
+                </div>
+                <span className="text-xs font-semibold text-[#5B605F] uppercase tracking-wider">
+                  {(property.amenities || []).length} Curated Offerings
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {(property.amenities || []).map((amenity, idx) => (
-                  <div key={idx} className="flex items-center gap-2.5 text-xs sm:text-sm text-[#15181A] font-medium">
-                    <Sparkles className="w-4 h-4 text-[#C5282F] shrink-0" />
-                    <span>{amenity}</span>
+                  <div
+                    key={idx}
+                    className="group bg-white border border-[#CFD1CA] hover:border-[#C5282F] p-4 flex items-center gap-3.5 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
+                  >
+                    <div className="w-10 h-10 rounded-sm bg-[#EDEEE9] group-hover:bg-[#C5282F] group-hover:text-white text-[#C5282F] flex items-center justify-center shrink-0 transition-colors duration-300">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <span className="text-xs sm:text-sm font-bold text-[#15181A] group-hover:text-[#C5282F] transition-colors block">
+                        {amenity}
+                      </span>
+                      <span className="text-[10px] uppercase tracking-wider text-[#5B605F]">
+                        Premium Lifestyle Amenity
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </ScrollReveal>
 
-          {/* Gated Location Section (Business Concern: No Open Map Disclosure) */}
+          {/* Location Section with Blurred Map & ENQUIRE Button */}
           <ScrollReveal animation="fade-up" delay={200}>
             <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-6 sm:p-8">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                 <div>
                   <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
-                    Enclave Location & Vicinity
+                    Enclave Location &amp; Vicinity
                   </h2>
                   <p className="text-xs text-[#5B605F] mt-1">
                     Prime locality: {property.subLocation}, {property.location}
                   </p>
                 </div>
-                {!isVerifiedLead && (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#15181A] text-white text-[11px] uppercase tracking-wider font-medium">
-                    <Shield className="w-3 h-3 text-[#C5282F]" />
-                    <span>Protected Geolocation</span>
-                  </span>
-                )}
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#15181A] text-white text-[11px] uppercase tracking-wider font-medium">
+                  <Shield className="w-3 h-3 text-[#C5282F]" />
+                  <span>Verified Geolocation</span>
+                </span>
               </div>
 
-              {/* Designed Confidential Location Blueprint with Blurred Map */}
+              {/* Blurred Map Display with Centered ENQUIRE Button */}
               <div className="relative w-full h-80 sm:h-96 border border-[#CFD1CA] bg-[#121517] overflow-hidden flex items-center justify-center p-6 text-center select-none">
                 {/* Blurred Real Estate Map Image */}
                 <Image
                   src="/mumbai-map.jpg"
                   alt={`${property.location} Location Map`}
                   fill
-                  className="object-cover filter blur-[7px] scale-110 opacity-70 pointer-events-none select-none"
+                  className="object-cover filter blur-[6px] scale-110 opacity-75 pointer-events-none select-none"
                 />
-                <div className="absolute inset-0 bg-black/45 backdrop-blur-[2px]" />
+                <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
 
                 {/* Stylized Nautical / Topographic Radar Background */}
                 <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,#CFD1CA_1px,transparent_1px)] [background-size:24px_24px]" />
@@ -614,72 +716,35 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
 
                 {/* Location Marker Radar Pulse */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                  <span className="relative flex h-6 w-6">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5282F] opacity-60" />
-                    <span className="relative inline-flex rounded-full h-6 w-6 bg-[#C5282F] items-center justify-center text-white">
-                      <MapPin className="w-3.5 h-3.5" />
+                  <span className="relative flex h-8 w-8">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C5282F] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-8 w-8 bg-[#C5282F] items-center justify-center text-white shadow-lg">
+                      <MapPin className="w-4 h-4" />
                     </span>
                   </span>
                 </div>
 
-                {/* If NOT verified: Prominent Gate Card for Lead Generation */}
-                {!isVerifiedLead ? (
-                  <div
+                {/* Floating ENQUIRE Button on Blurred Map (Triggers OTP Modal) */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <button
+                    type="button"
                     onClick={() =>
                       openLeadGate(
-                        'Unlock Location & Neighborhood Map',
-                        'Please register with your name and mobile number to view verified enclave coordinates, access corridors, and neighborhood infrastructure analytics.',
+                        'Unlock Location & Neighborhood Coordinates',
+                        'Please verify your mobile number to unlock verified enclave coordinates, access corridors, and neighborhood infrastructure analytics.',
                         'Location Gate',
                         'map'
                       )
                     }
-                    className="relative z-10 max-w-md w-full bg-[#F7F7F4]/95 backdrop-blur-md border border-[#CFD1CA] p-6 sm:p-7 shadow-2xl cursor-pointer group hover:border-[#C5282F] transition-all"
+                    className="px-8 py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-extrabold shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-2 cursor-pointer border-2 border-white/30 active:scale-95"
                   >
-                    <div className="w-12 h-12 bg-[#EDEEE9] border border-[#CFD1CA] rounded-full flex items-center justify-center mx-auto mb-3 text-[#C5282F] group-hover:scale-110 transition-transform">
-                      <Shield className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#C5282F] block mb-1">
-                      Precise Geolocation Restricted
-                    </span>
-                    <h3 className="font-sans text-lg sm:text-xl font-bold text-[#15181A] mb-2 tracking-tight">
-                      Register to View Enclave Map
-                    </h3>
-                    <p className="text-xs text-[#5B605F] mb-5 leading-relaxed">
-                      Due to developer exclusivity and client privacy protocols, exact gate coordinates and private landmark routes are accessible only to registered buyers.
-                    </p>
-                    <button
-                      type="button"
-                      className="w-full py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
-                    >
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span>Unlock Location & Vicinity Blueprint</span>
-                    </button>
-                  </div>
-                ) : (
-                  /* If Verified: Show Verified Enclave Clearance Card */
-                  <div className="relative z-10 max-w-md w-full bg-[#F7F7F4] border border-[#CFD1CA] p-6 shadow-xl space-y-3">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#15181A] text-white text-[10px] uppercase tracking-wider font-semibold">
-                      <Check className="w-3 h-3 text-emerald-400" />
-                      <span>Verified Client Location Access</span>
-                    </div>
-                    <h4 className="font-sans text-lg font-bold text-[#15181A]">
-                      Enclave Context: {property.subLocation}
-                    </h4>
-                    <div className="grid grid-cols-2 gap-2 text-left pt-2 border-t border-[#CFD1CA]">
-                      <div className="bg-[#EDEEE9] p-2.5 text-xs">
-                        <span className="text-[10px] uppercase tracking-wider text-[#5B605F] block">Zone</span>
-                        <span className="font-semibold text-[#15181A]">{property.location} Prime</span>
-                      </div>
-                      <div className="bg-[#EDEEE9] p-2.5 text-xs">
-                        <span className="text-[10px] uppercase tracking-wider text-[#5B605F] block">Connectivity</span>
-                        <span className="font-semibold text-[#15181A]">Sea Link 5 Mins</span>
-                      </div>
-                    </div>
-                    <p className="text-[11px] text-[#5B605F] pt-1">
-                      Our Senior Advisory Partner will guide you with direct GPS entry gates upon visit confirmation.
-                    </p>
-                  </div>
-                )}
+                    <MapPin className="w-4 h-4" />
+                    <span>ENQUIRE</span>
+                  </button>
+                  <span className="text-[10px] text-white/80 font-medium uppercase tracking-wider mt-2.5 bg-black/60 px-3 py-1 backdrop-blur-sm border border-white/15">
+                    Click to unlock precise GPS coordinates
+                  </span>
+                </div>
               </div>
             </div>
           </ScrollReveal>
@@ -693,7 +758,7 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                 Direct Inquiry Desk
               </span>
               <p className="font-sans text-2xl font-bold tracking-tight text-[#15181A]">
-                {property.priceFormatted}
+                {property.priceFormatted} + charges
               </p>
               <span className="text-xs text-[#5B605F] font-mono block mt-1">
                 MahaRERA: {property.reraId}
@@ -751,18 +816,6 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-[#15181A] mb-1">
-                    Confidential Note
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={enquiryForm.message}
-                    onChange={(e) => setEnquiryForm({ ...enquiryForm, message: e.target.value })}
-                    className="w-full px-3 py-2 bg-white border border-[#CFD1CA] text-xs focus:outline-none focus:border-[#C5282F]"
-                  />
-                </div>
-
                 <button
                   type="submit"
                   className="w-full py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
@@ -781,13 +834,54 @@ export const PropertyDetailClient: React.FC<PropertyDetailClientProps> = ({ prop
                 </a>
               </div>
               <div className="flex items-center gap-2 text-[11px]">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C5282F]" />
-                <span>Strict Client Non-Disclosure Safeguard</span>
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Verified Direct Developer Consultation</span>
               </div>
             </div>
           </div>
         </aside>
       </div>
+
+      {/* Developer Overview Section (2-3 lines before Similar Residences) */}
+      <ScrollReveal animation="fade-up">
+        <div className="bg-[#F7F7F4] border border-[#CFD1CA] p-8 mb-16 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#CFD1CA] pb-4 mb-4">
+            <div>
+              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] block mb-1">
+                Legacy of Architectural Excellence
+              </span>
+              <h2 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-[#15181A]">
+                Developer Overview
+              </h2>
+            </div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 px-3 py-1.5 border border-emerald-200">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>Verified Tier-1 Developer</span>
+            </div>
+          </div>
+          <p className="text-sm sm:text-base text-[#5B605F] leading-relaxed font-sans">
+            Crafted by one of Mumbai&apos;s most reputed architectural conglomerates, renowned for over three decades of engineering excellence, timely structural handovers, and bespoke luxury benchmarks across prime micro-markets. Every development embodies earthquake-resistant RCC frameworks, IGBC green building certifications, and master-crafted spatial aesthetics designed for generations.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 mt-6 border-t border-[#CFD1CA] text-center">
+            <div className="p-3 bg-white border border-[#CFD1CA]">
+              <span className="text-lg font-bold text-[#15181A] block">30+ Years</span>
+              <span className="text-[10px] uppercase tracking-wider text-[#5B605F]">Industry Heritage</span>
+            </div>
+            <div className="p-3 bg-white border border-[#CFD1CA]">
+              <span className="text-lg font-bold text-[#15181A] block">15+ Mn Sq.Ft</span>
+              <span className="text-[10px] uppercase tracking-wider text-[#5B605F]">Delivered Portfolios</span>
+            </div>
+            <div className="p-3 bg-white border border-[#CFD1CA]">
+              <span className="text-lg font-bold text-[#15181A] block">100%</span>
+              <span className="text-[10px] uppercase tracking-wider text-[#5B605F]">RERA Compliance</span>
+            </div>
+            <div className="p-3 bg-white border border-[#CFD1CA]">
+              <span className="text-lg font-bold text-[#15181A] block">12,000+</span>
+              <span className="text-[10px] uppercase tracking-wider text-[#5B605F]">Satisfied Families</span>
+            </div>
+          </div>
+        </div>
+      </ScrollReveal>
 
       {/* Similar Residences */}
       {similarProperties.length > 0 && (

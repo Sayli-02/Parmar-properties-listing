@@ -67,7 +67,7 @@ export function MarketIntelligenceSection() {
             <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] mb-2 block">
               {miContent.badge}
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A] tracking-tight">
+            <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-[#15181A] tracking-tight">
               {miContent.heading}
             </h2>
             <p className="text-xs sm:text-sm text-[#5B605F] mt-2 font-sans leading-relaxed">
@@ -100,7 +100,7 @@ export function MarketIntelligenceSection() {
                   </span>
 
                   {/* Title in strong bold styling */}
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#15181A] tracking-tight mb-3 leading-snug group-hover:text-[#C5282F] transition-colors">
+                  <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#15181A] tracking-tight mb-3 leading-snug group-hover:text-[#C5282F] transition-colors">
                     {insight.title}
                   </h3>
 

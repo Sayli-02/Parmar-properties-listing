@@ -24,7 +24,7 @@ export default function HomePage() {
   const featuredProperties = PROPERTIES.slice(0, featContent.maxDisplayCount || 6);
 
   return (
-    <div className="w-full relative bg-[#EDEEE9] text-[#15181A] pt-20">
+    <div className="w-full relative bg-[#EDEEE9] text-[#15181A] pt-[68px] sm:pt-[70px] md:pt-[72px]">
       {/* Scroll Progress Indicator */}
       <ScrollProgressBar />
 
@@ -70,16 +70,16 @@ export default function HomePage() {
           <ScrollReveal animation="fade-up">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-[#CFD1CA] gap-4">
               <div>
-                <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] mb-1 block">
+                <span className="text-[11px] uppercase tracking-[0.25em] font-extrabold text-[#C5282F] mb-1 block font-sans">
                   {locContent.tag}
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-[#15181A]">
+                <h3 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#15181A]">
                   {locContent.heading}
                 </h3>
               </div>
               <Link
                 href={locContent.allLocationsLink.link}
-                className="text-xs uppercase tracking-wider text-[#5B605F] hover:text-[#C5282F] font-semibold inline-flex items-center gap-1.5 transition-colors"
+                className="text-xs uppercase tracking-wider text-[#5B605F] hover:text-[#C5282F] font-bold inline-flex items-center gap-1.5 transition-colors font-sans"
               >
                 <span>{locContent.allLocationsLink.text}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -104,10 +104,10 @@ export default function HomePage() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                       <div className="absolute bottom-3 left-3 right-3 text-white">
-                        <span className="text-[10px] uppercase tracking-wider text-white/70 block">
+                        <span className="text-[10px] uppercase tracking-wider text-white/70 block font-sans font-semibold">
                           {loc.tagline}
                         </span>
-                        <h4 className="font-serif text-xl font-bold tracking-tight text-white drop-shadow">
+                        <h4 className="font-sans text-xl font-extrabold tracking-tight text-white drop-shadow">
                           {loc.name}
                         </h4>
                       </div>
