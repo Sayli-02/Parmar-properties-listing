@@ -19,6 +19,7 @@ import { COMMERCIAL_PROPERTIES, CommercialProperty } from '@/data/commercials';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PrivateOpportunities } from '@/components/property/PrivateOpportunities';
+import { COMMERCIALS_PAGE_CONTENT } from '@/data/content/commercials.content';
 
 function CommercialCard({ property }: { property: CommercialProperty }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -191,10 +192,10 @@ function CommercialsContent() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A]">
-              Prime Commercial Real Estate
+              {COMMERCIALS_PAGE_CONTENT.header.title}
             </h1>
             <p className="text-xs sm:text-sm text-[#5B605F] mt-2 font-sans max-w-2xl leading-relaxed">
-              Grade-A corporate headquarters, trophy high-street retail, and executive office plates across BKC, Lower Parel, Worli, and Nariman Point.
+              {COMMERCIALS_PAGE_CONTENT.header.subtitle}
             </p>
           </div>
 

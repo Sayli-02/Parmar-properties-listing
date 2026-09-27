@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, BookOpen, TrendingUp, Compass, Globe, FileText, 
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
+import { INSIGHTS_PAGE_CONTENT } from '@/data/content/insights.content';
 
 interface ArticleInsight {
   id: string;
@@ -140,14 +141,14 @@ export default function MarketIntelligencePage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 border border-white/20 text-[10px] uppercase tracking-[0.25em] font-bold text-[#C5282F] mb-4">
               <FileText className="w-3.5 h-3.5 text-[#C5282F]" />
-              <span>PARMAR PROPERTIES RESEARCH DESK</span>
+              <span>{INSIGHTS_PAGE_CONTENT.header.badge}</span>
             </div>
 
             <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight mb-4">
-              Market Intelligence
+              {INSIGHTS_PAGE_CONTENT.header.title}
             </h1>
             <p className="text-sm sm:text-base text-white/80 font-sans leading-relaxed">
-              Use content and verified micro-market data to make informed property decisions across South and West Mumbai before transacting.
+              {INSIGHTS_PAGE_CONTENT.header.subtitle}
             </p>
           </div>
         </div>

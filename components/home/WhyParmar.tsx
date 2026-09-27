@@ -4,51 +4,22 @@ import React, { useState } from 'react';
 import { Award, Gem, TrendingUp, ShieldCheck, CheckCircle2, ArrowRight, Sparkles } from 'lucide-react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
-const WHY_POINTS = [
-  {
-    number: '01',
-    subtitle: 'OVER 4 DECADES OF TRUST',
-    title: 'SINCE 1981',
-    description:
-      'Four decades of continuous family-run integrity, unmatched relationship equity, and deep-rooted standing across Mumbai’s prime property corridors.',
-    icon: Award,
-    badge: 'Generational Standing',
-  },
-  {
-    number: '02',
-    subtitle: 'VETTED & TROPHY ASSETS',
-    title: 'CURATED INVENTORY',
-    description:
-      'Every home in our portfolio is personally hand-selected, verified for clear titles, superior layouts, panoramic vistas, and enduring luxury prestige.',
-    icon: Gem,
-    badge: '100% Verified Titles',
-  },
-  {
-    number: '03',
-    subtitle: 'HYPER-LOCAL VALUATION DATA',
-    title: 'MARKET INTELLIGENCE',
-    description:
-      'Unrivaled micro-market data across Worli, Bandra, and South Mumbai, enabling confident decisions with transparent pricing and capital yield benchmarks.',
-    icon: TrendingUp,
-    badge: 'Micro-Market Pricing',
-  },
-  {
-    number: '04',
-    subtitle: 'DISCREET PRIVATE CONSULTATION',
-    title: 'END-TO-END ADVISORY',
-    description:
-      'Bespoke white-glove guidance through confidential viewings, legal due diligence, title scrutiny, structuring, and seamless final handover.',
-    icon: ShieldCheck,
-    badge: 'Confidential White-Glove',
-  },
-];
+import { HOME_PAGE_CONTENT } from '@/data/content/home.content';
 
-const TRUST_METRICS = [
-  { value: '40+', label: 'Years of Proven Heritage', sub: 'Active in South & West Mumbai since 1981' },
-  { value: '100%', label: 'RERA & Title Due Diligence', sub: 'Every listing undergoes strict legal vetting' },
-  { value: '₹5,000+ Cr', label: 'Portfolio Transaction Equity', sub: 'High-value transactions advised discreetly' },
-  { value: '1-on-1', label: 'Bespoke Advisory Desk', sub: 'Confidential viewings & direct promoter access' },
-];
+const whyContent = HOME_PAGE_CONTENT.whyParmar;
+
+const ICONS = [Award, Gem, TrendingUp, ShieldCheck];
+
+const WHY_POINTS = whyContent.pillars.map((p, idx) => ({
+  number: p.number,
+  subtitle: p.subtitle,
+  title: p.title,
+  description: p.description,
+  icon: ICONS[idx] || Award,
+  badge: p.badge,
+}));
+
+const TRUST_METRICS = whyContent.trustMetrics;
 
 export function WhyParmar() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -88,26 +59,26 @@ export function WhyParmar() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E5484D] opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E5484D]" />
                 </span>
-                <span>OUR LEGACY &amp; STANDARDS</span>
+                <span>{whyContent.badge}</span>
               </div>
 
-              {/* Updated Section Title: WHY PARMAR PROPERTIES */}
+              {/* Section Title: WHY PARMAR PROPERTIES */}
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-light tracking-tight text-white mb-4 leading-tight">
-                WHY <span className="font-semibold text-white">PARMAR PROPERTIES</span>
+                {whyContent.titlePrefix} <span className="font-semibold text-white">{whyContent.titleHighlight}</span>
               </h2>
 
               <p className="text-base sm:text-lg text-[#D1D5DB] font-sans leading-relaxed font-light">
-                Parmar Properties combines curated property discovery with decades of Mumbai real estate experience, hyper-local market intelligence, and discreet advisory.
+                {whyContent.subtitle}
               </p>
             </div>
 
             {/* Quick Contact Link */}
             <div className="shrink-0">
               <a
-                href="#properties"
+                href={whyContent.ctaButton.link || '#properties'}
                 className="group inline-flex items-center gap-2 px-5 py-3 bg-[#2E3339] hover:bg-[#C5282F] border border-[#444C55] hover:border-[#C5282F] text-xs uppercase tracking-[0.15em] font-semibold text-white transition-all duration-300 shadow-sm"
               >
-                <span>EXPLORE PORTFOLIO</span>
+                <span>{whyContent.ctaButton.text}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
             </div>

@@ -54,28 +54,32 @@ export const FEATURED_INSIGHTS: MarketInsight[] = [
   },
 ];
 
+import { HOME_PAGE_CONTENT } from '@/data/content/home.content';
+
 export function MarketIntelligenceSection() {
+  const miContent = HOME_PAGE_CONTENT.marketIntelligence;
+
   return (
-    <section id="market-intelligence" className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
+    <section id={miContent.sectionId || 'market-intelligence'} className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
       <ScrollReveal animation="fade-up">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#CFD1CA] gap-4">
           <div className="max-w-2xl">
             <span className="text-[11px] uppercase tracking-[0.25em] font-semibold text-[#C5282F] mb-2 block">
-              RESEARCH &amp; ADVISORY DESK
+              {miContent.badge}
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A] tracking-tight">
-              Market Intelligence
+              {miContent.heading}
             </h2>
             <p className="text-xs sm:text-sm text-[#5B605F] mt-2 font-sans leading-relaxed">
-              Curated micro-market data, capital valuation trends, and strategic advisory to guide high-value property decisions across South &amp; West Mumbai.
+              {miContent.subheading}
             </p>
           </div>
 
           <Link
-            href="/market-intelligence"
+            href={miContent.viewAllLink.link}
             className="inline-flex items-center gap-2 px-5 py-3 bg-[#15181A] hover:bg-[#C5282F] text-white text-xs uppercase tracking-[0.15em] font-semibold transition-all duration-200 self-start md:self-end shadow-xs group"
           >
-            <span>VIEW ALL INSIGHTS -&gt;</span>
+            <span>{miContent.viewAllLink.text}</span>
           </Link>
         </div>
       </ScrollReveal>

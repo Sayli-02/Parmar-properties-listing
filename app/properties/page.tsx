@@ -24,6 +24,7 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PROPERTIES } from '@/data/properties';
 import { PropertyCategory } from '@/types/property';
+import { BUY_PAGE_CONTENT, NEW_LAUNCHES_CONTENT, LUXURY_COLLECTION_CONTENT } from '@/data/content';
 
 function PropertiesContent() {
   const router = useRouter();
@@ -152,9 +153,9 @@ function PropertiesContent() {
         <span>Mumbai Portfolio</span>
         <span>&bull;</span>
         <span className="text-[#C5282F] font-bold">
-          {activeTab === 'buy' && 'BUY'}
-          {activeTab === 'new-launches' && 'NEW LAUNCHES'}
-          {activeTab === 'luxury-collection' && 'LUXURY COLLECTION'}
+          {activeTab === 'buy' && BUY_PAGE_CONTENT.header.breadcrumb}
+          {activeTab === 'new-launches' && NEW_LAUNCHES_CONTENT.header.breadcrumb}
+          {activeTab === 'luxury-collection' && LUXURY_COLLECTION_CONTENT.header.breadcrumb}
         </span>
       </div>
 
@@ -163,17 +164,14 @@ function PropertiesContent() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A]">
-              {activeTab === 'buy' && 'Buy Mumbai Residences'}
-              {activeTab === 'new-launches' && 'New Launches & Pre-Launch'}
-              {activeTab === 'luxury-collection' && 'The Luxury Collection'}
+              {activeTab === 'buy' && BUY_PAGE_CONTENT.header.title}
+              {activeTab === 'new-launches' && NEW_LAUNCHES_CONTENT.header.title}
+              {activeTab === 'luxury-collection' && LUXURY_COLLECTION_CONTENT.header.title}
             </h1>
             <p className="text-xs sm:text-sm text-[#5B605F] mt-2 font-sans max-w-2xl leading-relaxed">
-              {activeTab === 'buy' &&
-                'Explore the complete portfolio of hand-selected, verified ready-to-move and under-construction residences across Mumbai’s prime corridors.'}
-              {activeTab === 'new-launches' &&
-                'Upcoming landmark towers, pre-launch Expression of Interest (EOI) phases, and under-construction coastal residences with exclusive early investor advantages.'}
-              {activeTab === 'luxury-collection' &&
-                'Publicly viewable signature trophy assets: oceanfront sky villas, sprawling penthouses, and private estates curated for discerning connoisseurs.'}
+              {activeTab === 'buy' && BUY_PAGE_CONTENT.header.subtitle}
+              {activeTab === 'new-launches' && NEW_LAUNCHES_CONTENT.header.subtitle}
+              {activeTab === 'luxury-collection' && LUXURY_COLLECTION_CONTENT.header.subtitle}
             </p>
           </div>
 
@@ -217,7 +215,7 @@ function PropertiesContent() {
             }`}
           >
             <Compass className="w-3.5 h-3.5" />
-            <span>BUY</span>
+            <span>{BUY_PAGE_CONTENT.header.tabLabel}</span>
             <span
               className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${
                 activeTab === 'buy' ? 'bg-white/20 text-white' : 'bg-[#CFD1CA]/60 text-[#15181A]'
@@ -237,7 +235,7 @@ function PropertiesContent() {
             }`}
           >
             <Rocket className="w-3.5 h-3.5" />
-            <span>NEW LAUNCHES</span>
+            <span>{NEW_LAUNCHES_CONTENT.header.tabLabel}</span>
             <span
               className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${
                 activeTab === 'new-launches' ? 'bg-white/20 text-white' : 'bg-[#CFD1CA]/60 text-[#15181A]'
@@ -257,7 +255,7 @@ function PropertiesContent() {
             }`}
           >
             <Crown className="w-3.5 h-3.5 text-[#C5282F]" />
-            <span>LUXURY COLLECTION</span>
+            <span>{LUXURY_COLLECTION_CONTENT.header.tabLabel}</span>
             <span
               className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${
                 activeTab === 'luxury-collection' ? 'bg-white/20 text-white' : 'bg-[#CFD1CA]/60 text-[#15181A]'

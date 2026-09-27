@@ -4,11 +4,14 @@ import React, { useState } from 'react';
 import { Lock, Shield, CheckCircle2, X, Phone, User, Mail, KeyRound, ArrowRight } from 'lucide-react';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
+import { HOME_PAGE_CONTENT } from '@/data/content/home.content';
+
 interface PrivateOpportunitiesProps {
   minimal?: boolean;
 }
 
 export function PrivateOpportunities({ minimal = true }: PrivateOpportunitiesProps) {
+  const privContent = HOME_PAGE_CONTENT.privateOpportunities;
   const [modalOpen, setModalOpen] = useState(false);
   const [, setSelectedProperty] = useState<string>('General Private Portfolio Access');
   const [fullName, setFullName] = useState('');
@@ -58,29 +61,25 @@ export function PrivateOpportunities({ minimal = true }: PrivateOpportunitiesPro
   };
 
   return (
-    <section id="private-opportunities" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
+    <section id={privContent.sectionId || 'private-opportunities'} className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-[#CFD1CA]">
       <ScrollReveal animation="fade-up">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between pb-8 border-b border-[#CFD1CA] gap-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-black/5 border border-black/10 text-[10px] uppercase tracking-[0.2em] font-semibold text-[#5B605F] mb-3">
               <Lock className="w-3 h-3 text-[#C5282F]" />
-              <span>CONFIDENTIAL REAL ESTATE &bull; OFF-MARKET</span>
+              <span>{privContent.badge}</span>
             </div>
 
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A] tracking-tight mb-4">
-              PRIVATE OPPORTUNITIES
+              {privContent.heading}
             </h2>
 
             <div className="space-y-1.5 text-xs sm:text-sm text-[#5B605F] font-sans leading-relaxed">
-              <p>
-                Not every landmark residence in Mumbai is publicly listed.
-              </p>
-              <p>
-                Parmar Properties maintains a discreet, confidential registry of off-market trophy estates and private residences across Mumbai’s most exclusive enclaves.
-              </p>
-              <p className="text-[#15181A]/85 font-medium">
-                Access is granted strictly to verified private clients under mutual non-disclosure discretion.
-              </p>
+              {privContent.paragraphs.map((p, idx) => (
+                <p key={idx} className={idx === privContent.paragraphs.length - 1 ? 'text-[#15181A]/85 font-medium' : ''}>
+                  {p}
+                </p>
+              ))}
             </div>
           </div>
 
@@ -91,10 +90,10 @@ export function PrivateOpportunities({ minimal = true }: PrivateOpportunitiesPro
               className="px-7 py-3.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-[0.2em] font-bold transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-2.5 cursor-pointer active:scale-98"
             >
               <Shield className="w-4 h-4 text-white" />
-              <span>REQUEST ACCESS</span>
+              <span>{privContent.ctaButton.text}</span>
             </button>
             <span className="text-[11px] text-[#8E9291] font-sans">
-              Strict mutual non-disclosure required
+              {privContent.ctaButton.disclaimer}
             </span>
           </div>
         </div>

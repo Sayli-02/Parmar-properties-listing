@@ -1,5 +1,7 @@
-export const SLIDE_DURATION_MS = 2200; // Quick rotation as requested
-export const TOTAL_SLIDES = 3;
+import { HOME_PAGE_CONTENT } from '@/data/content/home.content';
+
+export const SLIDE_DURATION_MS = HOME_PAGE_CONTENT.hero.slideDurationMs || 2200;
+export const TOTAL_SLIDES = HOME_PAGE_CONTENT.hero.slides.length || 3;
 export const ALLOW_SKIP_INTRO = false;
 export const PERSIST_HERO_COMPLETED = true;
 
@@ -11,26 +13,10 @@ export interface HeroSlideData {
   alt: string;
 }
 
-export const HERO_SLIDES: HeroSlideData[] = [
-  {
-    id: 1,
-    image: "/hero/hero-1-crisp.jpg",
-    tagline: "MUMBAI'S FINEST ADDRESSES",
-    subtext: "Curated residences, private oppurtunities and investment properties across Mumbai's most sought after neighbourhoods",
-    alt: "Luxury residence overlooking Mumbai coastal skyline",
-  },
-  {
-    id: 2,
-    image: "/hero/hero-2-crisp.jpg",
-    tagline: "MUMBAI'S FINEST ADDRESSES",
-    subtext: "Curated residences, private oppurtunities and investment properties across Mumbai's most sought after neighbourhoods",
-    alt: "Contemporary penthouse architecture in Mumbai",
-  },
-  {
-    id: 3,
-    image: "/hero/hero-3-crisp.jpg",
-    tagline: "MUMBAI'S FINEST ADDRESSES",
-    subtext: "Curated residences, private oppurtunities and investment properties across Mumbai's most sought after neighbourhoods",
-    alt: "Prime skyline property in Mumbai commercial and luxury hub",
-  },
-];
+export const HERO_SLIDES: HeroSlideData[] = HOME_PAGE_CONTENT.hero.slides.map((s) => ({
+  id: s.id,
+  image: s.image,
+  tagline: s.tagline,
+  subtext: s.subtext,
+  alt: s.alt,
+}));

@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { Scale, Trash2, ArrowRight, Check } from 'lucide-react';
 import { useCompareStore } from '@/store/compare';
 import { PROPERTIES } from '@/data/properties';
+import { COMPARE_PAGE_CONTENT } from '@/data/content/compare.content';
 
 export default function ComparePage() {
+  const { header, emptyState } = COMPARE_PAGE_CONTENT;
   const [mounted, setMounted] = useState(false);
   const compareIds = useCompareStore((s) => s.compareIds);
   const removeFromCompare = useCompareStore((s) => s.removeFromCompare);
@@ -29,10 +31,10 @@ export default function ComparePage() {
             <Link href="/" className="hover:underline">Home</Link> &bull; Portfolio Analysis
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-light text-[#15181A]">
-            Compare Residences ({comparedProperties.length}/4)
+            {header.title} ({comparedProperties.length}/{header.maxCompareLimit || 4})
           </h1>
           <p className="text-sm text-[#5B605F] mt-1 font-sans">
-            Side-by-side structural, architectural, and financial comparison.
+            {header.subtitle}
           </p>
         </div>
 
@@ -42,14 +44,14 @@ export default function ComparePage() {
               href="/properties"
               className="text-xs uppercase tracking-wider text-[#C5282F] hover:text-[#A31D23] font-semibold"
             >
-              + Add More
+              {header.addMoreButtonText}
             </Link>
             <button
               onClick={clearCompare}
               className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#C5282F] hover:text-[#A31D23] transition-colors font-semibold"
             >
               <Trash2 className="w-4 h-4" />
-              <span>Clear Comparison</span>
+              <span>{header.clearButtonText}</span>
             </button>
           </div>
         )}
@@ -59,16 +61,16 @@ export default function ComparePage() {
         <div className="text-center py-20 bg-[#F7F7F4] border border-[#CFD1CA] p-8 shadow-xs">
           <Scale className="w-12 h-12 text-[#5B605F] mx-auto mb-4 opacity-40" />
           <h2 className="font-serif text-2xl sm:text-3xl text-[#15181A] mb-2 font-light">
-            No Properties Selected for Comparison
+            {emptyState.heading}
           </h2>
           <p className="text-sm text-[#5B605F] max-w-md mx-auto mb-6">
-            Browse our Mumbai residences and click the scale icon on cards to compare pricing, layouts, and amenities side-by-side.
+            {emptyState.subtext}
           </p>
           <Link
-            href="/properties"
+            href={emptyState.browseButtonLink || '/properties'}
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold transition-colors"
           >
-            <span>Explore Mumbai Portfolio</span>
+            <span>{emptyState.browseButtonText}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

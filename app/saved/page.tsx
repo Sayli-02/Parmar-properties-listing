@@ -14,8 +14,10 @@ import { useAuthStore } from '@/store/auth';
 import { PROPERTIES } from '@/data/properties';
 import { PropertyCard } from '@/components/property/PropertyCard';
 import { CompareBar } from '@/components/property/CompareBar';
+import { SAVED_PAGE_CONTENT } from '@/data/content/saved.content';
 
 export default function SavedPage() {
+  const { header, emptyState } = SAVED_PAGE_CONTENT;
   const [mounted, setMounted] = useState(false);
   const savedIds = useSavedStore((s) => s.savedIds);
   const clearSaved = useSavedStore((s) => s.clearSaved);
@@ -38,10 +40,10 @@ export default function SavedPage() {
             <Link href="/" className="hover:underline">Home</Link> &bull; Client Portfolio
           </div>
           <h1 className="font-serif text-4xl sm:text-5xl font-light text-[#15181A]">
-            Saved Residences
+            {header.title}
           </h1>
           <p className="text-sm text-[#5B605F] mt-1 font-sans">
-            Private collection of your bookmarked Mumbai luxury properties.
+            {header.subtitle}
           </p>
         </div>
 
@@ -52,7 +54,7 @@ export default function SavedPage() {
               className="flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#C5282F] hover:text-[#A31D23] transition-colors"
             >
               <Trash2 className="w-4 h-4" />
-              <span>Clear Portfolio</span>
+              <span>{header.clearButtonText}</span>
             </button>
           </div>
         )}
@@ -101,16 +103,16 @@ export default function SavedPage() {
             <div className="text-center py-20 bg-[#F7F7F4] border border-[#CFD1CA] p-8">
               <Bookmark className="w-10 h-10 text-[#5B605F] mx-auto mb-3 opacity-40" />
               <h2 className="font-serif text-2xl text-[#15181A] mb-1 font-light">
-                Your Saved Portfolio is Empty
+                {emptyState.heading}
               </h2>
               <p className="text-xs text-[#5B605F] max-w-md mx-auto mb-6">
-                Explore our curated Mumbai properties and click the bookmark icon to add residences to your private portfolio.
+                {emptyState.subtext}
               </p>
               <Link
-                href="/properties"
+                href={emptyState.browseButtonLink || '/properties?tab=buy'}
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#C5282F] hover:bg-[#A31D23] text-white text-xs uppercase tracking-widest font-semibold"
               >
-                <span>Browse Mumbai Portfolio</span>
+                <span>{emptyState.browseButtonText}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

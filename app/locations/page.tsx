@@ -20,6 +20,7 @@ import { PropertyCard } from '@/components/property/PropertyCard';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import { ScrollProgressBar } from '@/components/ui/ScrollProgressBar';
 import { PrivateOpportunities } from '@/components/property/PrivateOpportunities';
+import { LOCATIONS_PAGE_CONTENT } from '@/data/content/locations.content';
 
 interface UpcomingLocationProperty {
   id: string;
@@ -135,10 +136,10 @@ function LocationsContent() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#15181A]">
-              Properties by Location
+              {LOCATIONS_PAGE_CONTENT.header.title}
             </h1>
             <p className="text-xs sm:text-sm text-[#5B605F] mt-2 font-sans max-w-2xl leading-relaxed">
-              Explore Mumbai’s premier residential micro-markets: from the iconic waterfronts of Worli and Juhu to the cultural heritage of Bandra West and upcoming eastern corridors.
+              {LOCATIONS_PAGE_CONTENT.header.subtitle}
             </p>
           </div>
 
